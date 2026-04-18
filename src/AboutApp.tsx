@@ -14,19 +14,19 @@ export default function AboutApp() {
             <div className="flex-1 text-center lg:text-left">
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-                className="text-6xl md:text-8xl font-black tracking-tighter leading-tight mb-4"
+                className="text-4xl md:text-5xl font-bold mb-4"
               >
                 About
               </motion.h1>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
-                className="text-2xl md:text-4xl font-bold text-[#D4AF37] tracking-tight mb-8"
+                className="text-xl md:text-3xl font-bold text-[#D4AF37] tracking-widest mb-8"
               >
                 Harsh Infotech Consultancy Services
               </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-lg md:text-xl text-white/60 max-w-xl mx-auto lg:mx-0 mb-10"
+                className="text-base md:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 mb-10"
               >
                 We provide complete Tally solutions, cloud services, and process automation within Tally using customization to help companies streamline operations and scale efficiently.
               </motion.p>
@@ -111,30 +111,36 @@ export default function AboutApp() {
           <div className="p-10 lg:p-14 glass-card text-center">
              <h2 className="text-4xl md:text-5xl font-bold mb-10">Reach Out</h2>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-               <div className="flex flex-col items-center">
-                 <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6">
+               <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex flex-col items-center group cursor-pointer transition-transform hover:scale-105">
+                 <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6 transition-colors group-hover:bg-white group-hover:text-black">
                    <Mail className="w-6 h-6" />
                  </div>
-                 <h4 className="text-xl font-bold mb-2">Email</h4>
-                 <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="text-white/60 hover:text-white transition-colors">
+                 <h4 className="text-xl font-bold mb-2 text-white/90 group-hover:text-white transition-colors">Email</h4>
+                 <p className="text-white/60 group-hover:text-white transition-colors">
                    harshinfotech2005@gmail.com
-                 </a>
-               </div>
+                 </p>
+               </a>
+
                <div className="flex flex-col items-center">
                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6">
                    <Phone className="w-6 h-6" />
                  </div>
-                 <h4 className="text-xl font-bold mb-2">Phone</h4>
-                 <div className="text-white/60 text-center">
-                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="hover:text-white transition-colors">7558604483</a><br/>
-                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="hover:text-white transition-colors">8828275219</a>
+                 <h4 className="text-xl font-bold mb-2 text-white/90">Phone</h4>
+                 <div className="text-white/60 text-center flex flex-col gap-2 w-full">
+                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer">
+                     7558604483
+                   </a>
+                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer">
+                     8828275219
+                   </a>
                  </div>
                </div>
-               <div className="flex flex-col items-center">
-                 <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6">
-                   <MapPin className="w-6 h-6" />
+
+               <div className="flex flex-col items-center cursor-default group">
+                 <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6 transition-colors group-hover:bg-white/20">
+                   <MapPin className="w-6 h-6 text-white group-hover:text-[#D4AF37] transition-colors" />
                  </div>
-                 <h4 className="text-xl font-bold mb-2">Location</h4>
+                 <h4 className="text-xl font-bold mb-2 text-white/90">Location</h4>
                  <p className="text-white/60">Mumbai, India</p>
                </div>
              </div>

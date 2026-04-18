@@ -245,6 +245,7 @@ export const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            onClick={() => setIsMobileMenuOpen(false)}
             className="fixed inset-0 z-[100] flex justify-end bg-black/60 backdrop-blur-md"
           >
             <motion.div 
@@ -252,6 +253,7 @@ export const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
               className="w-[85%] max-w-sm h-full bg-[#050505] shadow-2xl shadow-black border-l border-white/10 p-10 flex flex-col justify-center"
             >
               <nav className="flex flex-col gap-8 text-center text-2xl font-bold">
@@ -315,18 +317,21 @@ export const Footer = () => {
         <div>
           <h4 className="font-bold mb-6">Contact</h4>
           <ul className="space-y-4 text-sm text-white/40">
-            <li className="flex items-center gap-3">
-              <Mail className="w-4 h-4 shrink-0" />
-              <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="hover:text-white transition-colors">
-                harshinfotech2005@gmail.com
+            <li>
+              <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
+                <Mail className="w-4 h-4 shrink-0 transition-colors group-hover:text-white" />
+                <span className="transition-colors group-hover:text-white">harshinfotech2005@gmail.com</span>
               </a>
             </li>
-            <li className="flex items-start gap-3">
-              <Phone className="w-4 h-4 shrink-0 mt-1" />
-              <div>
-                <div><a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="hover:text-white transition-colors">7558604483</a></div>
-                <div><a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="hover:text-white transition-colors">8828275219</a></div>
-              </div>
+            <li className="flex flex-col gap-4">
+              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
+                <Phone className="w-4 h-4 shrink-0 transition-colors group-hover:text-white" />
+                <span className="transition-colors group-hover:text-white">7558604483</span>
+              </a>
+              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
+                <Phone className="w-4 h-4 shrink-0 opacity-0" />
+                <span className="transition-colors group-hover:text-white">8828275219</span>
+              </a>
             </li>
             <li className="flex items-center gap-3"><MapPin className="w-4 h-4 shrink-0" /> Mumbai, India</li>
           </ul>

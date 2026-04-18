@@ -7,6 +7,7 @@ import { Testimonials } from "./Testimonials";
 import { useAuth } from "./Auth";
 
 const Hero = () => {
+  const { isAuthenticated, openAuthGate } = useAuth();
   return (
     <section id="home" className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center lg:flex-row lg:text-left lg:px-20 max-w-7xl mx-auto gap-12 lg:gap-16">
       <div className="flex-1 z-10">
@@ -14,7 +15,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[1.1] mb-8"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tighter leading-tight break-words mb-8"
         >
           <span className="block whitespace-nowrap">Reliably Great</span>
           <span className="block text-white/40 whitespace-nowrap">Efficiently Fast</span>
@@ -34,9 +35,18 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.95 }}
-          className="px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-2xl shadow-white/10 hover:bg-white/90 transition-colors"
+          onClick={() => {
+            if (isAuthenticated) {
+              document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+            } else {
+              openAuthGate(() => {
+                document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+              });
+            }
+          }}
+          className="px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_24px_rgba(255,255,255,0.15)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] hover:bg-white/90 transition-all duration-200"
         >
           Get Started
         </motion.button>
@@ -263,9 +273,9 @@ const About = () => {
             style={{ boxShadow: "0 0 60px rgba(212,175,55,0.06), 0 0 0 1px rgba(212,175,55,0.05)" }}
           >
             <img
-              src="https://picsum.photos/seed/tech/800/800"
-              alt="Office"
-              className="w-full h-full object-cover opacity-70 grayscale hover:grayscale-0 transition-all duration-700"
+              src="/about-workspace.png"
+              alt="Professional Office Workspace"
+              className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-700"
               referrerPolicy="no-referrer"
             />
             {/* Subtle gold tint overlay */}

@@ -229,7 +229,7 @@ const AuthModal = ({
 
   return (
     <div className="fixed inset-0 z-[260] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-      <div className="relative w-full max-w-[420px] max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full rounded-[24px] border border-white/35 bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.08)_30%,rgba(255,255,255,0.06)_100%)] p-5 md:p-6 backdrop-blur-3xl shadow-[0_0_46px_rgba(255,255,255,0.16)]">
+      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full rounded-[24px] border border-white/35 bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.08)_30%,rgba(255,255,255,0.06)_100%)] p-5 md:p-6 backdrop-blur-3xl shadow-[0_0_46px_rgba(255,255,255,0.16)]">
         <button
           type="button"
           onClick={onClose}
@@ -365,15 +365,26 @@ const AuthModal = ({
 
         {!socialActive && (
           <div className="mt-5 space-y-3">
-            <button
-              type="button"
-              onClick={handleGoogleClick}
-              disabled={isProcessingGoogle}
-              className="w-full rounded-xl border border-white/35 bg-black/35 py-3 text-sm font-semibold text-white transition hover:bg-black/50 flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isProcessingGoogle ? <Loader2 className="w-5 h-5 animate-spin" /> : <GoogleBadge />} 
-              {isProcessingGoogle ? "Connecting to Google..." : "Continue with Google"}
-            </button>
+            {import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== "YOUR_GOOGLE_CLIENT_ID" ? (
+              <button
+                type="button"
+                onClick={handleGoogleClick}
+                disabled={isProcessingGoogle}
+                className="w-full rounded-xl border border-white/35 bg-black/35 py-3 text-sm font-semibold text-white transition hover:bg-black/50 flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isProcessingGoogle ? <Loader2 className="w-5 h-5 animate-spin" /> : <GoogleBadge />} 
+                {isProcessingGoogle ? "Connecting to Google..." : "Continue with Google"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="w-full rounded-xl border border-white/20 bg-black/20 py-3 text-sm font-semibold text-white/50 cursor-not-allowed flex items-center justify-center gap-3"
+              >
+                <span className="opacity-50 grayscale"><GoogleBadge /></span>
+                Google Sign-In not available
+              </button>
+            )}
           </div>
         )}
 
