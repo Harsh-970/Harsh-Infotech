@@ -9,16 +9,16 @@ import { useAuth } from "./Auth";
 const Hero = () => {
   const { isAuthenticated, openAuthGate } = useAuth();
   return (
-    <section id="home" className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center lg:flex-row lg:text-left lg:px-20 max-w-7xl mx-auto gap-12 lg:gap-16">
-      <div className="flex-1 z-10">
+    <section id="home" className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center lg:flex-row lg:text-left lg:px-20 max-w-7xl mx-auto gap-12 lg:gap-16 pt-28 lg:pt-32">
+      <div className="flex-1 z-10 w-full flex flex-col items-center lg:items-start">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tighter leading-tight break-words mb-8"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-extrabold tracking-tighter leading-tight break-words mb-8 w-full max-w-[90%] mx-auto lg:mx-0"
         >
-          <span className="block whitespace-nowrap">Reliably Great</span>
-          <span className="block text-white/40 whitespace-nowrap">Efficiently Fast</span>
+          <span className="block">Reliably Great</span>
+          <span className="block text-white/40 mt-2">Efficiently Fast</span>
         </motion.h1>
         
         <motion.p 
@@ -275,7 +275,7 @@ const About = () => {
             <img
               src="/about-workspace.png"
               alt="Professional Office Workspace"
-              className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-700"
+              className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
             {/* Subtle gold tint overlay */}
