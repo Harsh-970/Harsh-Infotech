@@ -128,14 +128,16 @@ export default function AboutApp() {
 
                <div className="flex flex-col items-center">
                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6">
-                   <Phone className="w-6 h-6" />
+                   <img src="/Whatsapp.png" alt="WhatsApp" className="w-6 h-6 object-contain" />
                  </div>
-                 <h4 className="text-xl font-bold mb-2 text-white/90">Phone</h4>
+                 <h4 className="text-xl font-bold mb-2 text-white/90">WhatsApp</h4>
                  <div className="text-sm md:text-base text-white/60 text-center flex flex-col gap-2 w-full">
-                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer">
+                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer flex items-center justify-center gap-1.5">
+                     <img src="/Whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain" />
                      7558604483
                    </a>
-                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer">
+                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer flex items-center justify-center gap-1.5">
+                     <img src="/Whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain" />
                      8828275219
                    </a>
                  </div>

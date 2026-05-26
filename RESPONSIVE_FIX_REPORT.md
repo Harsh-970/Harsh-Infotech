@@ -87,3 +87,19 @@ We optimized the website interface for the following standard breakpoints:
 - **No Heavy Libraries**: Achieved all responsiveness using Tailwind classes, native CSS `clamp()`, and lightweight SVG icons.
 - **Zero Layout Shifts**: Placeholder spacer blocks prevent layout jumps as fixed navigation elements load or toggle.
 - **Future Scalability**: Spacing tokens are tied directly to standard responsive utility prefixes, ensuring additional service pages will scale correctly out of the box.
+
+---
+
+## 5. Brand Asset Replacements & Social Integration
+
+We replaced the older HTML/SVG placeholders with official high-quality logo images:
+1. **Official WhatsApp Brand Assets**:
+   - **Floating WhatsApp button**: Swapped the custom inline SVG for `/Whatsapp.png` with `object-contain` scaling and padding adjustments to prevent clipping.
+   - **Hero WhatsApp CTA button**: Added `/Whatsapp.png` inline next to the "WhatsApp" text.
+   - **Contact cards & Footer list**: Substituted generic `Phone` icons with the `/Whatsapp.png` asset. Added gray/brightness filters (`filter brightness-75 group-hover:brightness-100 transition-all`) to maintain the footer links interactive states.
+2. **Official Google Sign-In Asset**:
+   - Swapped the custom HTML Google badge helper in `Auth.tsx` for the `/google.png` asset inside the Google Sign-in buttons.
+3. **Facebook & Instagram Integration**:
+   - Integrated the `/Facebook.png` and `/Instagram.png` assets in the Footer social links group and the Mobile Drawer Navigation footer area.
+   - Employed CSS filter filters (`filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0`) to convert the colored PNG logos to pure white on default states, and pure black on active gold hover states. This achieves gold/black theme consistency without bloating the codebase with SVG modifications.
+

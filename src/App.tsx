@@ -72,6 +72,7 @@ const Hero = () => {
             data-phone="917558604483"
             className="px-6 py-4 bg-[#D4AF37] text-black rounded-full font-bold text-base shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:bg-[#c9a830] transition-all text-center flex-1 flex items-center justify-center gap-2 cursor-pointer"
           >
+            <img src="/Whatsapp.png" alt="WhatsApp" className="w-5 h-5 object-contain" />
             WhatsApp
           </a>
         </motion.div>

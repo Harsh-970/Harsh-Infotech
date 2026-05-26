@@ -135,10 +135,11 @@ const logAuthRecord = async (session: AuthSession) => {
 };
 
 const GoogleBadge = () => (
-  <span className="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-[13px] font-black leading-none">
-    <span className="absolute inset-0 rounded-full border border-white/70" />
-    <span className="bg-gradient-to-r from-[#4285F4] via-[#EA4335] to-[#FBBC05] bg-clip-text text-transparent">G</span>
-  </span>
+  <img 
+    src="/google.png" 
+    alt="Google" 
+    className="w-5 h-5 object-contain shrink-0" 
+  />
 );
 
 const AuthModal = ({

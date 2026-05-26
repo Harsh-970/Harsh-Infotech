@@ -280,6 +280,19 @@ export const Navbar = () => {
                 >
                   Sign Up
                 </button>
+
+                <div className="h-px bg-white/10 my-4" />
+
+                <div className="flex gap-4 justify-center items-center mt-2">
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
+                    <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
+                    <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Twitter className="w-5 h-5" /></a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Linkedin className="w-5 h-5" /></a>
+                </div>
               </nav>
             </motion.div>
           </motion.div>
@@ -309,6 +322,12 @@ export const Footer = () => {
             Building the future of digital infrastructure. Premium solutions for ambitious companies.
           </p>
           <div className="flex gap-4">
+            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
+              <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+            </a>
+            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
+              <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+            </a>
             <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Twitter className="w-5 h-5" /></a>
             <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Github className="w-5 h-5" /></a>
             <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Linkedin className="w-5 h-5" /></a>
@@ -336,11 +355,11 @@ export const Footer = () => {
             </li>
             <li className="flex flex-col gap-4">
               <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
-                <Phone className="w-4 h-4 shrink-0 transition-colors group-hover:text-white" />
+                <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain filter brightness-75 group-hover:brightness-100 transition-all" />
                 <span className="transition-colors group-hover:text-white">7558604483</span>
               </a>
               <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
-                <Phone className="w-4 h-4 shrink-0 opacity-0" />
+                <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain opacity-0" />
                 <span className="transition-colors group-hover:text-white">8828275219</span>
               </a>
             </li>
@@ -373,11 +392,13 @@ export const Footer = () => {
         data-auth-action="whatsapp"
         data-phone="917558604483"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/40 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/40 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer p-3 md:p-3.5"
       >
-        <svg className="w-7 h-7 md:w-8 md:h-8 fill-current" viewBox="0 0 24 24">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.394 9.806-9.799.002-2.618-1.016-5.08-2.868-6.932C16.357 2.022 13.9 1.002 11.3 1.002c-5.41 0-9.81 4.402-9.813 9.804-.001 1.83.479 3.618 1.392 5.176l-1.017 3.714 3.824-1.002c1.472.803 2.929 1.196 4.361 1.196zm10.963-7.513c-.229-.115-1.355-.668-1.564-.744-.21-.077-.362-.115-.515.115-.152.23-.591.744-.724.897-.133.152-.266.172-.495.057-.229-.115-.968-.357-1.844-1.139-.681-.607-1.141-1.357-1.275-1.587-.133-.23-.014-.354.101-.468.103-.103.229-.266.343-.399.115-.133.152-.229.229-.382.077-.152.038-.287-.019-.402-.057-.115-.515-1.242-.705-1.7-.186-.447-.369-.387-.515-.395-.133-.007-.285-.008-.438-.008-.152 0-.4-.057-.61.172-.21.229-.8.782-.8 1.909 0 1.127.82 2.217.933 2.37.115.152 1.611 2.459 3.902 3.447.545.235.97.375 1.303.481.548.173 1.047.149 1.442.09.44-.066 1.355-.554 1.545-1.09.19-.536.19-1.004.133-1.099-.057-.095-.21-.152-.439-.268z" />
-        </svg>
+        <img 
+          src="/Whatsapp.png" 
+          alt="WhatsApp" 
+          className="w-full h-full object-contain animate-pulse" 
+        />
       </a>
     </footer>
   );
