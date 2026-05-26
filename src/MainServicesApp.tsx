@@ -21,13 +21,13 @@ export default function MainServicesApp() {
     <div className="min-h-screen selection:bg-white selection:text-black">
       <Background />
       <Navbar />
-      <main className="pt-10 pb-32">
+      <main className="pt-8 pb-16 md:pb-24 lg:pb-32">
 
         {/* Page Hero */}
         <section className="text-center px-6 lg:px-20 max-w-4xl mx-auto mb-24">
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6"
+            className="text-[clamp(2.5rem,7vw+1rem,4.5rem)] font-extrabold tracking-tighter mb-6"
           >
             Tally <span className="text-white/40">Services</span>
           </motion.h1>
@@ -39,7 +39,7 @@ export default function MainServicesApp() {
           </motion.p>
         </section>
 
-        <div className="flex flex-col gap-32 px-6 lg:px-20 max-w-7xl mx-auto">
+        <div className="flex flex-col gap-16 md:gap-24 lg:gap-32 px-4 sm:px-6 lg:px-20 max-w-7xl mx-auto">
 
           {/* ── 1. TALLY PRIME LICENSE ─────────────────────────── */}
           <motion.section
@@ -68,7 +68,7 @@ export default function MainServicesApp() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
               {/* Silver — Single User */}
-              <div className="glass-card p-8 flex flex-col relative overflow-hidden">
+              <div className="glass-card p-5 sm:p-8 flex flex-col relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 <div className="flex items-center gap-3 mb-6 z-10">
                   <Star className="w-5 h-5 text-white/60" />
@@ -123,7 +123,7 @@ export default function MainServicesApp() {
               </div>
 
               {/* Gold — Multi User */}
-              <div className="glass-card p-8 flex flex-col relative overflow-hidden border-[#D4AF37]/30">
+              <div className="glass-card p-5 sm:p-8 flex flex-col relative overflow-hidden border-[#D4AF37]/30">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/8 to-transparent pointer-events-none" />
                 <div className="flex items-center gap-3 mb-6 z-10">
                   <Star className="w-5 h-5 text-[#D4AF37] fill-[#D4AF37]" />
@@ -226,7 +226,7 @@ export default function MainServicesApp() {
               ].map((plan, i) => (
                 <div
                   key={i}
-                  className={`glass-card p-8 flex flex-col relative overflow-hidden ${plan.highlight ? "border-[#D4AF37]/30" : ""}`}
+                  className={`glass-card p-5 sm:p-8 flex flex-col relative overflow-hidden ${plan.highlight ? "border-[#D4AF37]/30" : ""}`}
                 >
                   {plan.highlight && (
                     <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/8 to-transparent pointer-events-none" />
@@ -250,7 +250,7 @@ export default function MainServicesApp() {
               ))}
             </div>
 
-            <div className="glass-card p-6 flex flex-col md:flex-row items-center justify-between gap-6 mb-12 border-[#D4AF37]/20">
+            <div className="glass-card p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-12 border-[#D4AF37]/20">
               <div className="flex items-start gap-4 flex-1">
                 <CheckCircle2 className="w-6 h-6 text-[#D4AF37] shrink-0 mt-0.5" />
                 <p className="text-white/80 leading-relaxed font-medium">
@@ -301,7 +301,7 @@ export default function MainServicesApp() {
               workflow — from custom reports and invoices to automated workflows and integrations.
             </p>
 
-            <div className="glass-card p-10 text-center border-[#D4AF37]/20 relative overflow-hidden mb-12">
+            <div className="glass-card p-6 sm:p-10 text-center border-[#D4AF37]/20 relative overflow-hidden mb-12">
               <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent pointer-events-none" />
               <h3 className="text-2xl font-bold mb-3 z-10 relative">Make Your Own Customization</h3>
               <p className="text-white/50 mb-8 max-w-lg mx-auto z-10 relative">
@@ -341,7 +341,7 @@ export default function MainServicesApp() {
                   features: ["GST Portal Filing", "eCommerce Sync", "Payroll Integration", "Bank Statement Import"],
                 },
               ].map((item, i) => (
-                <div key={i} className="glass-card p-8 flex flex-col relative z-20">
+                <div key={i} className="glass-card p-5 sm:p-8 flex flex-col relative z-20">
                   <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                   <p className="text-white/50 text-sm leading-relaxed mb-6">{item.desc}</p>
                   <ul className="space-y-3 flex-1">
@@ -383,7 +383,7 @@ export default function MainServicesApp() {
                     features: ["Attendance Sync", "Payslip Mass-Emailing", "PF/ESI Compliance Reports", "Leave Management Sync"],
                   },
                 ].map((item, i) => (
-                  <div key={`extra-${i}`} className="glass-card p-8 flex flex-col">
+                  <div key={`extra-${i}`} className="glass-card p-5 sm:p-8 flex flex-col">
                     <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                     <p className="text-white/50 text-sm leading-relaxed mb-6">{item.desc}</p>
                     <ul className="space-y-3 flex-1">

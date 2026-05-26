@@ -55,7 +55,7 @@ export default function AboutApp() {
               <img src="/about-company.png" alt="About Company" className="w-full h-auto rounded-3xl object-cover border border-white/10 shadow-2xl" />
             </div>
             <div className="flex-1 text-center lg:text-left order-1 lg:order-none w-full">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Who We Are</h2>
+              <h2 className="text-[clamp(2rem,5vw+0.5rem,3rem)] font-bold mb-6">Who We Are</h2>
               <div className="text-base md:text-lg text-white/60 leading-relaxed space-y-6">
                 <p>
                   Harsh Infotech Consultancy Services helps businesses simplify accounting, automate workflows, and improve efficiency using Tally and IT solutions.
@@ -69,7 +69,7 @@ export default function AboutApp() {
         <section className="py-10 md:py-20 bg-white/5 border-y border-white/5 overflow-hidden">
           <div className="px-4 md:px-6 lg:px-20 max-w-7xl mx-auto">
             <div className="text-center mb-10 md:mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">What We Do</h2>
+              <h2 className="text-[clamp(2rem,5vw+0.5rem,3rem)] font-bold mb-6">What We Do</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
               {[
@@ -90,7 +90,7 @@ export default function AboutApp() {
         {/* SECTION 4 - TEAM SECTION */}
         <section className="py-10 md:py-20 lg:py-32 px-4 md:px-6 lg:px-20 max-w-7xl mx-auto overflow-hidden">
           <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Teams</h2>
+            <h2 className="text-[clamp(2rem,5vw+0.5rem,3rem)] font-bold mb-6">Our Teams</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -114,7 +114,7 @@ export default function AboutApp() {
         {/* SECTION 5 - CONTACT SECTION EXPLICIT */}
         <section className="py-10 md:py-20 px-4 md:px-6 lg:px-20 max-w-5xl mx-auto mb-10 md:mb-20 overflow-hidden">
           <div className="p-8 md:p-10 lg:p-14 glass-card text-center">
-             <h2 className="text-4xl md:text-5xl font-bold mb-10">Reach Out</h2>
+             <h2 className="text-[clamp(2rem,5vw+0.5rem,3rem)] font-bold mb-10">Reach Out</h2>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex flex-col items-center group cursor-pointer transition-transform hover:scale-105">
                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6 transition-colors group-hover:bg-white group-hover:text-black">

@@ -90,7 +90,7 @@ export const Testimonials = () => {
   const thirdColumn = testimonials.slice(1, 4);
 
   return (
-    <section className="py-32 px-6 lg:px-20 overflow-hidden">
+    <section className="py-16 px-4 sm:px-6 md:py-24 lg:py-32 lg:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">What Our Clients Say</h2>

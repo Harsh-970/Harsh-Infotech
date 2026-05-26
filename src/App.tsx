@@ -9,28 +9,29 @@ import { useAuth } from "./Auth";
 const Hero = () => {
   const { isAuthenticated, openAuthGate } = useAuth();
   return (
-    <section id="home" className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center lg:flex-row lg:text-left lg:px-20 max-w-7xl mx-auto gap-12 lg:gap-16 pt-28 lg:pt-32">
+    <section id="home" className="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 text-center lg:flex-row lg:text-left lg:px-20 max-w-7xl mx-auto gap-6 sm:gap-8 lg:gap-16 pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-10 lg:pb-16">
       <div className="flex-1 z-10 w-full flex flex-col items-center lg:items-start">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-extrabold tracking-tighter leading-tight break-words mb-8 w-full max-w-[90%] mx-auto lg:mx-0"
+          className="text-[clamp(2.25rem,6vw+1rem,5rem)] font-extrabold tracking-tighter leading-[1.05] break-words mb-4 sm:mb-5 lg:mb-6 w-full max-w-[90%] mx-auto lg:mx-0"
         >
-          <span className="block">Reliably Great</span>
-          <span className="block text-white/40 mt-2">Efficiently Fast</span>
+          <span className="block">Reliably <span className="text-[#D4AF37] lg:text-white">Great</span></span>
+          <span className="block text-white/40 mt-1">Efficiently Fast</span>
         </motion.h1>
         
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg md:text-xl text-white/60 max-w-xl mb-10 mx-auto lg:mx-0"
+          className="text-lg md:text-xl text-white/60 max-w-xl mb-6 sm:mb-8 lg:mb-10 mx-auto lg:mx-0"
         >
-          <strong className="block text-white mb-4">Complete Tally Solutions for Modern Businesses</strong>
+          <strong className="block text-white mb-2">Complete Tally Solutions for Modern Businesses</strong>
           We help businesses simplify accounting, automate workflows, and scale operations with powerful Tally solutions.
         </motion.p>
 
+        {/* Desktop CTA Button */}
         <motion.button 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -46,10 +47,34 @@ const Hero = () => {
               });
             }
           }}
-          className="px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_24px_rgba(255,255,255,0.15)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] hover:bg-white/90 transition-all duration-200"
+          className="hidden lg:block px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_24px_rgba(255,255,255,0.15)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] hover:bg-white/90 transition-all duration-200"
         >
           Get Started
         </motion.button>
+
+        {/* Mobile CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex lg:hidden flex-row gap-4 w-full max-w-sm justify-center items-center"
+        >
+          <a 
+            href="tel:+917558604483"
+            className="px-6 py-4 bg-white text-black rounded-full font-bold text-base shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:bg-white/90 transition-all text-center flex-1"
+          >
+            Call Now
+          </a>
+          <a 
+            href="https://wa.me/917558604483"
+            data-auth-gated="true"
+            data-auth-action="whatsapp"
+            data-phone="917558604483"
+            className="px-6 py-4 bg-[#D4AF37] text-black rounded-full font-bold text-base shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:bg-[#c9a830] transition-all text-center flex-1 flex items-center justify-center gap-2 cursor-pointer"
+          >
+            WhatsApp
+          </a>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -61,11 +86,12 @@ const Hero = () => {
         </motion.p>
       </div>
 
+      {/* Desktop Logo: visible on lg and above */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="flex-1 flex justify-center lg:justify-center mt-8 lg:mt-0"
+        className="hidden lg:flex flex-1 justify-center lg:justify-center mt-8 lg:mt-0"
       >
         <div className="relative flex items-center justify-center w-[240px] md:w-[360px] lg:w-[460px] xl:w-[520px]">
           {/* Soft gold glow behind logo */}
@@ -74,6 +100,25 @@ const Hero = () => {
           <Logo 
             className="relative z-10 w-full" 
             imgClassName="w-full h-auto object-contain filter drop-shadow-[0_0_48px_rgba(212,175,55,0.35)]" 
+            withText={false} 
+          />
+        </div>
+      </motion.div>
+
+      {/* Mobile Centered Logo: visible on mobile/tablet below lg */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className="flex lg:hidden justify-center mt-6 sm:mt-8 w-full"
+      >
+        <div className="relative flex items-center justify-center w-[200px] sm:w-[260px] md:w-[300px]">
+          {/* Soft gold glow behind logo */}
+          <div className="absolute inset-0 bg-[#D4AF37]/10 rounded-full blur-[40px] animate-pulse scale-110" />
+          <div className="absolute inset-0 bg-white/5 rounded-full blur-2xl scale-90" />
+          <Logo 
+            className="relative z-10 w-full" 
+            imgClassName="w-full h-auto object-contain filter drop-shadow-[0_0_32px_rgba(212,175,55,0.25)]" 
             withText={false} 
           />
         </div>
@@ -92,7 +137,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-32 px-6 lg:px-20 max-w-7xl mx-auto">
+    <section id="services" className="py-16 px-4 sm:px-6 md:py-24 lg:py-32 lg:px-20 max-w-7xl mx-auto">
       <div className="text-center mb-20">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h2>
         <p className="text-white/50 max-w-2xl mx-auto">We provide complete Tally solutions to help businesses streamline operations and improve efficiency.</p>
@@ -151,7 +196,7 @@ const MoreSolutions = () => {
   ];
 
   return (
-    <section className="py-32 px-6 lg:px-20 max-w-7xl mx-auto">
+    <section className="py-16 px-4 sm:px-6 md:py-24 lg:py-32 lg:px-20 max-w-7xl mx-auto">
       <div className="text-center mb-20">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">More Solutions</h2>
         <p className="text-white/50 max-w-2xl mx-auto">Explore our extended range of professional services and infrastructure support.</p>
@@ -165,7 +210,7 @@ const MoreSolutions = () => {
             data-service-name={s.title}
             key={i}
             whileHover={{ y: -10 }}
-            className="block w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1.333rem)] p-6 lg:p-10 glass-card group"
+            className="block w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1.333rem)] p-6 lg:p-10 glass-card group"
           >
             <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 lg:mb-8 group-hover:bg-white group-hover:text-black transition-colors">
               {s.icon}
@@ -188,7 +233,7 @@ const OurProducts = () => {
   ];
 
   return (
-    <section id="products" className="py-32 px-6 lg:px-20 max-w-7xl mx-auto">
+    <section id="products" className="py-16 px-4 sm:px-6 md:py-24 lg:py-32 lg:px-20 max-w-7xl mx-auto">
       <div className="text-center mb-20">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Products</h2>
         <p className="text-white/50 max-w-2xl mx-auto">From HP and Dell, we provide all essential hardware solutions required for modern workplaces.</p>
@@ -202,7 +247,7 @@ const OurProducts = () => {
             data-service-name={p.title}
             key={i}
             whileHover={{ y: -10 }}
-            className="block w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(50%-1rem)] p-6 lg:p-10 glass-card group flex flex-col items-center md:items-start text-center md:text-left"
+            className="block w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(50%-1rem)] p-6 lg:p-10 glass-card group flex flex-col items-center md:items-start text-center md:text-left"
           >
             <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 lg:mb-8 group-hover:bg-white group-hover:text-black transition-colors">
               {p.icon}
@@ -236,7 +281,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-32 px-6 lg:px-20 bg-white/5 relative overflow-visible">
+    <section id="about" className="py-16 px-4 sm:px-6 md:py-24 lg:py-32 lg:px-20 bg-white/5 relative overflow-visible">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
         {/* Left: Text content */}

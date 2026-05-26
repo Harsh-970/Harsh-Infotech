@@ -34,11 +34,11 @@ export const Logo = ({
           </>
         ) : twoLineOnMobile ? (
           <>
-            <span className="lg:hidden flex flex-col">
+            <span className="xl:hidden flex flex-col">
               <span>Harsh Infotech</span>
               <span>Consultancy Services</span>
             </span>
-            <span className="hidden lg:block whitespace-nowrap">
+            <span className="hidden xl:block whitespace-nowrap">
               Harsh Infotech Consultancy Services
             </span>
           </>
@@ -159,7 +159,7 @@ export const Navbar = () => {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 w-full flex items-center justify-between px-6 py-5 md:px-12 lg:px-20 z-50 transition-transform duration-300 ease-in-out bg-[#050505]/95 backdrop-blur-md border-b border-white/5 ${
+        className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-12 lg:py-4 xl:px-20 xl:py-5 z-50 transition-transform duration-300 ease-in-out bg-[#050505]/95 backdrop-blur-md border-b border-white/5 ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -167,14 +167,14 @@ export const Navbar = () => {
           <a href="/" className="hover:opacity-90 transition-opacity">
             <Logo 
               className="flex items-center gap-4 md:gap-5"
-              imgClassName="h-[90px] md:h-[110px] lg:h-[100px] w-auto" 
-              textClassName="text-[18px] md:text-[22px] font-bold tracking-tight leading-tight text-left" 
+              imgClassName="h-[50px] sm:h-[60px] lg:h-[65px] xl:h-[75px] w-auto" 
+              textClassName="text-[14px] sm:text-[16px] lg:text-[18px] xl:text-[20px] font-bold tracking-tight leading-tight text-left" 
               twoLineOnMobile={true}
             />
           </a>
         </div>
 
-        <div className="hidden md:flex items-center gap-10 z-[120]">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-10 z-[120]">
           <a href="/" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Home</a>
           
           <div className="group relative">
@@ -216,20 +216,20 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <a href={topCtaLink} data-auth-gated="true" className="hidden md:block px-6 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-sm font-semibold shrink-0">
+          <a href={topCtaLink} data-auth-gated="true" className="hidden lg:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0">
             {topCtaText}
           </a>
           <button
             type="button"
             onClick={() => openAuthGate()}
-            className="hidden md:block px-6 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-sm font-semibold shrink-0 cursor-pointer"
+            className="hidden lg:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0 cursor-pointer"
           >
             Sign Up
           </button>
 
           {/* Mobile Hamburger Button */}
           <button 
-            className="md:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
+            className="lg:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-8 h-8 relative z-[110]" /> : <Menu className="w-8 h-8 relative z-[110]" />}
@@ -256,16 +256,27 @@ export const Navbar = () => {
               onClick={(e) => e.stopPropagation()}
               className="w-[85%] max-w-sm h-full bg-[#050505] shadow-2xl shadow-black border-l border-white/10 p-10 flex flex-col justify-center"
             >
-              <nav className="flex flex-col gap-8 text-center text-2xl font-bold">
-                <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors">Home</a>
-                <a href="/services.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors">Services</a>
-                <a href="/products.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors">Products</a>
-                <a href="/about.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors">About</a>
-                <a href="#contact" data-auth-gated="true" onClick={() => { setIsMobileMenuOpen(false); }} className="hover:text-[#D4AF37] transition-colors">Contact</a>
+              <nav className="flex flex-col gap-6 text-center text-xl font-bold">
+                <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Home</a>
+                <a href="/services.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Services</a>
+                <a href="/products.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Products</a>
+                <a href="/about.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">About</a>
+                <a href="#contact" data-auth-gated="true" onClick={() => { setIsMobileMenuOpen(false); }} className="hover:text-[#D4AF37] transition-colors py-1">Contact</a>
+                
+                <div className="h-px bg-white/10 my-4" />
+                
+                <a 
+                  href={topCtaLink} 
+                  data-auth-gated="true" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-6 py-3 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black text-base font-semibold text-center transition-all"
+                >
+                  {topCtaText}
+                </a>
                 <button
                   type="button"
                   onClick={() => { setIsMobileMenuOpen(false); openAuthGate(); }}
-                  className="hover:text-[#D4AF37] transition-colors"
+                  className="px-6 py-3 rounded-full bg-gradient-to-b from-[#fff5dd] to-[#f5e8c0] text-black text-base font-bold text-center transition-all cursor-pointer"
                 >
                   Sign Up
                 </button>
@@ -276,7 +287,7 @@ export const Navbar = () => {
       </AnimatePresence>
 
       {/* Invisible placeholder height equal to fixed header to prevent layout jump */}
-      <div className="h-[110px] md:h-[130px] w-full invisible pointer-events-none"></div>
+      <div className="h-[75px] lg:h-[98px] xl:h-[116px] w-full invisible pointer-events-none"></div>
     </>
   );
 };
@@ -354,6 +365,20 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto pt-10 border-t border-white/5 text-center text-xs text-white/20">
         © {new Date().getFullYear()} Harsh Infotech. All rights reserved.
       </div>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/917558604483"
+        data-auth-gated="true"
+        data-auth-action="whatsapp"
+        data-phone="917558604483"
+        aria-label="Chat on WhatsApp"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/40 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer"
+      >
+        <svg className="w-7 h-7 md:w-8 md:h-8 fill-current" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.394 9.806-9.799.002-2.618-1.016-5.08-2.868-6.932C16.357 2.022 13.9 1.002 11.3 1.002c-5.41 0-9.81 4.402-9.813 9.804-.001 1.83.479 3.618 1.392 5.176l-1.017 3.714 3.824-1.002c1.472.803 2.929 1.196 4.361 1.196zm10.963-7.513c-.229-.115-1.355-.668-1.564-.744-.21-.077-.362-.115-.515.115-.152.23-.591.744-.724.897-.133.152-.266.172-.495.057-.229-.115-.968-.357-1.844-1.139-.681-.607-1.141-1.357-1.275-1.587-.133-.23-.014-.354.101-.468.103-.103.229-.266.343-.399.115-.133.152-.229.229-.382.077-.152.038-.287-.019-.402-.057-.115-.515-1.242-.705-1.7-.186-.447-.369-.387-.515-.395-.133-.007-.285-.008-.438-.008-.152 0-.4-.057-.61.172-.21.229-.8.782-.8 1.909 0 1.127.82 2.217.933 2.37.115.152 1.611 2.459 3.902 3.447.545.235.97.375 1.303.481.548.173 1.047.149 1.442.09.44-.066 1.355-.554 1.545-1.09.19-.536.19-1.004.133-1.099-.057-.095-.21-.152-.439-.268z" />
+        </svg>
+      </a>
     </footer>
   );
 };
