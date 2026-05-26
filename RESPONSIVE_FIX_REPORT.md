@@ -94,7 +94,7 @@ We optimized the website interface for the following standard breakpoints:
 
 We replaced the older HTML/SVG placeholders with official high-quality logo images:
 1. **Official WhatsApp Brand Assets**:
-   - **Floating WhatsApp button**: Swapped the custom inline SVG for `/Whatsapp.png` with `object-contain` scaling and padding adjustments to prevent clipping.
+   - **Floating WhatsApp button**: Swapped the custom inline SVG for `/Whatsapp.png` and optimized scaling by 25-35% across all devices. We implemented responsive touch sizes (`w-[64px] h-[64px]` on mobile for easy thumb tapping, `md:w-[72px] md:h-[72px]` on tablets, and `lg:w-[80px] lg:h-[80px]` on desktops) with proportional padding. Increased visual weight by applying a darker backdrop (`bg-[#0a0a0af0]`), border-2, and stronger glow shadows (`shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.35)]` and hover glowing effects) for maximum contrast and visibility.
    - **Hero WhatsApp CTA button**: Added `/Whatsapp.png` inline next to the "WhatsApp" text.
    - **Contact cards & Footer list**: Substituted generic `Phone` icons with the `/Whatsapp.png` asset. Added gray/brightness filters (`filter brightness-75 group-hover:brightness-100 transition-all`) to maintain the footer links interactive states.
 2. **Official Google Sign-In Asset**:

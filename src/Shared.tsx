@@ -392,7 +392,7 @@ export const Footer = () => {
         data-auth-action="whatsapp"
         data-phone="917558604483"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/40 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer p-3 md:p-3.5"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-[64px] h-[64px] md:w-[72px] md:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full bg-[#0a0a0af0] backdrop-blur-md border-2 border-[#D4AF37]/60 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_35px_rgba(212,175,55,0.65)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer p-[12px] md:p-[14px] lg:p-[16px]"
       >
         <img 
           src="/Whatsapp.png" 
