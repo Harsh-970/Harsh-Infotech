@@ -1,4 +1,4 @@
-import { ChevronDown, Cpu, Mail, Phone, MapPin, Github, Twitter, Linkedin, Menu, X } from "lucide-react";
+import { ChevronDown, Cpu, Mail, Phone, MapPin, Github, Twitter, Linkedin, Menu, X, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useAuth } from "./Auth";
@@ -54,8 +54,18 @@ export const Background = () => {
   const [isVideoError, setIsVideoError] = useState(false);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#050505]">
-      {/* Video Background */}
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-bg-primary transition-colors duration-500">
+      {/* Layered Background Gradients */}
+      <div className="absolute inset-0 bg-gradient-to-br from-bg-primary via-bg-primary to-surface/20 opacity-90 transition-all duration-500" />
+      
+      {/* Abstract glows for depth */}
+      <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-accent-blue/5 dark:bg-[#1A3D63]/30 blur-[120px] pointer-events-none transition-all duration-500" />
+      <div className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-accent-blue/5 dark:bg-[#0A1931]/60 blur-[150px] pointer-events-none transition-all duration-500" />
+      
+      {/* Subtle Abstract Pattern Grid (premium SaaS style) */}
+      <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.035] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
+
+      {/* Video Background (Only active in dark mode) */}
       {!isVideoError && (
         <video
           autoPlay
@@ -63,24 +73,64 @@ export const Background = () => {
           loop
           playsInline
           onError={() => setIsVideoError(true)}
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          className="hidden dark:block absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-screen"
         >
           <source src="/background.mp4" type="video/mp4" />
         </video>
       )}
 
-      {/* Image Background (Fallback or Primary) */}
+      {/* Image Background (Fallback) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-30 transition-opacity duration-1000"
+        className="hidden dark:block absolute inset-0 bg-cover bg-center opacity-10 mix-blend-screen"
         style={{ 
           backgroundImage: "url('/background.jpg')",
           display: isVideoError ? 'block' : 'none' 
         }}
       />
-
-      {/* Overlay Gradient for Readability */}
-      <div className="absolute inset-0 bg-radial-[at_center] from-transparent via-[#050505]/60 to-[#050505]" />
     </div>
+  );
+};
+
+export const ThemeToggle = () => {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "dark" | "light" | null;
+    const initialTheme = savedTheme || "dark";
+    setTheme(initialTheme);
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(initialTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(newTheme);
+    window.dispatchEvent(new Event("themechange"));
+  };
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className="p-2 sm:p-2.5 rounded-full border border-white/10 dark:border-white/5 bg-white/5 dark:bg-black/20 hover:bg-white/10 dark:hover:bg-black/35 shadow-md backdrop-blur-md transition-all duration-300 flex items-center justify-center hover:scale-110 cursor-pointer overflow-hidden bg-glass border-glass"
+      aria-label="Toggle theme"
+    >
+      <motion.div
+        key={theme}
+        initial={{ y: 15, opacity: 0, rotate: -45 }}
+        animate={{ y: 0, opacity: 1, rotate: 0 }}
+        exit={{ y: -15, opacity: 0, rotate: 45 }}
+        transition={{ duration: 0.25 }}
+      >
+        {theme === "dark" ? (
+          <Sun className="w-5 h-5 text-[#D4AF37]" />
+        ) : (
+          <Moon className="w-5 h-5 text-[#4A7FA7]" />
+        )}
+      </motion.div>
+    </button>
   );
 };
 
@@ -183,14 +233,15 @@ export const Navbar = () => {
             </a>
             <div className="absolute top-[85%] left-0 w-60 rounded-xl bg-[#0a0a0a] border border-white/10 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
               <div className="flex flex-col py-2">
-                <a href="/services.html#tally-license" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Prime License</a>
+                <a href="/services.html#tally-license" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Prime</a>
                 <a href="/services.html#tally-cloud" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally on Cloud</a>
                 <a href="/services.html#tally-customization" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Customization</a>
+                <a href="/more-services.html#amc" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">AMC & Support</a>
+                <a href="/customizations.html" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Customizations</a>
                 
                 <div className="h-px bg-white/10 my-2 mx-4" />
                 
                 <a href="/more-services.html#vps" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">VPS</a>
-                <a href="/more-services.html#amc" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally AMC & Support</a>
                 <a href="/more-services.html#excel" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Excel to Tally</a>
                 <a href="/more-services.html#data" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Data Migration</a>
                 <a href="/more-services.html#hardware" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Hardware Support</a>
@@ -215,7 +266,9 @@ export const Navbar = () => {
           <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <ThemeToggle />
+          
           <a href={topCtaLink} data-auth-gated="true" className="hidden lg:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0">
             {topCtaText}
           </a>
@@ -259,6 +312,7 @@ export const Navbar = () => {
               <nav className="flex flex-col gap-6 text-center text-xl font-bold">
                 <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Home</a>
                 <a href="/services.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Services</a>
+                <a href="/customizations.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1 text-[#D4AF37]">Customizations</a>
                 <a href="/products.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Products</a>
                 <a href="/about.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">About</a>
                 <a href="#contact" data-auth-gated="true" onClick={() => { setIsMobileMenuOpen(false); }} className="hover:text-[#D4AF37] transition-colors py-1">Contact</a>

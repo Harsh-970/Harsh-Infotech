@@ -146,7 +146,8 @@ export default defineConfig(({mode}) => {
           about: path.resolve(__dirname, 'about.html'),
           services: path.resolve(__dirname, 'services.html'),
           moreServices: path.resolve(__dirname, 'more-services.html'),
-          products: path.resolve(__dirname, 'products.html')
+          products: path.resolve(__dirname, 'products.html'),
+          customizations: path.resolve(__dirname, 'customizations.html')
         }
       }
     },
