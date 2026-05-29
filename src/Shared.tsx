@@ -51,40 +51,25 @@ export const Logo = ({
 );
 
 export const Background = () => {
-  const [isVideoError, setIsVideoError] = useState(false);
-
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-bg-primary transition-colors duration-500">
-      {/* Layered Background Gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-bg-primary via-bg-primary to-surface/20 opacity-90 transition-all duration-500" />
-      
-      {/* Abstract glows for depth */}
-      <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-accent-blue/5 dark:bg-[#1A3D63]/30 blur-[120px] pointer-events-none transition-all duration-500" />
-      <div className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-accent-blue/5 dark:bg-[#0A1931]/60 blur-[150px] pointer-events-none transition-all duration-500" />
-      
-      {/* Subtle Abstract Pattern Grid (premium SaaS style) */}
-      <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.035] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
-
-      {/* Video Background (Only active in dark mode) */}
-      {!isVideoError && (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          onError={() => setIsVideoError(true)}
-          className="hidden dark:block absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-screen"
-        >
-          <source src="/background.mp4" type="video/mp4" />
-        </video>
-      )}
-
-      {/* Image Background (Fallback) */}
+      {/* Dark mode gradient image background (supplied image) */}
       <div 
-        className="hidden dark:block absolute inset-0 bg-cover bg-center opacity-10 mix-blend-screen"
-        style={{ 
-          backgroundImage: "url('/background.jpg')",
-          display: isVideoError ? 'block' : 'none' 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 opacity-0 dark:opacity-100"
+        style={{ backgroundImage: "url('/dark-bg.png')" }}
+      />
+      
+      {/* Very light dark overlay for readability in dark mode */}
+      <div className="hidden dark:block absolute inset-0 bg-[#0A1428]/15 pointer-events-none" />
+
+      {/* Grid Pattern (Subtle dark blue grid in light, subtle light grid in dark) */}
+      <div 
+        className="absolute inset-0 pointer-events-none transition-all duration-500" 
+        style={{
+          backgroundImage: `linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)`,
+          backgroundSize: '3rem 3rem',
+          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 65%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 65%, transparent 100%)'
         }}
       />
     </div>

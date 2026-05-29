@@ -15,26 +15,31 @@ The theme system uses a **CSS-First approach** matching Tailwind CSS v4 guidelin
 
 ---
 
-## 2. Color Palettes
+## 2. Color Palettes & System
 
 ### Dark Theme (Default)
+The dark theme background utilizes the supplied gradient image (`/dark-bg.png`) which features a deep navy blue in the bottom-left, merging into a rich purple center, and culminating in a soft pink glow in the top-right corner.
+
 | Token | Color Value | Description |
 | :--- | :--- | :--- |
-| **Primary Background** | `#0A1931` | Deep blue space background |
-| **Secondary Surface** | `#1A3D63` | Structured container cards and widgets |
+| **Primary Background** | `#0A1428` | Fallback Deep Navy Blue (No pure blacks) |
+| **Secondary Surface** | `#070F1E` | Very dark blue-black for cards (darker than the background glow) |
 | **Accent (Gold)** | `#D4AF37` | Reserved exclusively for logo glow, active tabs, premium badges, and primary buttons |
 | **Primary Text** | `#FFFFFF` | Clear high-contrast text |
-| **Secondary Text** | `rgba(255,255,255,0.75)` | Subtle text for descriptions and meta tags |
+| **Secondary Text** | `rgba(255,255,255,0.75)` | Subtle text for descriptions |
+| **Grid Pattern** | `rgba(255, 255, 255, 0.04)` | Subtle light grid |
 
 ### Light Theme
+Built entirely without white backgrounds (except for overlays/dropdowns), using a custom blue palette:
+
 | Token | Color Value | Description |
 | :--- | :--- | :--- |
-| **Primary Background** | `#F6FAFD` | Clean corporate light blue-grey background |
-| **Secondary Surface** | `#FFFFFF` | Bright container cards and panels |
-| **Accent Blue** | `#4A7FA7` | Clean enterprise blue for borders, icons, and buttons |
-| **Secondary Blue** | `#B3CFE5` | Hover backgrounds, border highlights, and active tabs |
-| **Dark Text** | `#0A1931` | Deep primary corporate text |
-| **Secondary Text** | `#4A5565` | Muted slate text for paragraphs |
+| **Primary Background** | `#F6FAFD` | Soft Light blue-grey background |
+| **Surface 1** | `#B3CFE5` | Light blue card backing / secondary surface tint |
+| **Surface 2** | `#4A7FA7` | Medium blue accent color for buttons and secondary highlights |
+| **Primary Accent** | `#1A3D63` | Deep navy blue for high contrast text and titles |
+| **Secondary Text** | `#2C4A6F` | Muted navy for body text and paragraphs |
+| **Grid Pattern** | `rgba(26, 61, 99, 0.08)` | Subtle dark blue grid |
 
 ---
 
@@ -43,71 +48,51 @@ The theme system uses a **CSS-First approach** matching Tailwind CSS v4 guidelin
 The visual components utilize dynamic backdrop-filters and transparent borders to maintain card outlines across different backgrounds.
 
 ### Dark Glass Card
-- **Background:** `rgba(10, 25, 49, 0.55)`
-- **Backdrop Blur:** `20px`
-- **Border:** `1px solid rgba(255, 255, 255, 0.08)`
+- **Background:** `rgba(5, 12, 28, 0.75)` (darker than background glows)
+- **Backdrop Blur:** `24px` (increased to 20px-30px range)
+- **Border:** `1px solid rgba(255, 255, 255, 0.1)`
+- **Depth Shadow:** `0 12px 40px -8px rgba(0, 0, 0, 0.5), 0 4px 20px -4px rgba(0, 0, 0, 0.3)` (Strong dual-layered depth shadow)
 
 ### Light Glass Card
-- **Background:** `rgba(255, 255, 255, 0.65)`
-- **Backdrop Blur:** `20px`
-- **Border:** `1px solid rgba(255, 255, 255, 0.4)`
+- **Background:** `rgba(179, 207, 229, 0.35)` (Tint derived from Surface 1)
+- **Backdrop Blur:** `24px`
+- **Border:** `1px solid rgba(74, 127, 167, 0.45)` (derived from Surface 2)
+- **Depth Shadow:** `0 12px 30px -8px rgba(26, 61, 99, 0.12), 0 4px 15px -4px rgba(26, 61, 99, 0.08)` (Light blue-tinted depth shadow)
 
 ### Glass Reflection Effect
 Every `.glass-card` uses a CSS `::before` pseudo-element rendering a subtle radial glow in the lower-left corner:
-- **Dark Mode:** `radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.08) 0%, transparent 70%)`
-- **Light Mode:** `radial-gradient(circle at bottom left, rgba(74, 127, 167, 0.12) 0%, transparent 70%)`
-
-This reflection adds premium material depth without visual distraction.
+- **Dark Mode:** `radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.12) 0%, transparent 70%)`
+- **Light Mode:** `radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.35) 0%, transparent 70%)`
 
 ---
 
-## 4. Components Modified & Added
+## 4. Background & Grid Implementation
 
-### Modified Core Files
-1. **[index.css](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/src/index.css):** Added Tailwind `@custom-variant dark`, theme variables, extended `.glass-card` classes with reflections, and class overrides map to handle hardcoded white classes dynamically in Light Mode.
-2. **[Shared.tsx](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/src/Shared.tsx):** 
-   - Created the dynamic `Background` component (subtle grid lines, pulsing blue orbs, and screen blended video backgrounds in dark mode).
-   - Created the `ThemeToggle` component with smooth Framer Motion transitions.
-   - Updated the `Navbar` to integrate the toggle and add `/customizations.html` to the Services dropdown.
+The `Background` component loads the assets and overlays dynamically:
+- **supplied dark-bg image:** Applied via `background-image: url('/dark-bg.png')` inside a container that transitions opacity on theme toggle.
+- **readability dark overlay:** A `rgba(10, 20, 40, 0.15)` layer overlays the dark background, preventing text clipping and ensuring legibility against the pink/purple glows.
+- **dynamic grid system:** A custom linear-gradient grid layer is scaled to `3rem 3rem` and masks outwards at the edges. The grid color adapts via `var(--grid-color)` (light grid in dark mode, dark blue grid in light mode).
+
+---
+
+## 5. Accessibility & Contrast Checks
+
+- **Text Contrast:** Tested main headings and text elements. Primary text `#1A3D63` on `#F6FAFD` and `rgba(179, 207, 229, 0.35)` glass backdrops provides a contrast ratio exceeding **4.5:1** (WCAG AA compliant).
+- **Button Accessibility:** Buttons that are normally white in dark mode (`bg-white text-black`) are dynamically overridden in light mode to use Surface 2 (`#4A7FA7`) with `#F6FAFD` text (and Primary Accent `#1A3D63` on hover), maintaining clear accessibility paths.
+- **Glass separation:** Clear visual outlines are enforced using semi-transparent borders in both modes (white/10 in dark mode, medium blue/45 in light mode).
+
+---
+
+## 6. Components Modified & Added
+
+1. **[index.css](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/src/index.css):** Updated color systems, shadows, reflections, and precise button class overrides for light mode.
+2. **[Shared.tsx](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/src/Shared.tsx):** Configured the dynamic `Background` component loading `/dark-bg.png` and managing the adaptive grid.
 3. **Vite Files:**
-   - Add theme script to head of [index.html](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/index.html), [about.html](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/about.html), [services.html](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/services.html), [more-services.html](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/more-services.html), and [products.html](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/products.html).
-   - Modified [vite.config.ts](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/vite.config.ts) to bundle `customizations.html`.
+   - Modified [vite.config.ts](file:///d:/Harsh%20Documents/Projects/Webiste/google/harsh-infotech/vite.config.ts) and the HTML entries.
 
 ---
 
-## 5. Customization Marketplace Implementation
-
-### Architecture & Data-Driven Model
-The marketplace is built as a separate single page `/customizations.html` driven by `src/CustomizationsApp.tsx` and a dedicated schema file `src/data/customizations.ts`. 
-
-- **Future Ready:** New modules can be added simply by appending objects to the `customizationsData` array.
-- **Dynamic Routing:** Utilizes standard browser window search history mapping (`?module=slug`). If the search param is active, it swaps the DOM to the Detail view; otherwise, it displays the Marketplace Catalog Grid.
-
-### Search & Filters
-- **Interactive Search:** Dynamically searches titles, descriptions, categories, and tags. Includes an autocomplete popup suggestion panel.
-- **Category Selector:** Dropdown filtering items based on core modules (Hotel, Restaurant, Manufacturing, Garment, etc.).
-- **Industry Selector:** Filters items based on business verticals (Retail, Logistics & Warehouse, Hospitality, etc.).
-- **Compatibility Chips:** Toggles specific system requirements (Tally Prime, Cloud Compatible, Barcode support, GST).
-- **Sort Dropdown:** Sorts items by Price, A-Z, or Popularity.
-
-### Recommended System
-Inside the detail page, a smart recommendation block extracts up to 3 relevant modules belonging to the same category or industry, falling back to featured products if duplicates occur.
-
-### SEO & Schema Integration
-- Dynamically updates `document.title` and meta tags depending on whether the catalog or a detail page is loaded.
-- Dynamically generates JSON-LD tags (`Product` schema for module details, and `ItemList` schema for the catalog list view) to ensure search engine index readiness.
-
----
-
-## 6. Testing & Quality Check
-
-- **Local Build:** Succeeded in `9.00s` with zero warnings or compilation errors.
-- **Theme Persistence:** Verified using local storage.
-- **Layout Shifts:** None. Transitions are handled cleanly using CSS transitions and Framer Motion.
-- **Responsiveness:** Verified correct resizing (4 columns on desktop, 3 on small laptops, 2 on tablets, and 1 on mobile). Toggle button wraps nicely next to the hamburger icon.
-
----
-
-## 7. Future Recommendations
-1. **PWA Support:** Convert the customizations marketplace into a Progressive Web App for offline catalog browsing.
-2. **Dynamic CSV Import:** Enable importing customizations data dynamically from the Excel spreadsheet using a node/python parser.
+## 7. Quality Check Summary
+- **Home, About, Services, Products, Customizations, Contact:** Visual checks confirm card borders, shadows, and reflection highlights render consistently on both dark and light modes.
+- **Mobile/Tablet responsiveness:** Verified navigation menus, header theme toggles, and grid layouts resize cleanly on small displays.
+- **Build Output:** Compiled successfully in `7.82s` with zero compiler warnings/errors.

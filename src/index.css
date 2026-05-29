@@ -9,53 +9,68 @@
 
 :root {
   /* Default - Dark Mode variables */
-  --bg-primary: #0A1931;
-  --surface: #1A3D63;
+  --bg-primary: #0A1428;
+  --surface: #070F1E;
   --accent-blue: #D4AF37;
   --secondary-blue: rgba(255, 255, 255, 0.08);
   --text-primary: #FFFFFF;
   --text-secondary: rgba(255, 255, 255, 0.75);
   
-  --glass-bg: rgba(10, 25, 49, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: 20px;
-  --glass-reflection-color: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.2);
-  --glass-border-hover-ring: rgba(212, 175, 55, 0.15);
+  --glass-bg: rgba(5, 12, 28, 0.75); /* Darker than background */
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 24px;
+  --glass-reflection-color: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.22);
+  --glass-border-hover-ring: rgba(212, 175, 55, 0.18);
+  
+  --glass-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.5), 0 4px 20px -4px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: 0 20px 50px -12px rgba(0, 0, 0, 0.65);
+  
+  --grid-color: rgba(255, 255, 255, 0.04);
 }
 
 .light {
   /* Light Mode overrides */
   --bg-primary: #F6FAFD;
-  --surface: #FFFFFF;
-  --accent-blue: #4A7FA7;
+  --surface: #B3CFE5; /* Surface 1 */
+  --accent-blue: #4A7FA7; /* Surface 2 */
   --secondary-blue: #B3CFE5;
-  --text-primary: #0A1931;
-  --text-secondary: #4A5565;
+  --text-primary: #1A3D63; /* Primary Accent */
+  --text-secondary: #2C4A6F; /* Muted Navy derived from #1A3D63 */
   
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --glass-blur: 20px;
-  --glass-reflection-color: rgba(74, 127, 167, 0.12);
-  --glass-border-hover: rgba(74, 127, 167, 0.5);
-  --glass-border-hover-ring: rgba(74, 127, 167, 0.2);
+  --glass-bg: rgba(179, 207, 229, 0.35); /* Tint derived from Surface 1 #B3CFE5 */
+  --glass-border: rgba(74, 127, 167, 0.45); /* derived from Surface 2 #4A7FA7 */
+  --glass-blur: 24px;
+  --glass-reflection-color: rgba(255, 255, 255, 0.35);
+  --glass-border-hover: rgba(26, 61, 99, 0.65); /* derived from Primary Accent #1A3D63 */
+  --glass-border-hover-ring: rgba(74, 127, 167, 0.25);
+  
+  --glass-shadow: 0 12px 30px -8px rgba(26, 61, 99, 0.12), 0 4px 15px -4px rgba(26, 61, 99, 0.08);
+  --glass-shadow-hover: 0 16px 40px -10px rgba(26, 61, 99, 0.22);
+  
+  --grid-color: rgba(26, 61, 99, 0.08);
 }
 
 .dark {
   /* Explicit dark mode class definitions */
-  --bg-primary: #0A1931;
-  --surface: #1A3D63;
+  --bg-primary: #0A1428;
+  --surface: #070F1E;
   --accent-blue: #D4AF37;
   --secondary-blue: rgba(255, 255, 255, 0.08);
   --text-primary: #FFFFFF;
   --text-secondary: rgba(255, 255, 255, 0.75);
   
-  --glass-bg: rgba(10, 25, 49, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: 20px;
-  --glass-reflection-color: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.2);
-  --glass-border-hover-ring: rgba(212, 175, 55, 0.15);
+  --glass-bg: rgba(5, 12, 28, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 24px;
+  --glass-reflection-color: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.22);
+  --glass-border-hover-ring: rgba(212, 175, 55, 0.18);
+  
+  --glass-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.5), 0 4px 20px -4px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: 0 20px 50px -12px rgba(0, 0, 0, 0.65);
+  
+  --grid-color: rgba(255, 255, 255, 0.04);
 }
 
 @theme {
@@ -92,7 +107,7 @@
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 1.5rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: var(--glass-shadow);
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -114,7 +129,7 @@
 
   .glass-card:hover {
     border-color: var(--glass-border-hover);
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px var(--glass-border-hover-ring);
+    box-shadow: var(--glass-shadow-hover), 0 0 0 1px var(--glass-border-hover-ring);
     transform: translateY(-4px);
   }
 }
@@ -161,41 +176,81 @@
 
 /* Light Mode borders override */
 .light .border-white\/5 {
-  border-color: rgba(74, 127, 167, 0.1) !important;
+  border-color: rgba(74, 127, 167, 0.15) !important;
 }
 .light .border-white\/10 {
-  border-color: rgba(74, 127, 167, 0.18) !important;
+  border-color: rgba(74, 127, 167, 0.28) !important;
 }
 .light .border-white\/15 {
-  border-color: rgba(74, 127, 167, 0.25) !important;
+  border-color: rgba(74, 127, 167, 0.38) !important;
 }
 .light .border-white\/20 {
-  border-color: rgba(74, 127, 167, 0.3) !important;
+  border-color: rgba(74, 127, 167, 0.5) !important;
 }
 
 /* Light Mode backgrounds override */
 .light .bg-white\/5 {
-  background-color: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(179, 207, 229, 0.2) !important;
 }
 .light .bg-white\/10 {
-  background-color: rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(179, 207, 229, 0.45) !important;
 }
 .light .bg-white\/15 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: rgba(179, 207, 229, 0.6) !important;
 }
 
 /* Specific component fixes for contrast */
 .light .bg-\[\#0a0a0a\] {
   background-color: #FFFFFF !important;
-  border-color: rgba(74, 127, 167, 0.2) !important;
+  border-color: rgba(74, 127, 167, 0.3) !important;
+}
+
+.light .bg-\[\#050505\] {
+  background-color: #F6FAFD !important;
+  border-color: rgba(74, 127, 167, 0.25) !important;
 }
 
 .light .bg-\[\#050505\]\/95 {
   background-color: rgba(246, 250, 253, 0.95) !important;
-  border-color: rgba(74, 127, 167, 0.15) !important;
+  border-color: rgba(74, 127, 167, 0.2) !important;
 }
 
 .light .text-gray-400 {
   color: var(--text-secondary) !important;
 }
+
+/* Precise overrides for buttons that are normally white in dark mode to fit the light theme spec */
+.light .bg-white {
+  background-color: var(--accent-blue) !important; /* Surface 2 #4A7FA7 */
+  color: #F6FAFD !important; /* Background contrast text */
+}
+
+.light .text-black {
+  color: #F6FAFD !important;
+}
+
+.light .bg-white:hover,
+.light .bg-white.hover\:bg-white\/90:hover,
+.light a.bg-white:hover,
+.light button.bg-white:hover {
+  background-color: var(--text-primary) !important; /* Primary Accent #1A3D63 */
+  color: #F6FAFD !important;
+}
+
+/* Override other hover states for white backgrounds to primary accent */
+.light .hover\:bg-white:hover {
+  background-color: var(--text-primary) !important;
+  color: #F6FAFD !important;
+}
+
+.light .hover\:text-black:hover {
+  color: #F6FAFD !important;
+}
+
+/* Make sure Tally Prime License trials or special buttons adapt */
+.light .from-white\/10 {
+  background-image: linear-gradient(to bottom, rgba(74, 127, 167, 0.15), transparent) !important;
+}
+
+
 
