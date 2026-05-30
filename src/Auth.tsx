@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { BriefcaseBusiness, Lock, Mail, UserRound, X, Loader2 } from "lucide-react";
 import { useGoogleLogin } from "@react-oauth/google";
+import { motion, useMotionValue, useTransform } from "motion/react";
 
 type LoginMethod = "Email" | "Google";
 type AuthAction = "navigate" | "whatsapp" | "email";
@@ -228,9 +229,100 @@ const AuthModal = ({
 
   const handleSubmit = socialActive ? submitSocialComplete : submitEmailLogin;
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
+  const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
-    <div className="fixed inset-0 z-[260] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full rounded-[24px] border border-white/35 bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.08)_30%,rgba(255,255,255,0.06)_100%)] p-5 md:p-6 backdrop-blur-3xl shadow-[0_0_46px_rgba(255,255,255,0.16)]">
+    <div className="fixed inset-0 z-[260] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md" style={{ perspective: 1500 }}>
+      <motion.div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY }}
+        whileHover={{ z: 10 }}
+        className="relative w-full max-w-md max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full rounded-[24px] border border-white/35 bg-[linear-gradient(160deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.08)_30%,rgba(255,255,255,0.06)_100%)] p-5 md:p-6 backdrop-blur-3xl shadow-[0_0_46px_rgba(255,255,255,0.16)] group"
+      >
+        {/* Card glow effect */}
+        <motion.div 
+          className="absolute inset-0 rounded-[24px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
+          animate={{
+            boxShadow: [
+              "0 0 20px 2px rgba(212,175,55,0.05)",
+              "0 0 35px 5px rgba(212,175,55,0.12)",
+              "0 0 20px 2px rgba(212,175,55,0.05)"
+            ],
+          }}
+          transition={{ 
+            duration: 4, 
+            repeat: Infinity, 
+            ease: "easeInOut", 
+            repeatType: "mirror" 
+          }}
+        />
+
+        {/* Traveling light beam border effect */}
+        <div className="absolute inset-0 rounded-[24px] overflow-hidden pointer-events-none z-[5]">
+          {/* Top light beam */}
+          <motion.div 
+            className="absolute top-0 left-0 h-[2px] w-[50%] bg-gradient-to-r from-transparent via-white to-transparent opacity-70"
+            animate={{ 
+              left: ["-50%", "100%"],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{ 
+              left: { duration: 3, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 },
+              opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror" }
+            }}
+          />
+          {/* Right light beam */}
+          <motion.div 
+            className="absolute top-0 right-0 h-[50%] w-[2px] bg-gradient-to-b from-transparent via-white to-transparent opacity-70"
+            animate={{ 
+              top: ["-50%", "100%"],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{ 
+              top: { duration: 3, ease: "easeInOut", repeat: Infinity, repeatDelay: 1, delay: 0.8 },
+              opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 0.8 }
+            }}
+          />
+          {/* Bottom light beam */}
+          <motion.div 
+            className="absolute bottom-0 right-0 h-[2px] w-[50%] bg-gradient-to-r from-transparent via-white to-transparent opacity-70"
+            animate={{ 
+              right: ["-50%", "100%"],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{ 
+              right: { duration: 3, ease: "easeInOut", repeat: Infinity, repeatDelay: 1, delay: 1.6 },
+              opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 1.6 }
+            }}
+          />
+          {/* Left light beam */}
+          <motion.div 
+            className="absolute bottom-0 left-0 h-[50%] w-[2px] bg-gradient-to-b from-transparent via-white to-transparent opacity-70"
+            animate={{ 
+              bottom: ["-50%", "100%"],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{ 
+              bottom: { duration: 3, ease: "easeInOut", repeat: Infinity, repeatDelay: 1, delay: 2.4 },
+              opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 2.4 }
+            }}
+          />
+        </div>
         <button
           type="button"
           onClick={onClose}
@@ -394,7 +486,7 @@ const AuthModal = ({
             Don&apos;t have an account? <span className="text-white font-medium cursor-pointer hover:underline">Sign Up</span>
           </p>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };
