@@ -31,24 +31,24 @@
 
 .light {
   /* Light Mode overrides */
-  --bg-primary: #F6FAFD;
-  --surface: #B3CFE5; /* Surface 1 */
-  --accent-blue: #4A7FA7; /* Surface 2 */
-  --secondary-blue: #B3CFE5;
-  --text-primary: #1A3D63; /* Primary Accent */
-  --text-secondary: #2C4A6F; /* Muted Navy derived from #1A3D63 */
+  --bg-primary: #F6FAFD; /* Ice White */
+  --surface: #B3CFE5; /* Soft Sky Blue */
+  --accent-blue: #1A3D63; /* Royal Blue - Buttons / Headings */
+  --secondary-blue: #4A7FA7; /* Ocean Blue - Secondary Elements */
+  --text-primary: #0A1931; /* Deep Navy - Dark Base Text */
+  --text-secondary: #1A3D63; /* Royal Blue */
   
-  --glass-bg: rgba(179, 207, 229, 0.35); /* Tint derived from Surface 1 #B3CFE5 */
-  --glass-border: rgba(74, 127, 167, 0.45); /* derived from Surface 2 #4A7FA7 */
+  --glass-bg: rgba(179, 207, 229, 0.35); /* Tint derived from Soft Sky Blue #B3CFE5 */
+  --glass-border: rgba(74, 127, 167, 0.45); /* derived from Ocean Blue #4A7FA7 */
   --glass-blur: 24px;
   --glass-reflection-color: rgba(255, 255, 255, 0.35);
-  --glass-border-hover: rgba(26, 61, 99, 0.65); /* derived from Primary Accent #1A3D63 */
+  --glass-border-hover: rgba(26, 61, 99, 0.65); /* derived from Royal Blue #1A3D63 */
   --glass-border-hover-ring: rgba(74, 127, 167, 0.25);
   
-  --glass-shadow: 0 12px 30px -8px rgba(26, 61, 99, 0.12), 0 4px 15px -4px rgba(26, 61, 99, 0.08);
-  --glass-shadow-hover: 0 16px 40px -10px rgba(26, 61, 99, 0.22);
+  --glass-shadow: 0 12px 30px -8px rgba(10, 25, 49, 0.12), 0 4px 15px -4px rgba(10, 25, 49, 0.08);
+  --glass-shadow-hover: 0 16px 40px -10px rgba(10, 25, 49, 0.22);
   
-  --grid-color: rgba(26, 61, 99, 0.08);
+  --grid-color: rgba(10, 25, 49, 0.08);
 }
 
 .dark {

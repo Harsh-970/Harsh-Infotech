@@ -61,17 +61,6 @@ export const Background = () => {
       
       {/* Very light dark overlay for readability in dark mode */}
       <div className="hidden dark:block absolute inset-0 bg-[#0A1428]/15 pointer-events-none" />
-
-      {/* Grid Pattern (Subtle dark blue grid in light, subtle light grid in dark) */}
-      <div 
-        className="absolute inset-0 pointer-events-none transition-all duration-500" 
-        style={{
-          backgroundImage: `linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)`,
-          backgroundSize: '3rem 3rem',
-          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 65%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 65%, transparent 100%)'
-        }}
-      />
     </div>
   );
 };
@@ -194,7 +183,7 @@ export const Navbar = () => {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-12 lg:py-4 xl:px-20 xl:py-5 z-50 transition-transform duration-300 ease-in-out bg-[#050505]/95 backdrop-blur-md border-b border-white/5 ${
+        className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-12 lg:py-4 xl:px-20 xl:py-5 z-50 transition-transform duration-300 ease-in-out bg-glass border-b border-[var(--glass-border)] shadow-[var(--glass-shadow)] ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -209,7 +198,7 @@ export const Navbar = () => {
           </a>
         </div>
 
-        <div className="hidden lg:flex items-center gap-6 xl:gap-10 z-[120]">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-10 z-[120] ml-20 lg:ml-32 xl:ml-40">
           <a href="/" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Home</a>
           
           <div className="group relative">
@@ -251,7 +240,7 @@ export const Navbar = () => {
           <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-4 sm:gap-5 lg:pl-10 lg:border-l lg:border-[var(--glass-border)] lg:ml-10 xl:pl-14 xl:ml-14">
           <ThemeToggle />
           
           <a href={topCtaLink} data-auth-gated="true" className="hidden lg:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0">
@@ -431,7 +420,7 @@ export const Footer = () => {
         data-auth-action="whatsapp"
         data-phone="917558604483"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-[64px] h-[64px] md:w-[72px] md:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full bg-[#0a0a0af0] backdrop-blur-md border-2 border-[#D4AF37]/60 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_35px_rgba(212,175,55,0.65)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer p-[12px] md:p-[14px] lg:p-[16px]"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-[64px] h-[64px] md:w-[72px] md:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full bg-[#0a0a0af0] backdrop-blur-md border-2 border-[#D4AF37]/60 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_35px_rgba(212,175,55,0.65)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer p-[1px] sm:p-[2px] md:p-[3px]"
       >
         <img 
           src="/Whatsapp.png" 

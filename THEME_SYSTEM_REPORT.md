@@ -27,7 +27,6 @@ The dark theme background utilizes the supplied gradient image (`/dark-bg.png`) 
 | **Accent (Gold)** | `#D4AF37` | Reserved exclusively for logo glow, active tabs, premium badges, and primary buttons |
 | **Primary Text** | `#FFFFFF` | Clear high-contrast text |
 | **Secondary Text** | `rgba(255,255,255,0.75)` | Subtle text for descriptions |
-| **Grid Pattern** | `rgba(255, 255, 255, 0.04)` | Subtle light grid |
 
 ### Light Theme
 Built entirely without white backgrounds (except for overlays/dropdowns), using a custom blue palette:
@@ -39,7 +38,6 @@ Built entirely without white backgrounds (except for overlays/dropdowns), using 
 | **Surface 2** | `#4A7FA7` | Medium blue accent color for buttons and secondary highlights |
 | **Primary Accent** | `#1A3D63` | Deep navy blue for high contrast text and titles |
 | **Secondary Text** | `#2C4A6F` | Muted navy for body text and paragraphs |
-| **Grid Pattern** | `rgba(26, 61, 99, 0.08)` | Subtle dark blue grid |
 
 ---
 
@@ -71,7 +69,7 @@ Every `.glass-card` uses a CSS `::before` pseudo-element rendering a subtle radi
 The `Background` component loads the assets and overlays dynamically:
 - **supplied dark-bg image:** Applied via `background-image: url('/dark-bg.png')` inside a container that transitions opacity on theme toggle.
 - **readability dark overlay:** A `rgba(10, 20, 40, 0.15)` layer overlays the dark background, preventing text clipping and ensuring legibility against the pink/purple glows.
-- **dynamic grid system:** A custom linear-gradient grid layer is scaled to `3rem 3rem` and masks outwards at the edges. The grid color adapts via `var(--grid-color)` (light grid in dark mode, dark blue grid in light mode).
+- **clean background design:** The grid overlay line system has been completely removed from both dark and light modes, creating an ultra-smooth, premium visual layout where glass elements sit cleanly over the solid light-blue and dark gradient glows.
 
 ---
 
