@@ -206,7 +206,7 @@ export const Navbar = () => {
           </a>
         </div>
 
-        <div className="hidden lg:flex items-center gap-6 xl:gap-10 z-[120] ml-20 lg:ml-32 xl:ml-40">
+        <div className="hidden xl:flex items-center gap-5 xl:gap-8 z-[120] ml-16 xl:ml-24">
           <a href="/" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Home</a>
           
           <div className="group relative">
@@ -248,23 +248,23 @@ export const Navbar = () => {
           <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
         </div>
 
-        <div className="flex items-center gap-4 sm:gap-5 lg:pl-10 lg:border-l lg:border-[var(--glass-border)] lg:ml-10 xl:pl-14 xl:ml-14">
+        <div className="flex items-center gap-4 sm:gap-5 xl:pl-8 xl:border-l xl:border-[var(--glass-border)] xl:ml-8">
           <ThemeToggle />
           
-          <a href={topCtaLink} data-auth-gated="true" className="hidden lg:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0">
+          <a href={topCtaLink} data-auth-gated="true" className="hidden xl:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0">
             {topCtaText}
           </a>
           <button
             type="button"
             onClick={() => openAuthGate()}
-            className="hidden lg:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0 cursor-pointer"
+            className="hidden xl:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0 cursor-pointer"
           >
             Sign Up
           </button>
 
           {/* Mobile Hamburger Button */}
           <button 
-            className="lg:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
+            className="xl:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-8 h-8 relative z-[110]" /> : <Menu className="w-8 h-8 relative z-[110]" />}
@@ -336,7 +336,7 @@ export const Navbar = () => {
       </AnimatePresence>
 
       {/* Invisible placeholder height equal to fixed header to prevent layout jump */}
-      <div className="h-[75px] lg:h-[98px] xl:h-[116px] w-full invisible pointer-events-none"></div>
+      <div className="h-[75px] sm:h-[82px] xl:h-[116px] w-full invisible pointer-events-none"></div>
     </>
   );
 };

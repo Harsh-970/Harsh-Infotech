@@ -9,13 +9,13 @@ import { useAuth } from "./Auth";
 const Hero = () => {
   const { isAuthenticated, openAuthGate } = useAuth();
   return (
-    <section id="home" className="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 text-center lg:flex-row lg:text-left lg:px-20 max-w-7xl mx-auto gap-6 sm:gap-8 lg:gap-16 pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-10 lg:pb-16">
+    <section id="home" className="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 text-center lg:flex-row lg:text-left lg:px-8 xl:px-20 max-w-7xl mx-auto gap-6 sm:gap-8 lg:gap-10 xl:gap-16 pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-10 lg:pb-16">
       <div className="flex-1 z-10 w-full flex flex-col items-center lg:items-start">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-[clamp(2.25rem,6vw+1rem,5rem)] font-extrabold tracking-tighter leading-[1.05] break-words mb-4 sm:mb-5 lg:mb-6 w-full max-w-[90%] mx-auto lg:mx-0"
+          className="text-[clamp(2rem,4vw+1rem,4rem)] lg:text-[clamp(2.5rem,5vw+1rem,4.5rem)] xl:text-[5rem] font-extrabold tracking-tighter leading-[1.05] break-words mb-4 sm:mb-5 lg:mb-6 w-full max-w-[90%] mx-auto lg:mx-0"
         >
           <span className="block">Reliably <span className="text-[#D4AF37] lg:text-white">Great</span></span>
           <span className="block text-white/40 mt-1">Efficiently Fast</span>
@@ -94,7 +94,7 @@ const Hero = () => {
         transition={{ duration: 1, delay: 0.5 }}
         className="hidden lg:flex flex-1 justify-center lg:justify-center mt-8 lg:mt-0"
       >
-        <div className="relative flex items-center justify-center w-[240px] md:w-[360px] lg:w-[460px] xl:w-[520px]">
+        <div className="relative flex items-center justify-center lg:w-[320px] xl:w-[460px] 2xl:w-[520px]">
           {/* Soft gold glow behind logo */}
           <div className="absolute inset-0 bg-[#D4AF37]/10 rounded-full blur-[60px] animate-pulse scale-110" />
           <div className="absolute inset-0 bg-white/5 rounded-full blur-3xl scale-90" />
