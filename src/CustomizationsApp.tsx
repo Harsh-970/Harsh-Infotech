@@ -24,43 +24,6 @@ export default function CustomizationsApp() {
   const [layoutMode, setLayoutMode] = useState<"grid" | "list" | "stack">("grid");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const getLayoutStyles = (stackPosition: number) => {
-    switch (layoutMode) {
-      case "stack":
-        return {
-          top: stackPosition * 6,
-          left: stackPosition * 6,
-          zIndex: filteredItems.length - stackPosition,
-          rotate: (stackPosition - 1) * 2,
-        };
-      case "grid":
-      case "list":
-        return {
-          top: 0,
-          left: 0,
-          zIndex: 1,
-          rotate: 0,
-        };
-    }
-  };
-
-  const containerClass = {
-    grid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6",
-    list: "flex flex-col gap-6 max-w-4xl mx-auto w-full",
-    stack: "relative h-[480px] w-full max-w-xs mx-auto",
-  };
-
-  const displayItems = useMemo(() => {
-    if (layoutMode !== "stack") return filteredItems;
-    if (filteredItems.length === 0) return [];
-    
-    const reordered = [];
-    for (let i = 0; i < filteredItems.length; i++) {
-      const index = (activeIndex + i) % filteredItems.length;
-      reordered.push({ ...filteredItems[index], stackPosition: i });
-    }
-    return reordered.reverse();
-  }, [filteredItems, layoutMode, activeIndex]);
 
   // Sync browser back/forward history
   useEffect(() => {
@@ -229,6 +192,44 @@ export default function CustomizationsApp() {
         return 0;
       });
   }, [searchQuery, selectedCategory, selectedIndustry, selectedSort, selectedCompatibilities]);
+
+  const getLayoutStyles = (stackPosition: number) => {
+    switch (layoutMode) {
+      case "stack":
+        return {
+          top: stackPosition * 6,
+          left: stackPosition * 6,
+          zIndex: filteredItems.length - stackPosition,
+          rotate: (stackPosition - 1) * 2,
+        };
+      case "grid":
+      case "list":
+        return {
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          rotate: 0,
+        };
+    }
+  };
+
+  const containerClass = {
+    grid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6",
+    list: "flex flex-col gap-6 max-w-4xl mx-auto w-full",
+    stack: "relative h-[480px] w-full max-w-xs mx-auto",
+  };
+
+  const displayItems = useMemo(() => {
+    if (layoutMode !== "stack") return filteredItems;
+    if (filteredItems.length === 0) return [];
+    
+    const reordered = [];
+    for (let i = 0; i < filteredItems.length; i++) {
+      const index = (activeIndex + i) % filteredItems.length;
+      reordered.push({ ...filteredItems[index], stackPosition: i });
+    }
+    return reordered.reverse();
+  }, [filteredItems, layoutMode, activeIndex]);
 
   // Active module for details page
   const activeModule = useMemo(() => {
