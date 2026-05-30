@@ -53,6 +53,12 @@ export const Logo = ({
 export const Background = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-bg-primary transition-colors duration-500">
+      {/* Light mode gradient image background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 opacity-100 dark:opacity-0"
+        style={{ backgroundImage: "url('/light-bg.png')" }}
+      />
+
       {/* Dark mode gradient image background (supplied image) */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 opacity-0 dark:opacity-100"
