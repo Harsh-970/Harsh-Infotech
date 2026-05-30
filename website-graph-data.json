@@ -1,0 +1,126 @@
+{
+  "nodes": [
+    { "data": { "id": "auth_signup", "name": "Sign Up Modal", "url": "#auth-gate", "type": "AUTH_FLOW", "clickableCount": 4, "formsCount": 1, "ctaCount": 2, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "3D-tilted dialog capturing user name, email, and company role." } },
+    { "data": { "id": "auth_google", "name": "Google OAuth Flow", "url": "/api/auth-log", "type": "AUTH_FLOW", "clickableCount": 1, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Authenticates and registers company metadata via Google accounts." } },
+    { "data": { "id": "auth_profile", "name": "User Profile Page", "url": "#profile", "type": "PAGE", "clickableCount": 5, "formsCount": 1, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Personalized panel displaying user session state and settings." } },
+    
+    { "data": { "id": "navbar", "name": "Header Navbar", "url": "Component", "type": "DROPDOWN_LINK", "clickableCount": 12, "formsCount": 0, "ctaCount": 2, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Sticky navigation system containing direct links and core action hooks." } },
+    { "data": { "id": "dropdown_services", "name": "Services Submenu", "url": "Component", "type": "DROPDOWN_LINK", "clickableCount": 9, "formsCount": 0, "ctaCount": 0, "mobileAvailable": "No", "desktopAvailable": "Yes", "desc": "Expandable services list offering quick access to VPS, customizations, and AMC." } },
+    { "data": { "id": "dropdown_products", "name": "Products Submenu", "url": "Component", "type": "DROPDOWN_LINK", "clickableCount": 4, "formsCount": 0, "ctaCount": 0, "mobileAvailable": "No", "desktopAvailable": "Yes", "desc": "Desktop dropdown pointing directly to servers and hardware spec sheets." } },
+    { "data": { "id": "mobile_menu", "name": "Mobile Overlay Drawer", "url": "Component", "type": "DROPDOWN_LINK", "clickableCount": 8, "formsCount": 0, "ctaCount": 2, "mobileAvailable": "Yes", "desktopAvailable": "No", "desc": "Hamburger toggle panel offering full-screen navigation on smaller viewports." } },
+    
+    { "data": { "id": "home", "name": "Home Page", "url": "/", "type": "PAGE", "clickableCount": 42, "formsCount": 2, "ctaCount": 5, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Landing screen featuring the service slider, product grids, and contact forms." } },
+    { "data": { "id": "services", "name": "Core Services Page", "url": "/services.html", "type": "PAGE", "clickableCount": 28, "formsCount": 1, "ctaCount": 4, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Details main modules: Tally licensing, tally-on-cloud hosting, and custom additions." } },
+    { "data": { "id": "more_services", "name": "More Services Page", "url": "/more-services.html", "type": "PAGE", "clickableCount": 22, "formsCount": 0, "ctaCount": 3, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Includes extra support items: AMC agreements, VPS hosting, and database migration." } },
+    { "data": { "id": "products", "name": "Hardware Products Page", "url": "/products.html", "type": "PAGE", "clickableCount": 18, "formsCount": 0, "ctaCount": 4, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Catalog of servers, printing devices, workstations, and high-speed scanners." } },
+    { "data": { "id": "customizations", "name": "Customizations Store", "url": "/customizations.html", "type": "PAGE", "clickableCount": 35, "formsCount": 0, "ctaCount": 8, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Interactive shop containing customization modules with list/grid/stack layouts." } },
+    { "data": { "id": "about", "name": "About Company Page", "url": "/about.html", "type": "PAGE", "clickableCount": 16, "formsCount": 0, "ctaCount": 2, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "About us overview highlighting corporate structure and sales/support divisions." } },
+    
+    { "data": { "id": "srv_license", "name": "Tally Prime Licensing", "url": "/services.html#tally-license", "type": "SERVICE", "clickableCount": 3, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Tally Prime Gold/Silver software licensing, upgrades, and validations." } },
+    { "data": { "id": "srv_cloud", "name": "Tally On Cloud", "url": "/services.html#tally-cloud", "type": "SERVICE", "clickableCount": 3, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Virtual desktop configurations allowing 24/7 web access to account databases." } },
+    { "data": { "id": "srv_customization", "name": "Tailored Customization", "url": "/services.html#tally-customization", "type": "SERVICE", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Integration of custom capabilities and external systems into Tally ERP." } },
+    { "data": { "id": "srv_amc", "name": "AMC & Support Plans", "url": "/more-services.html#amc", "type": "SERVICE", "clickableCount": 4, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Annual maintenance contracts providing active software support and upgrades." } },
+    { "data": { "id": "srv_vps", "name": "VPS Server Hosting", "url": "/more-services.html#vps", "type": "SERVICE", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Dedicated virtual private servers setup for accounting databases." } },
+    { "data": { "id": "srv_excel", "name": "Excel to Tally Parser", "url": "/more-services.html#excel", "type": "SERVICE", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Data ingestion script importing billing tables from spreadsheets directly." } },
+    { "data": { "id": "srv_migration", "name": "Tally Data Migration", "url": "/more-services.html#data", "type": "SERVICE", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Upgrading legacy accounting files safely to Tally Prime structure." } },
+    { "data": { "id": "srv_hardware", "name": "Hardware IT Support", "url": "/more-services.html#hardware", "type": "SERVICE", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Infrastructure repair, diagnostic runs, and printer driver integrations." } },
+    
+    { "data": { "id": "prod_servers", "name": "Enterprise Servers", "url": "/products.html#servers", "type": "PRODUCT", "clickableCount": 3, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "High-durability servers from Dell/HP with hardware RAID security configurations." } },
+    { "data": { "id": "prod_workstations", "name": "Professional Desktops", "url": "/products.html#workstations", "type": "PRODUCT", "clickableCount": 3, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Desktop computers built for accounting computations and massive ledgers." } },
+    { "data": { "id": "prod_printers", "name": "Network Printers", "url": "/products.html#printers", "type": "PRODUCT", "clickableCount": 3, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Office network printers configured for swift bulk transaction statement output." } },
+    { "data": { "id": "prod_scanners", "name": "Document Scanners", "url": "/products.html#scanners", "type": "PRODUCT", "clickableCount": 3, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Fast optical scanner devices with feed bays to build paperless receipts archives." } },
+    
+    { "data": { "id": "cust_hotel", "name": "Hotel Lodging System", "url": "/customizations.html?module=hotel-lodging-management", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Room reservation tracker, check-in desk forms, and customer ledger generator." } },
+    { "data": { "id": "cust_garment", "name": "Garment Apparel Billing", "url": "/customizations.html?module=garment-apparel-grid-billing", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Item grid biller organizing products by custom size, colors, and stock bins." } },
+    { "data": { "id": "cust_autobom", "name": "Manufacturing BOM", "url": "/customizations.html?module=auto-bom-manufacturing-consumption", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Bill of materials planner and real-time raw goods consumption estimator." } },
+    { "data": { "id": "cust_multibranch", "name": "Multi-Branch Sync", "url": "/customizations.html?module=multi-branch-real-time-sync", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Real-time branch inventory data synchronizer running on active schedules." } },
+    { "data": { "id": "cust_payroll", "name": "Biometric Payroll", "url": "/customizations.html?module=payroll-biometric-attendance", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Attendance machine integration compiling timesheets to generate pay slips." } },
+    { "data": { "id": "cust_mis", "name": "MIS Visual Analytics", "url": "/customizations.html?module=mis-dashboard-visual-analytics", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Data charts compiler outputting graphical reports of margins and losses." } },
+    { "data": { "id": "cust_warehouse", "name": "Warehouse Batch Expiry", "url": "/customizations.html?module=warehouse-batch-expiry", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Shelf-life tracker notifying accounting agents of batch decay dates." } },
+    { "data": { "id": "cust_crm", "name": "Tally CRM Lead Tracker", "url": "/customizations.html?module=tally-crm-lead-tracker", "type": "CUSTOMIZATION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Sales pipelines builder organizing clients directly inside the Tally structure." } },
+    
+    { "data": { "id": "form_contact", "name": "Contact Inquiry Form", "url": "#contact", "type": "FORM", "clickableCount": 5, "formsCount": 1, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Secured fields for inputting user name, email, query details, and target service selection." } },
+    { "data": { "id": "form_newsletter", "name": "Newsletter Subscribe", "url": "#newsletter", "type": "FORM", "clickableCount": 2, "formsCount": 1, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Single input form letting readers subscribe to technical release notes." } },
+    
+    { "data": { "id": "btn_hero_getstarted", "name": "Get Started CTA", "url": "#auth-gate", "type": "CTA", "clickableCount": 1, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "No", "desktopAvailable": "Yes", "desc": "Triggers the 3D-tilt authorization card overlay to onboard new users." } },
+    { "data": { "id": "btn_hero_call", "name": "Mobile Call CTA", "url": "tel:+917558604483", "type": "CALL_ACTION", "clickableCount": 1, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "No", "desc": "Initiates direct phone call setup to corporate support line." } },
+    { "data": { "id": "btn_hero_whatsapp", "name": "Hero WhatsApp CTA", "url": "https://wa.me/917558604483", "type": "WHATSAPP_ACTION", "clickableCount": 1, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Starts client chat on WhatsApp for fast onboarding questions." } },
+    { "data": { "id": "btn_footer_whatsapp", "name": "Footer WhatsApp Link", "url": "https://wa.me/917558604483", "type": "WHATSAPP_ACTION", "clickableCount": 2, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Opens WhatsApp messaging flow mapped on support contacts." } },
+    { "data": { "id": "btn_footer_mail", "name": "Footer Email Mailto", "url": "mailto:harshinfotech2005@gmail.com", "type": "CALL_ACTION", "clickableCount": 1, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Opens local email client prefilled with target address." } },
+    { "data": { "id": "btn_floating_whatsapp", "name": "Floating WhatsApp Badge", "url": "https://wa.me/917558604483", "type": "WHATSAPP_ACTION", "clickableCount": 1, "formsCount": 0, "ctaCount": 1, "mobileAvailable": "Yes", "desktopAvailable": "Yes", "desc": "Corner floating WhatsApp shortcut, active across all page routes." } }
+  ],
+  "edges": [
+    { "data": { "id": "e_nav_home", "source": "navbar", "target": "home", "action": "Click Home Link", "trigger": "Home Nav Link", "type": "Navigation" } },
+    { "data": { "id": "e_nav_services", "source": "navbar", "target": "dropdown_services", "action": "Hover/Click Services", "trigger": "Services Menu Item", "type": "Navigation" } },
+    { "data": { "id": "e_nav_products", "source": "navbar", "target": "dropdown_products", "action": "Hover/Click Products", "trigger": "Products Menu Item", "type": "Navigation" } },
+    { "data": { "id": "e_nav_customizations", "source": "navbar", "target": "customizations", "action": "Click Customizations Link", "trigger": "Customizations Nav Link", "type": "Navigation" } },
+    { "data": { "id": "e_nav_about", "source": "navbar", "target": "about", "action": "Click About Link", "trigger": "About Nav Link", "type": "Navigation" } },
+    
+    { "data": { "id": "e_drop_lic", "source": "dropdown_services", "target": "srv_license", "action": "Click Tally Prime Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_cloud", "source": "dropdown_services", "target": "srv_cloud", "action": "Click Tally Cloud Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_cust", "source": "dropdown_services", "target": "srv_customization", "action": "Click Tally Customization Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_amc", "source": "dropdown_services", "target": "srv_amc", "action": "Click AMC Support Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_vps", "source": "dropdown_services", "target": "srv_vps", "action": "Click VPS Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_excel", "source": "dropdown_services", "target": "srv_excel", "action": "Click Excel Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    
+    { "data": { "id": "e_drop_servers", "source": "dropdown_products", "target": "prod_servers", "action": "Click Servers Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_workstations", "source": "dropdown_products", "target": "prod_workstations", "action": "Click Workstations Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_printers", "source": "dropdown_products", "target": "prod_printers", "action": "Click Printers Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    { "data": { "id": "e_drop_scanners", "source": "dropdown_products", "target": "prod_scanners", "action": "Click Scanners Link", "trigger": "Dropdown Selection", "type": "Navigation" } },
+    
+    { "data": { "id": "e_mobile_toggle", "source": "navbar", "target": "mobile_menu", "action": "Click Hamburger Button", "trigger": "Menu Toggle", "type": "Navigation" } },
+    { "data": { "id": "e_mobile_home", "source": "mobile_menu", "target": "home", "action": "Click Home Drawer Link", "trigger": "Drawer Selection", "type": "Navigation" } },
+    { "data": { "id": "e_mobile_services", "source": "mobile_menu", "target": "services", "action": "Click Services Drawer Link", "trigger": "Drawer Selection", "type": "Navigation" } },
+    { "data": { "id": "e_mobile_products", "source": "mobile_menu", "target": "products", "action": "Click Products Drawer Link", "trigger": "Drawer Selection", "type": "Navigation" } },
+    { "data": { "id": "e_mobile_customizations", "source": "mobile_menu", "target": "customizations", "action": "Click Customizations Drawer Link", "trigger": "Drawer Selection", "type": "Navigation" } },
+    
+    { "data": { "id": "e_home_cta_getstarted", "source": "home", "target": "btn_hero_getstarted", "action": "Click Get Started Button", "trigger": "Hero Action", "type": "CTA Flow" } },
+    { "data": { "id": "e_hero_gate", "source": "btn_hero_getstarted", "target": "auth_signup", "action": "Trigger Auth Gate", "trigger": "Required Sign Up Check", "type": "Authentication" } },
+    { "data": { "id": "e_signup_google", "source": "auth_signup", "target": "auth_google", "action": "Initiate OAuth Flow", "trigger": "Google Auth Button", "type": "Authentication" } },
+    { "data": { "id": "e_google_success", "source": "auth_google", "target": "auth_profile", "action": "Update User Credentials", "trigger": "OAuth Callbacks", "type": "Authentication" } },
+    
+    { "data": { "id": "e_home_call", "source": "home", "target": "btn_hero_call", "action": "Click Call Now Button", "trigger": "Mobile Hero CTA", "type": "Call Flow" } },
+    { "data": { "id": "e_home_whatsapp", "source": "home", "target": "btn_hero_whatsapp", "action": "Click WhatsApp Button", "trigger": "Mobile Hero CTA", "type": "WhatsApp Flow" } },
+    { "data": { "id": "e_home_contact_form", "source": "home", "target": "form_contact", "action": "Fill Form", "trigger": "Form Input Actions", "type": "Lead Generation" } },
+    
+    { "data": { "id": "e_home_srv_license", "source": "home", "target": "srv_license", "action": "Click Tally Card", "trigger": "Home Service Cards List", "type": "Service Flow" } },
+    { "data": { "id": "e_home_srv_cloud", "source": "home", "target": "srv_cloud", "action": "Click Cloud Card", "trigger": "Home Service Cards List", "type": "Service Flow" } },
+    { "data": { "id": "e_home_srv_custom", "source": "home", "target": "srv_customization", "action": "Click Customization Card", "trigger": "Home Service Cards List", "type": "Service Flow" } },
+    
+    { "data": { "id": "e_srv_page_lic", "source": "services", "target": "srv_license", "action": "View Core Licensing", "trigger": "Scroll Selection", "type": "Service Flow" } },
+    { "data": { "id": "e_srv_page_cloud", "source": "services", "target": "srv_cloud", "action": "View Hosting Details", "trigger": "Scroll Selection", "type": "Service Flow" } },
+    { "data": { "id": "e_srv_page_custom", "source": "services", "target": "srv_customization", "action": "View Custom Extensions", "trigger": "Scroll Selection", "type": "Service Flow" } },
+    
+    { "data": { "id": "e_srv_whatsapp", "source": "srv_customization", "target": "btn_floating_whatsapp", "action": "Contact Agent", "trigger": "Inquiry Link Click", "type": "WhatsApp Flow" } },
+    
+    { "data": { "id": "e_more_srv_amc", "source": "more_services", "target": "srv_amc", "action": "View Support Details", "trigger": "Scroll Selection", "type": "Service Flow" } },
+    { "data": { "id": "e_more_srv_vps", "source": "more_services", "target": "srv_vps", "action": "View Dedicated Hosting", "trigger": "Scroll Selection", "type": "Service Flow" } },
+    { "data": { "id": "e_more_srv_excel", "source": "more_services", "target": "srv_excel", "action": "View Spreadsheet Biller", "trigger": "Scroll Selection", "type": "Service Flow" } },
+    
+    { "data": { "id": "e_prod_page_servers", "source": "products", "target": "prod_servers", "action": "View Server Offerings", "trigger": "Page Section", "type": "Product Flow" } },
+    { "data": { "id": "e_prod_page_workstations", "source": "products", "target": "prod_workstations", "action": "View Workstations Offerings", "trigger": "Page Section", "type": "Product Flow" } },
+    { "data": { "id": "e_prod_page_printers", "source": "products", "target": "prod_printers", "action": "View Printers Specs", "trigger": "Page Section", "type": "Product Flow" } },
+    { "data": { "id": "e_prod_page_scanners", "source": "products", "target": "prod_scanners", "action": "View Scanner Offerings", "trigger": "Page Section", "type": "Product Flow" } },
+    
+    { "data": { "id": "e_servers_inquiry", "source": "prod_servers", "target": "btn_floating_whatsapp", "action": "Send Quote Inquiry", "trigger": "Request Quote Button", "type": "Product Flow" } },
+    { "data": { "id": "e_workstations_inquiry", "source": "prod_workstations", "target": "btn_floating_whatsapp", "action": "Inquire Custom build", "trigger": "View Models Button", "type": "Product Flow" } },
+    
+    { "data": { "id": "e_custom_hotel", "source": "customizations", "target": "cust_hotel", "action": "Filter hotel listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_garment", "source": "customizations", "target": "cust_garment", "action": "Filter garment listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_autobom", "source": "customizations", "target": "cust_autobom", "action": "Filter BOM listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_multibranch", "source": "customizations", "target": "cust_multibranch", "action": "Filter multi sync listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_payroll", "source": "customizations", "target": "cust_payroll", "action": "Filter payroll biometric listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_mis", "source": "customizations", "target": "cust_mis", "action": "Filter MIS graphs listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_warehouse", "source": "customizations", "target": "cust_warehouse", "action": "Filter batch expiry listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    { "data": { "id": "e_custom_crm", "source": "customizations", "target": "cust_crm", "action": "Filter lead crm listing", "trigger": "Catalog Click", "type": "Customization Flow" } },
+    
+    { "data": { "id": "e_hotel_inquiry", "source": "cust_hotel", "target": "btn_floating_whatsapp", "action": "Inquire Booking Flow", "trigger": "WhatsApp Button", "type": "Customization Flow" } },
+    { "data": { "id": "e_garment_inquiry", "source": "cust_garment", "target": "btn_floating_whatsapp", "action": "Inquire Garment Flow", "trigger": "WhatsApp Button", "type": "Customization Flow" } },
+    
+    { "data": { "id": "e_about_contact", "source": "about", "target": "form_contact", "action": "Scroll to form", "trigger": "Reach Out CTA Click", "type": "Lead Generation" } },
+    
+    { "data": { "id": "e_global_floating_wa", "source": "home", "target": "btn_floating_whatsapp", "action": "Click Corner Badge", "trigger": "User Help Needed", "type": "WhatsApp Flow" } },
+    { "data": { "id": "e_footer_wa", "source": "home", "target": "btn_footer_whatsapp", "action": "Click Footer WA Link", "trigger": "Footer Action", "type": "WhatsApp Flow" } },
+    { "data": { "id": "e_footer_mail", "source": "home", "target": "btn_footer_mail", "action": "Click Email Link", "trigger": "Footer Action", "type": "Call Flow" } }
+  ]
+}

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Architecture Graph & UX Map</title>
+  <!-- Tailwind CSS v4 via Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Cytoscape JS CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0A1428;
+      color: #FFFFFF;
+    }
+    #cy {
+      width: 100%;
+      height: 100%;
+      background-color: #070F1E;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .glass-panel {
+      background: rgba(5, 12, 28, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+  <!-- HEADER BAR -->
+  <header class="h-16 shrink-0 flex items-center justify-between px-6 border-b border-white/10 glass-panel z-10">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D4AF37] to-[#ffd754] flex items-center justify-center shadow-lg shadow-[#D4AF37]/20">
+        <i data-lucide="network" class="w-5 h-5 text-black"></i>
+      </div>
+      <div>
+        <h1 class="text-base font-extrabold tracking-tight">Harsh Infotech</h1>
+        <p class="text-xs text-white/50">Website Information Graph & User Journey Flows</p>
+      </div>
+    </div>
+
+    <!-- VIEW CHIPS -->
+    <div class="flex items-center bg-black/40 rounded-full p-1 border border-white/5 gap-1">
+      <button onclick="setViewMode('all')" id="btn-view-all" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all bg-[#D4AF37] text-black">
+        Navigation View
+      </button>
+      <button onclick="setViewMode('journey')" id="btn-view-journey" class="px-4 py-1.5 rounded-full text-xs font-bold text-white/70 hover:text-white transition-all">
+        User Journey
+      </button>
+      <button onclick="setViewMode('lead')" id="btn-view-lead" class="px-4 py-1.5 rounded-full text-xs font-bold text-white/70 hover:text-white transition-all">
+        Lead Gen Flow
+      </button>
+      <button onclick="setViewMode('services')" id="btn-view-services" class="px-4 py-1.5 rounded-full text-xs font-bold text-white/70 hover:text-white transition-all">
+        Service Flow
+      </button>
+      <button onclick="setViewMode('products')" id="btn-view-products" class="px-4 py-1.5 rounded-full text-xs font-bold text-white/70 hover:text-white transition-all">
+        Product Flow
+      </button>
+      <button onclick="setViewMode('customizations')" id="btn-view-customizations" class="px-4 py-1.5 rounded-full text-xs font-bold text-white/70 hover:text-white transition-all">
+        Customizations
+      </button>
+    </div>
+
+    <!-- SEARCH & CONTROLS -->
+    <div class="flex items-center gap-4">
+      <div class="relative">
+        <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40"></i>
+        <input 
+          type="text" 
+          id="search-input"
+          oninput="handleSearch()"
+          placeholder="Search nodes or routes..." 
+          class="bg-white/5 border border-white/10 rounded-full pl-10 pr-4 py-1.5 text-xs focus:outline-none focus:border-[#D4AF37]/50 w-56 text-white"
+        />
+      </div>
+      <button onclick="resetGraph()" class="p-2 rounded-full hover:bg-white/10 border border-white/10 text-white/70 hover:text-white" title="Reset View">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- BODY CONTENT -->
+  <div class="flex flex-1 overflow-hidden relative">
+
+    <!-- LEFT SIDEBAR: ANALYTICS & AUDIT -->
+    <aside class="w-80 shrink-0 border-r border-white/10 glass-panel flex flex-col h-full z-10">
+      <!-- TABS -->
+      <div class="flex border-b border-white/10 shrink-0">
+        <button onclick="setLeftTab('analytics')" id="tab-analytics" class="flex-1 py-3 text-xs font-bold border-b-2 border-[#D4AF37] text-white">
+          Analytics Dashboard
+        </button>
+        <button onclick="setLeftTab('audit')" id="tab-audit" class="flex-1 py-3 text-xs font-bold border-b-2 border-transparent text-white/60 hover:text-white">
+          UX Audit
+        </button>
+      </div>
+
+      <!-- ANALYTICS TAB CONTENT -->
+      <div id="panel-analytics" class="flex-1 overflow-y-auto p-4 space-y-4">
+        <!-- SCORE CARD -->
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+          <div class="text-xs text-white/50 font-bold mb-1 uppercase tracking-wider">UX Optimization Score</div>
+          <div class="text-4xl font-extrabold text-[#D4AF37] tracking-tight">92%</div>
+          <div class="text-[10px] text-white/40 mt-1">Vite + React Multipaging Architecture</div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400">
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xl font-bold leading-tight">6</div>
+              <div class="text-[10px] text-white/40">Total Pages</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-green-500/10 text-green-400">
+              <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xl font-bold leading-tight">161</div>
+              <div class="text-[10px] text-white/40">Interactive Items</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400">
+              <i data-lucide="check-square" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xl font-bold leading-tight">4</div>
+              <div class="text-[10px] text-white/40">Forms</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-orange-500/10 text-orange-400">
+              <i data-lucide="star" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xl font-bold leading-tight">24</div>
+              <div class="text-[10px] text-white/40">CTA Buttons</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-yellow-500/10 text-yellow-400">
+              <i data-lucide="settings" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xl font-bold leading-tight">8</div>
+              <div class="text-[10px] text-white/40">Customizations</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="text-xl font-bold leading-tight">12</div>
+              <div class="text-[10px] text-white/40">WhatsApp Flows</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NODE TYPE FILTER CHECKBOXES -->
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-white/70 mb-3 flex items-center gap-2">
+            <i data-lucide="filter" class="w-3.5 h-3.5"></i> Filter Node Types
+          </h3>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('PAGE')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#1A73E8]"></span> Pages
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('SERVICE')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#E91E63]"></span> Services
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('PRODUCT')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF]"></span> Products
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('CUSTOMIZATION')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#FFEA00]"></span> Customizations
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('AUTH_FLOW')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#E040FB]"></span> Authentication Flow
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('FORM')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#9C27B0]"></span> Forms
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked onchange="toggleNodeType('WHATSAPP_ACTION')" class="rounded border-white/20 accent-[#D4AF37]" />
+              <span class="w-2.5 h-2.5 rounded-full bg-[#25D366]"></span> WhatsApp Actions
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- UX AUDIT TAB CONTENT -->
+      <div id="panel-audit" class="flex-1 overflow-y-auto p-4 space-y-3 hidden">
+        <div class="text-xs text-white/50 mb-4 leading-relaxed">
+          The following user experience, mobile journey, and accessibility audits have been resolved or flagged in active user journeys:
+        </div>
+
+        <div onclick="highlightAuditNodes(['auth_signup', 'btn_hero_getstarted'])" class="p-3.5 rounded-xl border border-orange-500/30 bg-orange-500/5 cursor-pointer hover:bg-orange-500/10 transition-colors">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-orange-400 flex items-center gap-1.5">
+              <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Converter Friction
+            </span>
+            <span class="text-[9px] bg-orange-500/20 text-orange-300 px-1.5 py-0.5 rounded">High Risk</span>
+          </div>
+          <p class="text-[10px] text-white/70 leading-relaxed">
+            The Sign Up Auth Gate intercepts initial custom messaging. This causes potential checkout conversion drop-off.
+          </p>
+        </div>
+
+        <div onclick="highlightAuditNodes(['navbar'])" class="p-3.5 rounded-xl border border-yellow-500/30 bg-yellow-500/5 cursor-pointer hover:bg-yellow-500/10 transition-colors">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-yellow-400 flex items-center gap-1.5">
+              <i data-lucide="info" class="w-3.5 h-3.5"></i> Redundant Anchors
+            </span>
+            <span class="text-[9px] bg-yellow-500/20 text-yellow-300 px-1.5 py-0.5 rounded">Medium</span>
+          </div>
+          <p class="text-[10px] text-white/70 leading-relaxed">
+            Global footer contains simple static index routes duplicating navbar submenus layout.
+          </p>
+        </div>
+
+        <div onclick="highlightAuditNodes(['home', 'about', 'services'])" class="p-3.5 rounded-xl border border-green-500/30 bg-green-500/5 cursor-pointer hover:bg-green-500/10 transition-colors">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-green-400 flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Navigation Breakpoint
+            </span>
+            <span class="text-[9px] bg-green-500/20 text-green-300 px-1.5 py-0.5 rounded">Resolved</span>
+          </div>
+          <p class="text-[10px] text-white/70 leading-relaxed">
+            Navbar inline elements overflow issues on viewports between 1024px and 1280px solved by shifting drawer to xl.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER AREA: CANVAS CONTAINER -->
+    <main class="flex-1 relative flex flex-col h-full">
+      <div id="cy" class="flex-1"></div>
+
+      <!-- FLOATING CONTROLLER BADGES -->
+      <div class="absolute bottom-6 left-6 flex items-center gap-2 bg-black/60 backdrop-blur border border-white/10 rounded-xl p-1 z-10 shadow-lg">
+        <button onclick="cy.zoom(cy.zoom() + 0.1)" class="p-2.5 rounded-lg hover:bg-white/10 text-white/80 hover:text-white transition-all" title="Zoom In">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+        </button>
+        <button onclick="cy.zoom(cy.zoom() - 0.1)" class="p-2.5 rounded-lg hover:bg-white/10 text-white/80 hover:text-white transition-all" title="Zoom Out">
+          <i data-lucide="minus" class="w-4 h-4"></i>
+        </button>
+        <button onclick="cy.fit()" class="p-2.5 rounded-lg hover:bg-white/10 text-white/80 hover:text-white transition-all" title="Fit Graph">
+          <i data-lucide="maximize" class="w-4 h-4"></i>
+        </button>
+        <button onclick="centerGraph()" class="p-2.5 rounded-lg hover:bg-white/10 text-white/80 hover:text-white transition-all" title="Center Graph">
+          <i data-lucide="align-center" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- LEGEND PANEL -->
+      <div class="absolute bottom-6 right-6 p-4 bg-black/75 backdrop-blur border border-white/10 rounded-2xl z-10 shadow-xl max-w-xs text-xs space-y-2">
+        <h4 class="font-extrabold text-white/50 uppercase tracking-wider text-[10px]">Flow Connections Legend</h4>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-0.5 bg-blue-500"></div> <span class="text-white/80">Navigation Path</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-0.5 bg-yellow-500"></div> <span class="text-white/80">Action Trigger / CTA</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-0.5 bg-purple-500"></div> <span class="text-white/80">Auth Gateway Path</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR: DETAILED CARD INSPECTOR -->
+    <aside class="w-96 shrink-0 border-l border-white/10 glass-panel flex flex-col h-full z-10 overflow-y-auto p-5">
+      <div id="inspector-placeholder" class="h-full flex flex-col items-center justify-center text-center text-white/40 px-6">
+        <i data-lucide="info" class="w-12 h-12 mb-4 stroke-1"></i>
+        <h3 class="font-bold text-sm mb-1 text-white/80">Node Inspector</h3>
+        <p class="text-xs">Click any node or route on the diagram map to explore layout previews, wireframes, and metadata details.</p>
+      </div>
+
+      <div id="inspector-content" class="space-y-6 hidden">
+        <div class="flex items-center gap-3 pb-4 border-b border-white/10">
+          <div id="node-icon-wrapper" class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
+            <i data-lucide="file-text" id="inspector-node-icon"></i>
+          </div>
+          <div>
+            <h2 id="inspector-name" class="font-extrabold text-base text-white">Home Page</h2>
+            <span id="inspector-badge" class="px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-blue-500/20 text-blue-300">
+              PAGE
+            </span>
+          </div>
+        </div>
+
+        <!-- DYNAMIC SVG WIREFRAME PREVIEW -->
+        <div>
+          <h4 class="text-[10px] font-extrabold uppercase tracking-wider text-white/50 mb-2.5">UI Wireframe Mockup</h4>
+          <div id="inspector-wireframe" class="w-full aspect-[16/10] bg-[#070F1E] rounded-xl border border-white/10 overflow-hidden relative flex flex-col p-3 shadow-inner">
+            <!-- Render dynamically -->
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-[10px] font-extrabold uppercase tracking-wider text-white/50 mb-2">Description</h4>
+          <p id="inspector-desc" class="text-xs text-white/70 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5">
+            Main landing section featuring business value propositions, tally prime details, customization shop, and contact entries.
+          </p>
+        </div>
+
+        <!-- METADATA TABLE -->
+        <div>
+          <h4 class="text-[10px] font-extrabold uppercase tracking-wider text-white/50 mb-2">Metadata Metrics</h4>
+          <table class="w-full text-xs border-collapse">
+            <tbody>
+              <tr class="border-b border-white/5">
+                <td class="py-2 text-white/50">Route / URL</td>
+                <td id="inspector-url" class="py-2 font-mono text-right text-blue-400 break-all select-all">/index.html</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-2 text-white/50">Mobile Available</td>
+                <td id="inspector-mobile" class="py-2 text-right">Yes</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-2 text-white/50">Desktop Available</td>
+                <td id="inspector-desktop" class="py-2 text-right">Yes</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-2 text-white/50">Interactive Buttons</td>
+                <td id="inspector-clickable" class="py-2 text-right font-bold">42</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-2 text-white/50">Forms Count</td>
+                <td id="inspector-forms" class="py-2 text-right font-bold">2</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-2 text-white/50">CTA Elements</td>
+                <td id="inspector-ctas" class="py-2 text-right font-bold">5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- GRAPH DATA LOADER & SETUP SCRIPT -->
+  <script>
+    let cy = null;
+    let graphData = null;
+    let activeViewMode = 'all';
+    let hiddenTypes = new Set();
+
+    // COLOR PALETTE BASED ON TYPE
+    const typeColors = {
+      'PAGE': '#1A73E8',
+      'SERVICE': '#E91E63',
+      'PRODUCT': '#00E5FF',
+      'CUSTOMIZATION': '#FFEA00',
+      'AUTH_FLOW': '#E040FB',
+      'FORM': '#9C27B0',
+      'WHATSAPP_ACTION': '#25D366',
+      'CALL_ACTION': '#3D5AFE',
+      'CTA': '#FF9100',
+      'DROPDOWN_LINK': '#795548',
+      'FOOTER_LINK': '#9E9E9E'
+    };
+
+    // HARDCODED OPTIMIZED LAYOUT POSITIONS
+    const positions = {
+      // Column 1: Auth & Gateway
+      'auth_signup': { x: 100, y: 150 },
+      'auth_google': { x: 100, y: 350 },
+      'auth_profile': { x: 100, y: 550 },
+      // Column 2: Navigation Mappings
+      'navbar': { x: 300, y: 100 },
+      'dropdown_services': { x: 300, y: 250 },
+      'dropdown_products': { x: 300, y: 400 },
+      'mobile_menu': { x: 300, y: 550 },
+      // Column 3: Main Pages
+      'home': { x: 550, y: 100 },
+      'services': { x: 550, y: 250 },
+      'more_services': { x: 550, y: 400 },
+      'products': { x: 550, y: 550 },
+      'customizations': { x: 550, y: 700 },
+      'about': { x: 550, y: 850 },
+      // Column 4: Detailed Items
+      'srv_license': { x: 800, y: 120 },
+      'srv_cloud': { x: 800, y: 200 },
+      'srv_customization': { x: 800, y: 280 },
+      'srv_amc': { x: 800, y: 360 },
+      'srv_vps': { x: 800, y: 440 },
+      'srv_excel': { x: 800, y: 520 },
+      'srv_migration': { x: 800, y: 600 },
+      'srv_hardware': { x: 800, y: 680 },
+      'prod_servers': { x: 1050, y: 150 },
+      'prod_workstations': { x: 1050, y: 270 },
+      'prod_printers': { x: 1050, y: 390 },
+      'prod_scanners': { x: 1050, y: 510 },
+      'cust_hotel': { x: 1300, y: 100 },
+      'cust_garment': { x: 1300, y: 180 },
+      'cust_autobom': { x: 1300, y: 260 },
+      'cust_multibranch': { x: 1300, y: 340 },
+      'cust_payroll': { x: 1300, y: 420 },
+      'cust_mis': { x: 1300, y: 500 },
+      'cust_warehouse': { x: 1300, y: 580 },
+      'cust_crm': { x: 1300, y: 660 },
+      // Column 5: Forms & Actions
+      'form_contact': { x: 1550, y: 120 },
+      'form_newsletter': { x: 1550, y: 220 },
+      'btn_hero_getstarted': { x: 1550, y: 320 },
+      'btn_hero_call': { x: 1550, y: 420 },
+      'btn_hero_whatsapp': { x: 1550, y: 520 },
+      'btn_footer_whatsapp': { x: 1550, y: 620 },
+      'btn_footer_mail': { x: 1550, y: 720 },
+      'btn_floating_whatsapp': { x: 1550, y: 820 }
+    };
+
+    // FETCH DATASET ON LOAD
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const res = await fetch('website-graph-data.json');
+        graphData = await res.json();
+        initializeGraph();
+        lucide.createIcons();
+      } catch (err) {
+        console.error("Unable to load graph json data, fallback inline config running...", err);
+        // Fallback placeholder data if local fetch blocked
+        graphData = { nodes: [], edges: [] };
+      }
+    });
+
+    function initializeGraph() {
+      // Add custom colors and position calculations
+      const elements = {
+        nodes: graphData.nodes.map(node => {
+          const color = typeColors[node.data.type] || '#FFFFFF';
+          return {
+            group: 'nodes',
+            data: { ...node.data, color },
+            position: positions[node.data.id] || { x: Math.random() * 500, y: Math.random() * 500 }
+          };
+        }),
+        edges: graphData.edges.map(edge => {
+          return {
+            group: 'edges',
+            data: edge.data
+          };
+        })
+      };
+
+      cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: elements,
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'label': 'data(name)',
+              'background-color': 'data(color)',
+              'width': '190px',
+              'height': '62px',
+              'shape': 'round-rectangle',
+              'text-valign': 'center',
+              'text-halign': 'center',
+              'color': '#000000',
+              'font-family': '"Plus Jakarta Sans", sans-serif',
+              'font-size': '11px',
+              'font-weight': 'bold',
+              'text-wrap': 'wrap',
+              'border-width': '2px',
+              'border-color': 'rgba(255, 255, 255, 0.15)',
+              'text-margin-y': '0px'
+            }
+          },
+          // Adjust labels for nodes containing white text color targets
+          {
+            selector: 'node[type="PAGE"], node[type="SERVICE"], node[type="AUTH_FLOW"], node[type="FORM"], node[type="CALL_ACTION"]',
+            style: {
+              'color': '#FFFFFF'
+            }
+          },
+          {
+            selector: 'edge',
+            style: {
+              'width': 2.5,
+              'line-color': 'rgba(255, 255, 255, 0.16)',
+              'target-arrow-color': 'rgba(255, 255, 255, 0.2)',
+              'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier',
+              'label': 'data(trigger)',
+              'font-size': '9px',
+              'color': '#8B949E',
+              'text-background-opacity': 0.95,
+              'text-background-color': '#070F1E',
+              'text-background-padding': '4px',
+              'text-background-shape': 'round-rectangle',
+              'font-family': '"Plus Jakarta Sans", sans-serif'
+            }
+          },
+          // Flow Specific edge overlays
+          {
+            selector: 'edge[type="Navigation"]',
+            style: {
+              'line-color': '#2188FF',
+              'target-arrow-color': '#2188FF'
+            }
+          },
+          {
+            selector: 'edge[type="Authentication"]',
+            style: {
+              'line-color': '#E040FB',
+              'target-arrow-color': '#E040FB',
+              'line-style': 'dashed'
+            }
+          },
+          {
+            selector: 'edge[type="CTA Flow"], edge[type="WhatsApp Flow"], edge[type="Call Flow"], edge[type="Lead Generation"]',
+            style: {
+              'line-color': '#D4AF37',
+              'target-arrow-color': '#D4AF37'
+            }
+          },
+          // Highlights
+          {
+            selector: 'node.highlighted',
+            style: {
+              'border-color': '#FFFFFF',
+              'border-width': '4px',
+              'scale': 1.15
+            }
+          },
+          {
+            selector: 'edge.highlighted',
+            style: {
+              'line-color': '#D4AF37',
+              'target-arrow-color': '#D4AF37',
+              'width': 4.5,
+              'color': '#FFFFFF',
+              'font-weight': 'bold'
+            }
+          },
+          {
+            selector: 'node.dimmed',
+            style: {
+              'opacity': 0.15
+            }
+          },
+          {
+            selector: 'edge.dimmed',
+            style: {
+              'opacity': 0.04
+            }
+          }
+        ],
+        layout: {
+          name: 'preset'
+        },
+        userZoomingEnabled: true,
+        userPanningEnabled: true,
+        boxSelectionEnabled: false
+      });
+
+      // EVENT LISTENERS
+      cy.on('tap', 'node', (evt) => {
+        const node = evt.target;
+        inspectNode(node.data());
+        highlightIncomingOutgoing(node);
+      });
+
+      cy.on('tap', (evt) => {
+        if (evt.target === cy) {
+          clearHighlight();
+          hideInspector();
+        }
+      });
+
+      // Adjust viewport bounds
+      cy.fit(null, 60);
+    }
+
+    // INSPECT NODE & RENDER SVG MOCKUP PREVIEW
+    function inspectNode(data) {
+      document.getElementById("inspector-placeholder").classList.add("hidden");
+      document.getElementById("inspector-content").classList.remove("hidden");
+
+      document.getElementById("inspector-name").innerText = data.name;
+      document.getElementById("inspector-badge").innerText = data.type;
+      
+      // Dynamic badge style
+      const badge = document.getElementById("inspector-badge");
+      badge.style.backgroundColor = (typeColors[data.type] || '#FFF') + '30';
+      badge.style.color = typeColors[data.type] || '#FFF';
+
+      document.getElementById("inspector-desc").innerText = data.desc || "No description provided.";
+      document.getElementById("inspector-url").innerText = data.url;
+      document.getElementById("inspector-mobile").innerText = data.mobileAvailable || "Yes";
+      document.getElementById("inspector-desktop").innerText = data.desktopAvailable || "Yes";
+      document.getElementById("inspector-clickable").innerText = data.clickableCount || 0;
+      document.getElementById("inspector-forms").innerText = data.formsCount || 0;
+      document.getElementById("inspector-ctas").innerText = data.ctaCount || 0;
+
+      // Update Node Icon
+      const iconMap = {
+        'PAGE': 'file-text',
+        'SERVICE': 'check-circle',
+        'PRODUCT': 'hard-drive',
+        'CUSTOMIZATION': 'settings',
+        'AUTH_FLOW': 'shield-check',
+        'FORM': 'clipboard-list',
+        'WHATSAPP_ACTION': 'message-square',
+        'CALL_ACTION': 'phone'
+      };
+      const iconName = iconMap[data.type] || 'file-text';
+      document.getElementById("inspector-node-icon").setAttribute("data-lucide", iconName);
+      lucide.createIcons();
+
+      // RENDER WIREFRAME PREVIEW
+      const wireframeContainer = document.getElementById("inspector-wireframe");
+      wireframeContainer.innerHTML = getWireframeSvg(data.id, data.name, data.type);
+    }
+
+    function hideInspector() {
+      document.getElementById("inspector-placeholder").classList.remove("hidden");
+      document.getElementById("inspector-content").classList.add("hidden");
+    }
+
+    // SEARCH FILTER LOADER
+    function handleSearch() {
+      const query = document.getElementById("search-input").value.toLowerCase().trim();
+      if (!cy) return;
+
+      if (query === "") {
+        clearHighlight();
+        return;
+      }
+
+      cy.elements().forEach(ele => {
+        if (ele.isNode()) {
+          const match = ele.data('name').toLowerCase().includes(query) || 
+                        ele.data('type').toLowerCase().includes(query) || 
+                        ele.data('url').toLowerCase().includes(query);
+          if (match) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.removeClass('highlighted').addClass('dimmed');
+          }
+        } else {
+          // Edges
+          const sourceMatch = ele.source().data('name').toLowerCase().includes(query);
+          const targetMatch = ele.target().data('name').toLowerCase().includes(query);
+          const triggerMatch = ele.data('trigger') && ele.data('trigger').toLowerCase().includes(query);
+          if (sourceMatch || targetMatch || triggerMatch) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.removeClass('highlighted').addClass('dimmed');
+          }
+        }
+      });
+    }
+
+    // HIGHLIGHT INCOMING/OUTGOING EDGES
+    function highlightIncomingOutgoing(node) {
+      clearHighlight();
+      node.addClass('highlighted');
+      
+      const connectedEdges = node.connectedEdges();
+      connectedEdges.addClass('highlighted');
+      
+      const connectedNodes = connectedEdges.connectedNodes();
+      connectedNodes.forEach(n => {
+        if (n.id() !== node.id()) {
+          n.addClass('highlighted');
+        }
+      });
+
+      // Dim all others
+      cy.elements().forEach(ele => {
+        if (!ele.hasClass('highlighted') && ele !== connectedEdges) {
+          ele.addClass('dimmed');
+        }
+      });
+    }
+
+    function clearHighlight() {
+      if (!cy) return;
+      cy.elements().removeClass('highlighted').removeClass('dimmed');
+    }
+
+    function resetGraph() {
+      clearHighlight();
+      hideInspector();
+      document.getElementById("search-input").value = "";
+      if (cy) {
+        cy.fit(null, 60);
+      }
+    }
+
+    function centerGraph() {
+      if (cy) {
+        cy.center();
+      }
+    }
+
+    // DYNAMIC WIREFRAMES GENERATOR
+    function getWireframeSvg(id, name, type) {
+      // Returns responsive SVG mockups to visual design specifications
+      const headerHtml = `
+        <rect x="0" y="0" width="100%" height="15" fill="#0A1428" />
+        <circle cx="8" cy="7" r="2.5" fill="#FF5F56" />
+        <circle cx="15" cy="7" r="2.5" fill="#FFBD2E" />
+        <circle cx="22" cy="7" r="2.5" fill="#27C93F" />
+        <rect x="35" y="4" width="70" height="7" rx="3.5" fill="rgba(255,255,255,0.08)" />
+      `;
+      
+      if (type === 'PAGE') {
+        if (id === 'home') {
+          return `
+            <svg width="100%" height="100%" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full bg-[#070F1E]">
+              ${headerHtml}
+              <!-- Hero section -->
+              <rect x="10" y="25" width="100" height="20" rx="3" fill="rgba(255,255,255,0.04)" />
+              <rect x="15" y="30" width="70" height="4" fill="#D4AF37" />
+              <rect x="15" y="38" width="50" height="2" fill="rgba(255,255,255,0.4)" />
+              <rect x="120" y="25" width="70" height="40" rx="5" fill="rgba(212,175,55,0.15)" />
+              <!-- Grids list -->
+              <rect x="10" y="75" width="55" height="25" rx="3" fill="rgba(255,255,255,0.05)" />
+              <rect x="72" y="75" width="55" height="25" rx="3" fill="rgba(255,255,255,0.05)" />
+              <rect x="135" y="75" width="55" height="25" rx="3" fill="rgba(255,255,255,0.05)" />
+              <!-- Labels -->
+              <rect x="20" y="80" width="35" height="3" fill="rgba(255,255,255,0.5)" />
+              <rect x="82" y="80" width="35" height="3" fill="rgba(255,255,255,0.5)" />
+              <rect x="145" y="80" width="35" height="3" fill="rgba(255,255,255,0.5)" />
+            </svg>
+          `;
+        }
+        if (id === 'customizations') {
+          return `
+            <svg width="100%" height="100%" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+              ${headerHtml}
+              <!-- Sidebar Filters -->
+              <rect x="10" y="25" width="40" height="85" rx="3" fill="rgba(255,255,255,0.03)" />
+              <rect x="15" y="32" width="30" height="3" fill="#D4AF37" />
+              <rect x="15" y="42" width="25" height="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="15" y="50" width="20" height="2" fill="rgba(255,255,255,0.3)" />
+              <!-- Catalog Card Grid -->
+              <rect x="60" y="25" width="60" height="35" rx="3" fill="rgba(255,255,255,0.05)" />
+              <rect x="130" y="25" width="60" height="35" rx="3" fill="rgba(255,255,255,0.05)" />
+              <rect x="60" y="70" width="60" height="35" rx="3" fill="rgba(255,255,255,0.05)" />
+              <rect x="130" y="70" width="60" height="35" rx="3" fill="rgba(255,255,255,0.05)" />
+              <!-- Layout toggles -->
+              <circle cx="170" cy="18" r="2.5" fill="#D4AF37" />
+              <circle cx="178" cy="18" r="2.5" fill="rgba(255,255,255,0.2)" />
+              <circle cx="186" cy="18" r="2.5" fill="rgba(255,255,255,0.2)" />
+            </svg>
+          `;
+        }
+        return `
+          <svg width="100%" height="100%" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            ${headerHtml}
+            <rect x="10" y="25" width="180" height="30" rx="3" fill="rgba(255,255,255,0.03)" />
+            <rect x="20" y="35" width="100" height="4" fill="rgba(255,255,255,0.8)" />
+            <rect x="20" y="44" width="140" height="2" fill="rgba(255,255,255,0.4)" />
+            <!-- Inner card layouts -->
+            <rect x="10" y="65" width="85" height="45" rx="4" fill="rgba(255,255,255,0.05)" />
+            <rect x="105" y="65" width="85" height="45" rx="4" fill="rgba(255,255,255,0.05)" />
+          </svg>
+        `;
+      }
+      
+      if (type === 'FORM') {
+        return `
+          <svg width="100%" height="100%" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="180" height="100" rx="6" fill="rgba(156,39,176,0.05)" stroke="rgba(156,39,176,0.3)" stroke-width="1.5" />
+            <rect x="25" y="25" width="150" height="12" rx="3" fill="rgba(255,255,255,0.05)" />
+            <rect x="25" y="45" width="150" height="12" rx="3" fill="rgba(255,255,255,0.05)" />
+            <rect x="25" y="65" width="150" height="24" rx="3" fill="rgba(255,255,255,0.05)" />
+            <rect x="25" y="94" width="50" height="10" rx="5" fill="#9C27B0" />
+          </svg>
+        `;
+      }
+
+      if (type === 'AUTH_FLOW') {
+        return `
+          <svg width="100%" height="100%" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="15" width="150" height="90" rx="8" fill="#070F1E" stroke="#E040FB" stroke-width="2" />
+            <circle cx="100" cy="35" r="10" fill="rgba(224,64,251,0.2)" />
+            <rect x="45" y="55" width="110" height="8" rx="2" fill="rgba(255,255,255,0.05)" />
+            <rect x="45" y="68" width="110" height="8" rx="2" fill="rgba(255,255,255,0.05)" />
+            <rect x="45" y="82" width="110" height="12" rx="6" fill="#E040FB" />
+          </svg>
+        `;
+      }
+
+      return `
+        <svg width="100%" height="100%" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="25" width="180" height="70" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" />
+          <circle cx="100" cy="60" r="18" fill="rgba(212,175,55,0.1)" stroke="#D4AF37" stroke-width="1.5" />
+          <rect x="60" y="88" width="80" height="4" fill="rgba(255,255,255,0.4)" />
+        </svg>
+      `;
+    }
+
+    // LEFT PANEL TAB CONTROLLER
+    function setLeftTab(tab) {
+      document.getElementById('tab-analytics').classList.remove('border-[#D4AF37]', 'text-white');
+      document.getElementById('tab-analytics').classList.add('border-transparent', 'text-white/60');
+      document.getElementById('tab-audit').classList.remove('border-[#D4AF37]', 'text-white');
+      document.getElementById('tab-audit').classList.add('border-transparent', 'text-white/60');
+
+      document.getElementById('panel-analytics').classList.add('hidden');
+      document.getElementById('panel-audit').classList.add('hidden');
+
+      if (tab === 'analytics') {
+        document.getElementById('tab-analytics').classList.remove('border-transparent', 'text-white/60');
+        document.getElementById('tab-analytics').classList.add('border-[#D4AF37]', 'text-white');
+        document.getElementById('panel-analytics').classList.remove('hidden');
+      } else {
+        document.getElementById('tab-audit').classList.remove('border-transparent', 'text-white/60');
+        document.getElementById('tab-audit').classList.add('border-[#D4AF37]', 'text-white');
+        document.getElementById('panel-audit').classList.remove('hidden');
+      }
+    }
+
+    // TOGGLE NODE TYPE FILTERS
+    function toggleNodeType(type) {
+      if (hiddenTypes.has(type)) {
+        hiddenTypes.delete(type);
+      } else {
+        hiddenTypes.add(type);
+      }
+      applyFilters();
+    }
+
+    function applyFilters() {
+      if (!cy) return;
+      cy.elements().forEach(ele => {
+        if (ele.isNode()) {
+          const type = ele.data('type');
+          if (hiddenTypes.has(type)) {
+            ele.style('display', 'none');
+          } else {
+            ele.style('display', 'element');
+          }
+        }
+      });
+    }
+
+    // FLOW VIEWS TOGGLES
+    function setViewMode(mode) {
+      activeViewMode = mode;
+      
+      // Update buttons style
+      const btnIds = ['btn-view-all', 'btn-view-journey', 'btn-view-lead', 'btn-view-services', 'btn-view-products', 'btn-view-customizations'];
+      btnIds.forEach(id => {
+        const btn = document.getElementById(id);
+        if (id === 'btn-view-' + mode) {
+          btn.classList.add('bg-[#D4AF37]', 'text-black');
+          btn.classList.remove('text-white/70', 'hover:text-white');
+        } else {
+          btn.classList.remove('bg-[#D4AF37]', 'text-black');
+          btn.classList.add('text-white/70', 'hover:text-white');
+        }
+      });
+
+      if (!cy) return;
+      clearHighlight();
+
+      if (mode === 'all') {
+        cy.elements().removeClass('dimmed');
+      } else if (mode === 'journey') {
+        // Highlight journey nodes
+        const activeIds = ['home', 'btn_hero_getstarted', 'auth_signup', 'auth_google', 'auth_profile'];
+        cy.elements().forEach(ele => {
+          if (ele.isNode() && activeIds.includes(ele.id())) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else if (ele.isEdge() && activeIds.includes(ele.source().id()) && activeIds.includes(ele.target().id())) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.addClass('dimmed');
+          }
+        });
+      } else if (mode === 'lead') {
+        const activeIds = ['home', 'form_contact', 'btn_hero_call', 'btn_hero_whatsapp', 'btn_floating_whatsapp', 'btn_footer_whatsapp', 'btn_footer_mail'];
+        cy.elements().forEach(ele => {
+          if (ele.isNode() && activeIds.includes(ele.id())) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else if (ele.isEdge() && activeIds.includes(ele.source().id()) && activeIds.includes(ele.target().id())) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.addClass('dimmed');
+          }
+        });
+      } else if (mode === 'services') {
+        cy.elements().forEach(ele => {
+          const isService = ele.isNode() && (ele.data('type') === 'SERVICE' || ele.id() === 'services' || ele.id() === 'more_services' || ele.id() === 'navbar' || ele.id() === 'dropdown_services');
+          const isEdge = ele.isEdge() && (ele.source().data('type') === 'SERVICE' || ele.target().data('type') === 'SERVICE' || ele.source().id() === 'services' || ele.target().id() === 'services');
+          if (isService || isEdge) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.addClass('dimmed');
+          }
+        });
+      } else if (mode === 'products') {
+        cy.elements().forEach(ele => {
+          const isProd = ele.isNode() && (ele.data('type') === 'PRODUCT' || ele.id() === 'products' || ele.id() === 'navbar' || ele.id() === 'dropdown_products');
+          const isEdge = ele.isEdge() && (ele.source().data('type') === 'PRODUCT' || ele.target().data('type') === 'PRODUCT' || ele.source().id() === 'products' || ele.target().id() === 'products');
+          if (isProd || isEdge) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.addClass('dimmed');
+          }
+        });
+      } else if (mode === 'customizations') {
+        cy.elements().forEach(ele => {
+          const isCust = ele.isNode() && (ele.data('type') === 'CUSTOMIZATION' || ele.id() === 'customizations' || ele.id() === 'navbar');
+          const isEdge = ele.isEdge() && (ele.source().data('type') === 'CUSTOMIZATION' || ele.target().data('type') === 'CUSTOMIZATION' || ele.source().id() === 'customizations' || ele.target().id() === 'customizations');
+          if (isCust || isEdge) {
+            ele.removeClass('dimmed').addClass('highlighted');
+          } else {
+            ele.addClass('dimmed');
+          }
+        });
+      }
+    }
+
+    // UX AUDIT CLICK LISTENER
+    function highlightAuditNodes(nodeIds) {
+      if (!cy) return;
+      clearHighlight();
+      cy.elements().forEach(ele => {
+        if (ele.isNode() && nodeIds.includes(ele.id())) {
+          ele.removeClass('dimmed').addClass('highlighted');
+        } else {
+          ele.addClass('dimmed');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

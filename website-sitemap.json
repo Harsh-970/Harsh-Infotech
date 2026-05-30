@@ -1,0 +1,128 @@
+{
+  "site": "Harsh Infotech Consultancy Services",
+  "domain": "https://harshinfotechcs.in",
+  "crawledAt": "2026-05-30T20:05:00Z",
+  "pages": [
+    {
+      "id": "home",
+      "name": "Home",
+      "route": "/",
+      "fileName": "index.html",
+      "title": "Harsh Infotech Consultancy Services",
+      "description": "Premium Tally Prime solutions, cloud hosting, customizations, and IT infrastructure.",
+      "clickableElementsCount": 42,
+      "formsCount": 2,
+      "ctaButtonsCount": 5,
+      "mobileAvailable": true,
+      "desktopAvailable": true,
+      "links": [
+        { "label": "Services Dropdown", "target": "/services.html" },
+        { "label": "Products Dropdown", "target": "/products.html" },
+        { "label": "Customizations", "target": "/customizations.html" },
+        { "label": "About", "target": "/about.html" },
+        { "label": "Contact", "target": "#contact" },
+        { "label": "Sign Up", "target": "#auth-gate" },
+        { "label": "Get Started", "target": "#auth-gate" },
+        { "label": "Call Now", "target": "tel:+917558604483" },
+        { "label": "WhatsApp", "target": "https://wa.me/917558604483" }
+      ]
+    },
+    {
+      "id": "services",
+      "name": "Core Services",
+      "route": "/services.html",
+      "fileName": "services.html",
+      "title": "Tally Prime Solutions & Services",
+      "description": "Complete Tally Prime licensing, remote cloud configurations, and tailored module customizations.",
+      "clickableElementsCount": 28,
+      "formsCount": 1,
+      "ctaButtonsCount": 4,
+      "mobileAvailable": true,
+      "desktopAvailable": true,
+      "links": [
+        { "label": "Home", "target": "/" },
+        { "label": "Tally Prime License", "target": "#tally-license" },
+        { "label": "Tally on Cloud", "target": "#tally-cloud" },
+        { "label": "Tally Customization", "target": "#tally-customization" },
+        { "label": "Contact on WhatsApp", "target": "https://wa.me/917558604483" }
+      ]
+    },
+    {
+      "id": "more-services",
+      "name": "Additional Services",
+      "route": "/more-services.html",
+      "fileName": "more-services.html",
+      "title": "VPS, AMC & Data Migration Services",
+      "description": "Excel-to-Tally integration, VPS cloud instances, AMC IT support, and database migration.",
+      "clickableElementsCount": 22,
+      "formsCount": 0,
+      "ctaButtonsCount": 3,
+      "mobileAvailable": true,
+      "desktopAvailable": true,
+      "links": [
+        { "label": "Home", "target": "/" },
+        { "label": "AMC & Support", "target": "#amc" },
+        { "label": "VPS Hosting", "target": "#vps" },
+        { "label": "Excel to Tally", "target": "#excel" },
+        { "label": "Data Migration", "target": "#data" },
+        { "label": "Hardware Support", "target": "#hardware" }
+      ]
+    },
+    {
+      "id": "products",
+      "name": "Hardware Products",
+      "route": "/products.html",
+      "fileName": "products.html",
+      "title": "Enterprise Servers & Workstations",
+      "description": "Premium enterprise computing servers, professional workstations, network printers, and document scanners.",
+      "clickableElementsCount": 18,
+      "formsCount": 0,
+      "ctaButtonsCount": 4,
+      "mobileAvailable": true,
+      "desktopAvailable": true,
+      "links": [
+        { "label": "Home", "target": "/" },
+        { "label": "Servers Quote", "target": "https://wa.me/917558604483?text=Hi,%20I%20want%20a%20quote%20for%20Enterprise%20Servers" },
+        { "label": "Workstations Inquiry", "target": "https://wa.me/917558604483?text=Hi,%20I%20want%20a%20quote%20for%20Professional%20Workstations" },
+        { "label": "Printers Compare", "target": "https://wa.me/917558604483?text=Hi,%20I%20want%20a%20quote%20for%20Commercial%20Printers" },
+        { "label": "Scanners Catalog", "target": "https://wa.me/917558604483?text=Hi,%20I%20want%20a%20quote%20for%20High-Speed%20Scanners" }
+      ]
+    },
+    {
+      "id": "customizations",
+      "name": "Tally Customizations",
+      "route": "/customizations.html",
+      "fileName": "customizations.html",
+      "title": "Tally Modules & Add-Ons Shop",
+      "description": "Explore and acquire customized modules for garments, hotels, biometrics, CRM, BOM, and warehouse expiries in Tally.",
+      "clickableElementsCount": 35,
+      "formsCount": 0,
+      "ctaButtonsCount": 8,
+      "mobileAvailable": true,
+      "desktopAvailable": true,
+      "links": [
+        { "label": "Home", "target": "/" },
+        { "label": "Hotel Customization Quote", "target": "https://wa.me/917558604483?text=Hi,%20I'm%20interested%20in%20Hotel%20%26%20Lodging%20Management%20System" },
+        { "label": "Garment apparel customization", "target": "https://wa.me/917558604483?text=Hi,%20I'm%20interested%20in%20Garment%20%26%20Apparel%20Grid%20Billing%20Module" }
+      ]
+    },
+    {
+      "id": "about",
+      "name": "About Us",
+      "route": "/about.html",
+      "fileName": "about.html",
+      "title": "About Harsh Infotech",
+      "description": "Our company mission, client-dedicated sales/marketing/support teams, and technology background.",
+      "clickableElementsCount": 16,
+      "formsCount": 0,
+      "ctaButtonsCount": 2,
+      "mobileAvailable": true,
+      "desktopAvailable": true,
+      "links": [
+        { "label": "Home", "target": "/" },
+        { "label": "Contact Us CTA", "target": "#contact" },
+        { "label": "Tally Solutions link", "target": "/services.html" }
+      ]
+    }
+  ]
+}
