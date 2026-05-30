@@ -148,8 +148,6 @@ const Services = () => {
         {services.map((s, i) => (
           <motion.a 
             href={s.link}
-            data-auth-gated="true"
-            data-service-name={s.title}
             key={i}
             whileHover={{ y: -10 }}
             className="block p-10 glass-card group flex flex-col items-center text-center"
@@ -207,8 +205,6 @@ const MoreSolutions = () => {
         {solutions.map((s, i) => (
           <motion.a 
             href={`/more-services.html#${s.id}`}
-            data-auth-gated="true"
-            data-service-name={s.title}
             key={i}
             whileHover={{ y: -10 }}
             className="block w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1.333rem)] p-6 lg:p-10 glass-card group"
@@ -244,8 +240,6 @@ const OurProducts = () => {
         {products.map((p, i) => (
           <motion.a 
             href={`/products.html#${p.id}`}
-            data-auth-gated="true"
-            data-service-name={p.title}
             key={i}
             whileHover={{ y: -10 }}
             className="block w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(50%-1rem)] p-6 lg:p-10 glass-card group flex flex-col items-center md:items-start text-center md:text-left"
