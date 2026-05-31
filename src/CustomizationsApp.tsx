@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, LayoutGroup, useMotionValue, useTransform, type PanInfo } from "motion/react";
 import { 
-  Search, ArrowLeft, CheckCircle2, ChevronRight, HelpCircle, 
+  Search, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, HelpCircle, 
   Tag, MessageSquare, TrendingUp, Sparkles, Filter, RefreshCw,
   Phone, Globe, Info, Zap, Settings, Shield, ChevronDown,
   Layers, Grid3X3, LayoutList
@@ -23,6 +23,48 @@ export default function CustomizationsApp() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [layoutMode, setLayoutMode] = useState<"grid" | "list" | "stack">("grid");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragDirection, setDragDirection] = useState<'up' | 'down' | null>(null);
+
+  const dragY = useMotionValue(0);
+  const rotateX = useTransform(dragY, [-200, 0, 200], [15, 0, -15]);
+  const dragOpacity = useTransform(dragY, [-200, -100, 0, 100, 200], [0, 0.5, 1, 0.5, 0]);
+
+  const SWIPE_THRESHOLD = 50;
+
+  const handleDragEnd = (_event: any, info: PanInfo) => {
+    const velocity = info.velocity.y;
+    const offset = info.offset.y;
+
+    if (Math.abs(offset) > SWIPE_THRESHOLD || Math.abs(velocity) > 500) {
+      if (offset < 0 || velocity < 0) {
+        setDragDirection('up');
+        setTimeout(() => {
+          setActiveIndex((prev) => (prev + 1) % filteredItems.length);
+          setDragDirection(null);
+        }, 150);
+      } else {
+        setDragDirection('down');
+        setTimeout(() => {
+          setActiveIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
+          setDragDirection(null);
+        }, 150);
+      }
+    }
+    dragY.set(0);
+    setIsDragging(false);
+  };
+
+  // Reset activeIndex when filters change
+  useEffect(() => {
+    setActiveIndex(0);
+    dragY.set(0);
+  }, [searchQuery, selectedCategory, selectedIndustry, selectedCompatibilities]);
+
+  // Reset dragY when layout mode changes
+  useEffect(() => {
+    dragY.set(0);
+  }, [layoutMode]);
 
 
   // Sync browser back/forward history
@@ -197,16 +239,18 @@ export default function CustomizationsApp() {
     switch (layoutMode) {
       case "stack":
         return {
-          top: stackPosition * 6,
-          left: stackPosition * 6,
+          top: stackPosition * -16,
+          left: 0,
+          scale: 1 - stackPosition * 0.05,
           zIndex: filteredItems.length - stackPosition,
-          rotate: (stackPosition - 1) * 2,
+          rotate: 0,
         };
       case "grid":
       case "list":
         return {
           top: 0,
           left: 0,
+          scale: 1,
           zIndex: 1,
           rotate: 0,
         };
@@ -216,7 +260,7 @@ export default function CustomizationsApp() {
   const containerClass = {
     grid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6",
     list: "flex flex-col gap-6 max-w-4xl mx-auto w-full",
-    stack: "relative h-[480px] w-full max-w-xs mx-auto",
+    stack: "relative h-[480px] w-full max-w-xs mx-auto pt-12",
   };
 
   const displayItems = useMemo(() => {
@@ -224,7 +268,9 @@ export default function CustomizationsApp() {
     if (filteredItems.length === 0) return [];
     
     const reordered = [];
-    for (let i = 0; i < filteredItems.length; i++) {
+    // Limit stack rendering to top 4 cards for a clean, non-cluttered appearance
+    const count = Math.min(filteredItems.length, 4);
+    for (let i = 0; i < count; i++) {
       const index = (activeIndex + i) % filteredItems.length;
       reordered.push({ ...filteredItems[index], stackPosition: i });
     }
@@ -468,141 +514,185 @@ export default function CustomizationsApp() {
               {/* DYNAMIC CARD CONTAINER WITH LAYOUT MODES */}
               {filteredItems.length > 0 ? (
                 <div className="relative w-full">
-                  <motion.div 
-                    layout 
-                    className={containerClass[layoutMode]}
-                  >
-                    <AnimatePresence mode="popLayout">
-                      {displayItems.map((module) => {
-                        const stackPos = (module as any).stackPosition;
-                        const styles = getLayoutStyles(stackPos);
-                        const isTopCard = layoutMode === "stack" && stackPos === 0;
+                  <LayoutGroup>
+                    <motion.div 
+                      layout 
+                      className={containerClass[layoutMode]}
+                    >
+                      <AnimatePresence mode="popLayout">
+                        {displayItems.map((module) => {
+                          const stackPos = (module as any).stackPosition;
+                          const styles = getLayoutStyles(stackPos);
+                          const isTopCard = layoutMode === "stack" && stackPos === 0;
 
-                        return (
-                          <motion.div
-                            layout
-                            key={module.id}
-                            layoutId={module.id}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{
-                              opacity: 1,
-                              scale: 1,
-                              x: 0,
-                              ...styles,
-                            }}
-                            exit={{ opacity: 0, scale: 0.8, x: -200 }}
-                            transition={{
-                              type: "spring",
-                              stiffness: 300,
-                              damping: 25,
-                            }}
-                            whileHover={layoutMode !== "stack" ? { y: -5 } : undefined}
-                            onClick={() => {
-                              if (layoutMode === "stack" && !isTopCard) {
-                                // Bring this card to top
-                                const index = filteredItems.findIndex(m => m.id === module.id);
-                                if (index >= 0) setActiveIndex(index);
-                              }
-                            }}
-                            className={`glass-card flex flex-col group ${
-                              layoutMode === "stack" ? "absolute w-full max-w-xs h-[420px]" : "h-full"
-                            } ${
-                              layoutMode === "list" ? "md:flex-row md:h-64" : ""
-                            }`}
-                          >
-                            {/* Popular / Featured Badges */}
-                            {module.popular && (
-                              <div className="absolute top-0 right-0 bg-gradient-to-r from-[#D4AF37] to-[#F5E8C0] text-black text-[9px] font-extrabold px-3 py-1 rounded-bl-xl tracking-wider uppercase z-20 shadow-md">
-                                Popular
-                              </div>
-                            )}
+                          return (
+                            <motion.div
+                              layout
+                              key={module.id}
+                              layoutId={module.id}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{
+                                opacity: dragDirection && isTopCard ? 0 : 1,
+                                x: 0,
+                                ...styles,
+                              }}
+                              exit={{ opacity: 0, scale: 0.8, x: -200 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 170,
+                                damping: 26,
+                              }}
+                              drag={isTopCard && filteredItems.length > 1 ? "y" : false}
+                              dragConstraints={{ top: 0, bottom: 0 }}
+                              dragElastic={0.7}
+                              onDrag={(_, info) => {
+                                if (isTopCard) {
+                                  dragY.set(info.offset.y);
+                                }
+                              }}
+                              onDragStart={() => setIsDragging(true)}
+                              onDragEnd={handleDragEnd}
+                              whileDrag={{ scale: 1.02, cursor: "grabbing", zIndex: filteredItems.length + 1 }}
+                              whileHover={layoutMode !== "stack" ? { y: -5 } : undefined}
+                              onClick={() => {
+                                if (isDragging) return;
+                                if (layoutMode === "stack" && !isTopCard) {
+                                  // Bring this card to top
+                                  const index = filteredItems.findIndex(m => m.id === module.id);
+                                  if (index >= 0) setActiveIndex(index);
+                                }
+                              }}
+                              style={{
+                                position: layoutMode === "stack" ? "absolute" : "relative",
+                                // Disable CSS transitions when using Framer Motion layout to prevent conflicts
+                                transition: "border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                                rotateX: isTopCard ? rotateX : 0,
+                                transformPerspective: 1000
+                              }}
+                              className={`glass-card flex flex-col group ${
+                                layoutMode === "stack" ? "!absolute w-full max-w-xs h-[420px]" : "h-full"
+                              } ${
+                                layoutMode === "list" ? "md:flex-row md:h-64" : ""
+                              } ${
+                                layoutMode === "stack" && isTopCard ? "cursor-grab active:cursor-grabbing z-30" : ""
+                              }`}
+                            >
+                              {/* Popular / Featured Badges */}
+                              {module.popular && (
+                                <div className="absolute top-0 right-0 bg-gradient-to-r from-[#D4AF37] to-[#F5E8C0] text-black text-[9px] font-extrabold px-3 py-1 rounded-bl-xl tracking-wider uppercase z-20 shadow-md">
+                                  Popular
+                                </div>
+                              )}
 
-                            {/* Header block with visual icon representation */}
-                            <div className={`p-6 pb-2 ${layoutMode === "list" ? "md:w-2/3 flex flex-col justify-center" : ""}`}>
-                              <div className="flex items-center gap-2 mb-3">
-                                <span className="text-[10px] font-bold text-[#D4AF37] bg-[#D4AF37]/10 px-2 py-0.5 rounded border border-[#D4AF37]/20 uppercase">
-                                  {module.category}
-                                </span>
-                                <span className="text-[10px] font-bold text-text-secondary bg-white/5 px-2 py-0.5 rounded">
-                                  {module.industry}
-                                </span>
-                              </div>
-                              
-                              <h3 className="text-lg font-bold text-text-primary group-hover:text-[#D4AF37] transition-colors leading-tight mb-2 min-h-[3rem] flex items-center">
-                                {module.title}
-                              </h3>
-
-                              <p className="text-xs text-text-secondary leading-relaxed min-h-[4.5rem] line-clamp-3">
-                                {module.description}
-                              </p>
-                            </div>
-
-                            {/* Attribute List */}
-                            <div className={`p-6 pt-0 flex-1 flex flex-col justify-end ${layoutMode === "list" ? "md:w-1/3 md:border-l md:border-white/10 md:p-6" : ""}`}>
-                              {layoutMode !== "list" && <div className="h-px bg-white/10 my-4" />}
-
-                              <div className="mb-5">
-                                <div className="text-[10px] font-bold uppercase tracking-wider text-text-secondary/50 mb-2">Key Benefits</div>
-                                <ul className="space-y-1.5">
-                                  {module.benefits.slice(0, 2).map((benefit, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-xs text-text-primary/95 leading-tight">
-                                      <CheckCircle2 className="w-3.5 h-3.5 text-accent-blue shrink-0 mt-0.5" />
-                                      <span className="line-clamp-1">{benefit}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-
-                              {/* Compatibility tags */}
-                              <div className="flex flex-wrap gap-1 mb-4 min-h-[2.5rem]">
-                                {module.compatibility.slice(0, 3).map((comp, idx) => (
-                                  <span key={idx} className="text-[9px] font-semibold text-text-secondary bg-white/5 dark:bg-black/10 border border-white/5 rounded px-2 py-0.5">
-                                    {comp}
+                              {/* Header block with visual icon representation */}
+                              <div className={`p-6 pb-2 ${layoutMode === "list" ? "md:w-2/3 flex flex-col justify-center" : ""}`}>
+                                <div className="flex items-center gap-2 mb-3">
+                                  <span className="text-[10px] font-bold text-[#D4AF37] bg-[#D4AF37]/10 px-2 py-0.5 rounded border border-[#D4AF37]/20 uppercase">
+                                    {module.category}
                                   </span>
-                                ))}
-                              </div>
-
-                              <div className="flex items-center justify-between mt-auto">
-                                <div>
-                                  <div className="text-[9px] uppercase tracking-wider text-text-secondary/40 font-bold">Starting Price</div>
-                                  <div className="text-xl font-black text-text-primary">{module.price}</div>
+                                  <span className="text-[10px] font-bold text-text-secondary bg-white/5 px-2 py-0.5 rounded">
+                                    {module.industry}
+                                  </span>
                                 </div>
                                 
-                                <div className="flex gap-2">
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      navigateToModule(module.slug);
-                                    }}
-                                    className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30 text-xs font-bold text-text-primary hover:bg-white/10 transition-all flex items-center justify-center cursor-pointer z-30"
-                                  >
-                                    Details
-                                  </button>
-                                  <a
-                                    href={`https://wa.me/917558604483?text=${encodeURIComponent(`Hi, I am interested in details and pricing for the Tally module: ${module.title}`)}`}
-                                    data-auth-gated="true"
-                                    data-service-name={`Customization: ${module.title}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5E8C0] text-black text-xs font-black hover:brightness-110 hover:shadow-lg transition-all flex items-center justify-center cursor-pointer shadow-[0_0_12px_rgba(212,175,55,0.2)] z-30"
-                                  >
-                                    Inquire
-                                  </a>
+                                <h3 className="text-lg font-bold text-text-primary group-hover:text-[#D4AF37] transition-colors leading-tight mb-2 min-h-[3rem] flex items-center">
+                                  {module.title}
+                                </h3>
+
+                                <p className="text-xs text-text-secondary leading-relaxed min-h-[4.5rem] line-clamp-3">
+                                  {module.description}
+                                </p>
+                              </div>
+
+                              {/* Attribute List */}
+                              <div className={`p-6 pt-0 flex-1 flex flex-col justify-end ${layoutMode === "list" ? "md:w-1/3 md:border-l md:border-white/10 md:p-6" : ""}`}>
+                                {layoutMode !== "list" && <div className="h-px bg-white/10 my-4" />}
+
+                                <div className="mb-5">
+                                  <div className="text-[10px] font-bold uppercase tracking-wider text-text-secondary/50 mb-2">Key Benefits</div>
+                                  <ul className="space-y-1.5">
+                                    {module.benefits.slice(0, 2).map((benefit, idx) => (
+                                      <li key={idx} className="flex items-start gap-2 text-xs text-text-primary/95 leading-tight">
+                                        <CheckCircle2 className="w-3.5 h-3.5 text-accent-blue shrink-0 mt-0.5" />
+                                        <span className="line-clamp-1">{benefit}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                {/* Compatibility tags */}
+                                <div className="flex flex-wrap gap-1 mb-4 min-h-[2.5rem]">
+                                  {module.compatibility.slice(0, 3).map((comp, idx) => (
+                                    <span key={idx} className="text-[9px] font-semibold text-text-secondary bg-white/5 dark:bg-black/10 border border-white/5 rounded px-2 py-0.5">
+                                      {comp}
+                                    </span>
+                                  ))}
+                                </div>
+
+                                <div className="flex items-center justify-between mt-auto">
+                                  <div>
+                                    <div className="text-[9px] uppercase tracking-wider text-text-secondary/40 font-bold">Starting Price</div>
+                                    <div className="text-xl font-black text-text-primary">{module.price}</div>
+                                  </div>
+                                  
+                                  <div className="flex gap-2">
+                                    <button
+                                      onPointerDown={(e) => e.stopPropagation()}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigateToModule(module.slug);
+                                      }}
+                                      className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30 text-xs font-bold text-text-primary hover:bg-white/10 transition-all flex items-center justify-center cursor-pointer z-30"
+                                    >
+                                      Details
+                                    </button>
+                                    <a
+                                      href={`https://wa.me/917558604483?text=${encodeURIComponent(`Hi, I am interested in details and pricing for the Tally module: ${module.title}`)}`}
+                                      data-auth-gated="true"
+                                      data-service-name={`Customization: ${module.title}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onPointerDown={(e) => e.stopPropagation()}
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5E8C0] text-black text-xs font-black hover:brightness-110 hover:shadow-lg transition-all flex items-center justify-center cursor-pointer shadow-[0_0_12px_rgba(212,175,55,0.2)] z-30"
+                                    >
+                                      Inquire
+                                    </a>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
 
-                            {layoutMode === "stack" && isTopCard && (
-                              <div className="absolute bottom-2 left-0 right-0 text-center pointer-events-none">
-                                <span className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest animate-pulse">Click other cards to cycle stack</span>
-                              </div>
-                            )}
-                          </motion.div>
-                        );
-                      })}
-                    </AnimatePresence>
-                  </motion.div>
+                              {layoutMode === "stack" && isTopCard && (
+                                <div className="absolute bottom-2 left-0 right-0 text-center pointer-events-none">
+                                  <span className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest animate-pulse">Swipe up/down to navigate</span>
+                                </div>
+                              )}
+                            </motion.div>
+                          );
+                        })}
+                      </AnimatePresence>
+                    </motion.div>
+                  </LayoutGroup>
+
+                  {/* STACK NAVIGATION BUTTONS */}
+                  {layoutMode === "stack" && filteredItems.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setActiveIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length)}
+                        className="absolute left-0 lg:left-12 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 text-text-primary z-40 hidden sm:flex items-center justify-center cursor-pointer shadow-lg"
+                        aria-label="Previous card"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => setActiveIndex((prev) => (prev + 1) % filteredItems.length)}
+                        className="absolute right-0 lg:right-12 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 text-text-primary z-40 hidden sm:flex items-center justify-center cursor-pointer shadow-lg"
+                        aria-label="Next card"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </>
+                  )}
 
                   {/* STACK PAGE INDICATORS */}
                   {layoutMode === "stack" && filteredItems.length > 1 && (
