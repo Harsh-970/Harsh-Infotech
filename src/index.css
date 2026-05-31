@@ -460,19 +460,7 @@
    PREMIUM LIQUID GLASS SPECIFIC UTILITIES
    ========================================== */
 
-/* Centralized Grid Overlay Pattern */
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(var(--grid-color) 1.2px, transparent 1.2px),
-    linear-gradient(90deg, var(--grid-color) 1.2px, transparent 1.2px);
-  background-size: 45px 45px;
-  pointer-events: none;
-  opacity: 0.65;
-  z-index: 0;
-  transition: opacity 0.5s ease;
-}
+
 
 /* Site Footer Container */
 .site-footer {

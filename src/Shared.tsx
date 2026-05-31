@@ -65,9 +65,6 @@ export const Background = () => {
         style={{ backgroundImage: "url('/dark-bg.png')" }}
       />
       
-      {/* Subtle grid pattern overlay */}
-      <div className="grid-overlay" />
-      
       {/* Very light dark overlay for readability in dark mode */}
       <div className="hidden dark:block absolute inset-0 bg-[#0A1428]/15 pointer-events-none" />
     </div>
@@ -257,31 +254,35 @@ export const Navbar = () => {
           <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
         </div>
 
-        <div className="flex xl:flex-col items-center xl:items-end gap-2 xl:pl-8 xl:border-l xl:border-[var(--glass-border)] xl:ml-8">
-          <div className="flex items-center gap-3.5">
-            <a href={topCtaLink} data-auth-gated="true" className="hidden xl:block px-4 py-2 xl:px-5 xl:py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-semibold shrink-0">
-              {topCtaText}
-            </a>
+        <div className="flex items-center gap-4 xl:gap-5 xl:pl-8 xl:border-l xl:border-[var(--glass-border)] xl:ml-8">
+          {/* Theme Toggle (desktop: left side of buttons; mobile: left of hamburger) */}
+          <ThemeToggle />
+
+          {/* Stacking Sign Up on top and topCtaLink on bottom (desktop only) */}
+          <div className="hidden xl:flex flex-col gap-2">
             <button
               type="button"
               onClick={() => openAuthGate()}
-              className="hidden xl:block px-4 py-2 xl:px-5 xl:py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-semibold shrink-0 cursor-pointer"
+              className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 cursor-pointer text-center"
             >
               Sign Up
             </button>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            
-            {/* Mobile Hamburger Button */}
-            <button 
-              className="xl:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            <a 
+              href={topCtaLink} 
+              data-auth-gated="true" 
+              className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 text-center"
             >
-              {isMobileMenuOpen ? <X className="w-8 h-8 relative z-[110]" /> : <Menu className="w-8 h-8 relative z-[110]" />}
-            </button>
+              {topCtaText}
+            </a>
           </div>
+
+          {/* Mobile Hamburger Button */}
+          <button 
+            className="xl:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-8 h-8 relative z-[110]" /> : <Menu className="w-8 h-8 relative z-[110]" />}
+          </button>
         </div>
       </nav>
 
