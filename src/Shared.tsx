@@ -65,6 +65,9 @@ export const Background = () => {
         style={{ backgroundImage: "url('/dark-bg.png')" }}
       />
       
+      {/* Subtle grid pattern overlay */}
+      <div className="grid-overlay" />
+      
       {/* Very light dark overlay for readability in dark mode */}
       <div className="hidden dark:block absolute inset-0 bg-[#0A1428]/15 pointer-events-none" />
     </div>
@@ -219,7 +222,7 @@ export const Navbar = () => {
             <a href="/services.html" className="flex items-center gap-1 text-sm font-medium text-white/70 hover:text-white transition-colors py-4">
               Services <ChevronDown className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
             </a>
-            <div className="absolute top-[85%] left-0 w-60 rounded-xl bg-[#0a0a0a] border border-white/10 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
+            <div className="absolute top-[85%] left-0 w-60 rounded-xl glass-menu shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
               <div className="flex flex-col py-2">
                 <a href="/services.html#tally-license" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Prime</a>
                 <a href="/services.html#tally-cloud" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally on Cloud</a>
@@ -240,7 +243,7 @@ export const Navbar = () => {
             <a href="/products.html" className="flex items-center gap-1 text-sm font-medium text-white/70 hover:text-white transition-colors py-4">
               Products <ChevronDown className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
             </a>
-            <div className="absolute top-[85%] left-0 w-48 rounded-xl bg-[#0a0a0a] border border-white/10 shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
+            <div className="absolute top-[85%] left-0 w-48 rounded-xl glass-menu shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
               <div className="flex flex-col py-2">
                 <a href="/products.html#servers" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Servers</a>
                 <a href="/products.html#workstations" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Workstations</a>
@@ -254,31 +257,35 @@ export const Navbar = () => {
           <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
         </div>
 
-        <div className="flex items-center gap-4 sm:gap-5 xl:pl-8 xl:border-l xl:border-[var(--glass-border)] xl:ml-8">
-          <ThemeToggle />
+        <div className="flex xl:flex-col items-center xl:items-end gap-2 xl:pl-8 xl:border-l xl:border-[var(--glass-border)] xl:ml-8">
+          <div className="flex items-center gap-3.5">
+            <a href={topCtaLink} data-auth-gated="true" className="hidden xl:block px-4 py-2 xl:px-5 xl:py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-semibold shrink-0">
+              {topCtaText}
+            </a>
+            <button
+              type="button"
+              onClick={() => openAuthGate()}
+              className="hidden xl:block px-4 py-2 xl:px-5 xl:py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-semibold shrink-0 cursor-pointer"
+            >
+              Sign Up
+            </button>
+          </div>
           
-          <a href={topCtaLink} data-auth-gated="true" className="hidden xl:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0">
-            {topCtaText}
-          </a>
-          <button
-            type="button"
-            onClick={() => openAuthGate()}
-            className="hidden xl:block px-4 py-2 xl:px-6 xl:py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs xl:text-sm font-semibold shrink-0 cursor-pointer"
-          >
-            Sign Up
-          </button>
-
-          {/* Mobile Hamburger Button */}
-          <button 
-            className="xl:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-8 h-8 relative z-[110]" /> : <Menu className="w-8 h-8 relative z-[110]" />}
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            
+            {/* Mobile Hamburger Button */}
+            <button 
+              className="xl:hidden p-2 text-white/80 hover:text-white transition-colors z-[110]"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-8 h-8 relative z-[110]" /> : <Menu className="w-8 h-8 relative z-[110]" />}
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
@@ -295,7 +302,7 @@ export const Navbar = () => {
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-[85%] max-w-sm h-full bg-[#050505] shadow-2xl shadow-black border-l border-white/10 p-10 flex flex-col justify-center"
+              className="w-[85%] max-w-sm h-full bg-[#050505]/95 backdrop-blur-2xl shadow-2xl shadow-black border-l border-white/10 p-10 flex flex-col justify-center"
             >
               <nav className="flex flex-col gap-6 text-center text-xl font-bold">
                 <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Home</a>
@@ -323,6 +330,10 @@ export const Navbar = () => {
                   Sign Up
                 </button>
 
+                <div className="flex justify-center mt-2">
+                  <ThemeToggle />
+                </div>
+
                 <div className="h-px bg-white/10 my-4" />
 
                 <div className="flex gap-4 justify-center items-center mt-2">
@@ -349,8 +360,8 @@ export const Navbar = () => {
 
 export const Footer = () => {
   return (
-    <footer id="contact" className="pt-32 pb-10 px-6 lg:px-20 border-t border-white/10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+    <footer id="contact" className="site-footer max-w-7xl mx-auto mb-10 mt-20 md:mt-32 pt-16 pb-10 px-6 lg:px-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         <div className="col-span-1 lg:col-span-1">
           <div className="mb-6">
             <Logo 
@@ -360,86 +371,85 @@ export const Footer = () => {
               alwaysTwoLine={true}
             />
           </div>
-          <p className="text-white/40 text-sm leading-relaxed mb-8">
+          <p className="footer-secondary-text text-sm leading-relaxed mb-8">
             Building the future of digital infrastructure. Premium solutions for ambitious companies.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
-              <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
+              <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain footer-icon-img" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
-              <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
+              <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain footer-icon-img" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Twitter className="w-5 h-5" /></a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Github className="w-5 h-5" /></a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Linkedin className="w-5 h-5" /></a>
+            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all"><Twitter className="w-5 h-5 footer-icon-svg" /></a>
+            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all"><Github className="w-5 h-5 footer-icon-svg" /></a>
+            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all"><Linkedin className="w-5 h-5 footer-icon-svg" /></a>
           </div>
         </div>
 
         <div>
-          <h4 className="font-bold mb-6">Quick Links</h4>
-          <ul className="space-y-4 text-sm text-white/40">
-            <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
-            <li><a href="/services.html" className="hover:text-white transition-colors">Services</a></li>
-            <li><a href="/about.html" className="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+          <h4 className="footer-primary-text font-bold mb-6">Quick Links</h4>
+          <ul className="space-y-4 text-sm">
+            <li><a href="/" className="footer-link transition-colors">Home</a></li>
+            <li><a href="/services.html" className="footer-link transition-colors">Services</a></li>
+            <li><a href="/about.html" className="footer-link transition-colors">About Us</a></li>
+            <li><a href="#" className="footer-link transition-colors">Careers</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="font-bold mb-6">Contact</h4>
-          <ul className="space-y-4 text-sm text-white/40">
+          <h4 className="footer-primary-text font-bold mb-6">Contact</h4>
+          <ul className="space-y-4 text-sm">
             <li>
-              <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
-                <Mail className="w-4 h-4 shrink-0 transition-colors group-hover:text-white" />
-                <span className="transition-colors group-hover:text-white">harshinfotech2005@gmail.com</span>
+              <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full">
+                <Mail className="w-4 h-4 shrink-0 footer-icon-svg" />
+                <span>harshinfotech2005@gmail.com</span>
               </a>
             </li>
             <li className="flex flex-col gap-4">
-              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
-                <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain filter brightness-75 group-hover:brightness-100 transition-all" />
-                <span className="transition-colors group-hover:text-white">7558604483</span>
+              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full">
+                <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain footer-icon-img" />
+                <span>7558604483</span>
               </a>
-              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer w-full text-white/40">
+              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full">
                 <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain opacity-0" />
-                <span className="transition-colors group-hover:text-white">8828275219</span>
+                <span>8828275219</span>
               </a>
             </li>
-            <li className="flex items-center gap-3"><MapPin className="w-4 h-4 shrink-0" /> Mumbai, India</li>
+            <li className="flex items-center gap-3 footer-secondary-text"><MapPin className="w-4 h-4 shrink-0 footer-icon-svg" /> Mumbai, India</li>
           </ul>
         </div>
 
         <div>
-          <h4 className="font-bold mb-6">Newsletter</h4>
-          <p className="text-sm text-white/40 mb-4">Subscribe to our latest updates.</p>
+          <h4 className="footer-primary-text font-bold mb-6">Newsletter</h4>
+          <p className="footer-secondary-text text-sm mb-4">Subscribe to our latest updates.</p>
           <div className="flex gap-2">
             <input 
               type="email" 
               placeholder="Email address" 
-              className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-white/30 flex-1"
+              className="newsletter-input flex-1"
             />
-            <button className="bg-white text-black px-4 py-2 rounded-lg text-sm font-bold">Join</button>
+            <button className="newsletter-btn">Join</button>
           </div>
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto pt-10 border-t border-white/5 text-center text-xs text-white/20">
+      <div className="pt-10 border-t border-white/5 footer-bottom-text text-center text-xs">
         © {new Date().getFullYear()} Harsh Infotech. All rights reserved.
       </div>
 
-      {/* Floating WhatsApp Button */}
+      {/* Redesigned Floating WhatsApp Button */}
       <a
         href="https://wa.me/917558604483"
         data-auth-gated="true"
         data-auth-action="whatsapp"
         data-phone="917558604483"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-[64px] h-[64px] md:w-[72px] md:h-[72px] lg:w-[80px] lg:h-[80px] rounded-full bg-[#0a0a0af0] backdrop-blur-md border-2 border-[#D4AF37]/60 text-[#D4AF37] hover:text-white hover:border-[#D4AF37] shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_35px_rgba(212,175,55,0.65)] transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer p-[1px] sm:p-[2px] md:p-[3px]"
+        className="floating-whatsapp-btn"
       >
         <img 
           src="/Whatsapp.png" 
           alt="WhatsApp" 
-          className="w-full h-full object-contain animate-pulse" 
         />
       </a>
     </footer>

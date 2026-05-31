@@ -293,8 +293,8 @@ export default function CustomizationsApp() {
                   
                   {/* Search Bar + Suggestions */}
                   <div className="lg:col-span-6 relative">
-                    <div className="relative">
-                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary opacity-60" />
+                    <div className="glass-search-container relative">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary opacity-60 z-10" />
                       <input
                         type="text"
                         placeholder="Search customizations, categories, or keywords..."
@@ -302,7 +302,7 @@ export default function CustomizationsApp() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onFocus={() => setSearchFocused(true)}
                         onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
-                        className="w-full bg-white/5 dark:bg-black/10 border border-white/10 dark:border-white/5 rounded-xl pl-12 pr-4 py-3.5 text-sm focus:outline-none focus:border-[#D4AF37]/50 focus:ring-1 focus:ring-[#D4AF37]/30 transition-all text-text-primary placeholder:text-text-secondary/50"
+                        className="glass-search-input pl-12 pr-4 py-3.5"
                       />
                     </div>
 
@@ -313,7 +313,7 @@ export default function CustomizationsApp() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute left-0 right-0 mt-2 rounded-xl bg-surface border border-white/10 dark:border-white/5 shadow-2xl p-2 z-50 max-h-60 overflow-y-auto"
+                          className="absolute left-0 right-0 mt-2 rounded-xl glass-menu shadow-2xl p-2 z-50 max-h-60 overflow-y-auto"
                         >
                           <div className="text-[10px] font-bold text-text-secondary/50 px-3 py-1.5 uppercase tracking-wider">Suggestions</div>
                           {suggestions.map((sug) => (
@@ -340,7 +340,7 @@ export default function CustomizationsApp() {
                       <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="w-full appearance-none bg-white/5 dark:bg-black/10 border border-white/10 dark:border-white/5 rounded-xl px-4 py-3.5 pr-10 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-all text-text-primary font-medium"
+                        className="w-full appearance-none glass-select px-4 py-3.5 pr-10 text-sm"
                       >
                         <option value="All" className="bg-[#0A1931] text-white">All Categories</option>
                         {categories.filter(c => c !== "All").map(cat => (
@@ -357,7 +357,7 @@ export default function CustomizationsApp() {
                       <select
                         value={selectedIndustry}
                         onChange={(e) => setSelectedIndustry(e.target.value)}
-                        className="w-full appearance-none bg-white/5 dark:bg-black/10 border border-white/10 dark:border-white/5 rounded-xl px-4 py-3.5 pr-10 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-all text-text-primary font-medium"
+                        className="w-full appearance-none glass-select px-4 py-3.5 pr-10 text-sm"
                       >
                         <option value="All" className="bg-[#0A1931] text-white">All Industries</option>
                         {industries.filter(i => i !== "All").map(ind => (
@@ -404,7 +404,7 @@ export default function CustomizationsApp() {
                       <select
                         value={selectedSort}
                         onChange={(e) => setSelectedSort(e.target.value)}
-                        className="w-full appearance-none bg-white/5 dark:bg-black/10 border border-white/10 dark:border-white/5 rounded-xl px-3.5 py-2.5 pr-10 text-xs focus:outline-none focus:border-[#D4AF37]/50 transition-all text-text-primary font-semibold"
+                        className="w-full appearance-none glass-select px-3.5 py-2.5 pr-10 text-xs"
                       >
                         <option value="popular" className="bg-[#0A1931] text-white">Sort: Popularity</option>
                         <option value="a-z" className="bg-[#0A1931] text-white">Sort: A-Z</option>
