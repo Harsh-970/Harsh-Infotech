@@ -135,7 +135,8 @@ const getDynamicInputs = () => {
     services: path.resolve(__dirname, 'services.html'),
     moreServices: path.resolve(__dirname, 'more-services.html'),
     products: path.resolve(__dirname, 'products.html'),
-    customizations: path.resolve(__dirname, 'customizations.html')
+    customizations: path.resolve(__dirname, 'customizations.html'),
+    cmsControl: path.resolve(__dirname, 'admin-tools/CMS-Control.html')
   };
 
   const categories = ['customizations', 'products', 'services', 'case-studies'];

@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Control Center - Harsh Infotech</title>
+  
+  <!-- Inter & Outfit Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ── SYSTEM DESIGN SYSTEM ──────────────────────────────────── */
+    :root {
+      --bg-dark: #070b13;
+      --bg-card: rgba(15, 23, 42, 0.45);
+      --bg-modal: rgba(10, 15, 30, 0.95);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(59, 130, 246, 0.35);
+      
+      --color-primary: #3b82f6;
+      --color-primary-glow: rgba(59, 130, 246, 0.35);
+      --color-success: #10b981;
+      --color-success-glow: rgba(16, 185, 129, 0.35);
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --color-text-main: #f8fafc;
+      --color-text-muted: #94a3b8;
+      
+      --font-main: 'Outfit', sans-serif;
+      --font-code: 'Fira Code', monospace;
+      --card-radius: 18px;
+    }
+
+    /* Light Theme Styles */
+    body.light-theme {
+      --bg-dark: #f8fafc;
+      --bg-card: rgba(255, 255, 255, 0.7);
+      --bg-modal: rgba(255, 255, 255, 0.98);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(37, 99, 235, 0.4);
+      --color-text-main: #0f172a;
+      --color-text-muted: #475569;
+      --color-primary-glow: rgba(37, 99, 235, 0.15);
+      --color-success-glow: rgba(5, 150, 105, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 45%);
+      background-attachment: fixed;
+      font-family: var(--font-main);
+      color: var(--color-text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 2.5rem 1.5rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.1);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.4);
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* ── HEADER ───────────────────────────────────────────────── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-section h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      background: linear-gradient(135deg, var(--color-text-main) 30%, var(--color-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+    }
+
+    .brand-section p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--color-text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.25s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--color-primary);
+      transform: rotate(15deg);
+    }
+
+    /* ── GLASS CONTAINER ──────────────────────────────────────── */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 1.75rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .glass-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ── HEADER METRICS STRIP ────────────────────────────────── */
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .strip-item {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-color);
+      padding-right: 1rem;
+    }
+
+    .strip-item:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .strip-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+
+    .strip-value {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    /* ── GRID SYSTEM ────────────────────────────────────────── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1100px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar Health Gauge */
+    .sidebar-health {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .radial-score-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 1.5rem;
+    }
+
+    .radial-score-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .radial-score-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.03);
+      stroke-width: 14;
+    }
+
+    body.light-theme .radial-score-bg {
+      stroke: rgba(0, 0, 0, 0.03);
+    }
+
+    .radial-score-bar {
+      fill: none;
+      stroke: var(--color-success);
+      stroke-width: 14;
+      stroke-linecap: round;
+      stroke-dasharray: 502;
+      stroke-dashoffset: 502;
+      transition: stroke-dashoffset 1s ease-in-out, stroke 0.3s ease;
+      filter: drop-shadow(0 0 8px var(--color-success-glow));
+    }
+
+    .score-text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .score-value {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    .health-label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 99px;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      margin-top: 0.5rem;
+    }
+
+    /* Stat Cards Sub-Grids */
+    .metrics-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .grid-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .sub-card {
+      padding: 1.25rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    body.light-theme .sub-card {
+      background: rgba(0, 0, 0, 0.01);
+    }
+
+    .sub-card-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .sub-card-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+      border-left: 3px solid var(--color-primary);
+      padding-left: 0.6rem;
+    }
+
+    /* ── ACTION BOARD & COMMITS ───────────────────────────────── */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .commit-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      color: var(--color-text-main);
+      font-family: var(--font-main);
+      outline: none;
+      font-size: 0.95rem;
+      transition: border-color 0.25s ease;
+    }
+
+    body.light-theme .input-field {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .input-field:focus {
+      border-color: var(--color-primary);
+    }
+
+    /* ── BUTTON STYLES ───────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.2);
+    }
+    .btn-success:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(4, 120, 87, 0.35);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border-color);
+      color: var(--color-text-main);
+    }
+    body.light-theme .btn-secondary {
+      background: rgba(0, 0, 0, 0.03);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    body.light-theme .btn-secondary:hover {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* ── LOGGER & STATS ───────────────────────────────────────── */
+    .system-logger {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .system-logger {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .console-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .console-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .console-log-box {
+      background-color: #03050a;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      height: 340px;
+      overflow-y: auto;
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #34d399; /* Neon emerald */
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.7);
+      white-space: pre-wrap;
+    }
+
+    .console-log-box .log-err { color: #fca5a5; }
+    .console-log-box .log-info { color: #93c5fd; }
+    .console-log-box .log-warn { color: #fde047; }
+
+    /* Stats lists */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    .info-code {
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: #93c5fd;
+      display: inline-block;
+      margin-top: 0.1rem;
+    }
+
+    body.light-theme .info-code {
+      background: rgba(0,0,0,0.03);
+      color: #1d4ed8;
+    }
+
+    /* ── DIALOG MODALS ────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--bg-modal);
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      max-width: 600px;
+      width: 90%;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      transform: translateY(-20px);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    body.light-theme .modal-header {
+      color: #0f172a;
+    }
+
+    .modal-body {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    /* Backup Select List */
+    .backup-list-select {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--color-text-main);
+      padding: 0.8rem;
+      font-family: var(--font-main);
+      outline: none;
+      margin-top: 0.75rem;
+    }
+
+    body.light-theme .backup-list-select {
+      background: #fff;
+    }
+
+    /* Changed Files List */
+    .changed-files-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.75rem;
+      max-height: 150px;
+      overflow-y: auto;
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      margin-top: 0.75rem;
+    }
+
+    body.light-theme .changed-files-box {
+      background: rgba(0,0,0,0.02);
+      color: #0f172a;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--color-success);
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transform: translateY(200%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Main Header -->
+  <header>
+    <div class="brand-section">
+      <h1>Harsh Infotech CMS Control Center</h1>
+      <p>Manage content spreadsheets, compile assets, inspect validation health, and publish revisions.</p>
+    </div>
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+        🌓
+      </button>
+      <button class="btn btn-secondary" onclick="triggerPreview()">
+        🌐 Preview Website
+      </button>
+      <button class="btn btn-secondary" onclick="window.open('https://github.com/Harsh-970/Harsh-Infotech.git', '_blank')">
+        🐙 GitHub Repo
+      </button>
+    </div>
+  </header>
+
+  <!-- Header Metrics Strip -->
+  <div class="glass-card metrics-strip">
+    <div class="strip-item">
+      <div class="strip-label">Current Git Branch</div>
+      <div class="strip-value" id="hdr-branch">--</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-label">Last Synchronization Run</div>
+      <div class="strip-value" id="hdr-sync">--</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-label">Last Production Build</div>
+      <div class="strip-value" id="hdr-build">--</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-label">Last Commit Hash</div>
+      <div class="strip-value" id="hdr-commit">--</div>
+    </div>
+  </div>
+
+  <!-- Main Grid: Health & Metrics Grid -->
+  <div class="main-grid">
+    
+    <!-- Health Score Circle Sidebar -->
+    <div class="glass-card sidebar-health">
+      <h3 style="font-size: 1.1rem; text-transform: uppercase; color: var(--color-text-muted); font-weight: 600; margin-bottom: 1.25rem;">CMS Health Score</h3>
+      <div class="radial-score-container">
+        <svg class="radial-score-svg">
+          <circle class="radial-score-bg" cx="100" cy="100" r="80"></circle>
+          <circle class="radial-score-bar" id="health-bar" cx="100" cy="100" r="80"></circle>
+        </svg>
+        <div class="score-text-overlay">
+          <div class="score-value" id="health-value">--</div>
+          <div class="score-total">/100</div>
+        </div>
+      </div>
+      <div class="health-label" id="health-label">Analyzing...</div>
+    </div>
+
+    <!-- Right Side Cards: Content Metrics & Issues Metrics -->
+    <div class="glass-card metrics-section">
+      
+      <!-- Content Count Metrics -->
+      <div>
+        <div class="section-title">Content Counts</div>
+        <div class="grid-group" style="margin-top: 0.75rem;">
+          <div class="sub-card">
+            <div class="sub-card-title">Customizations</div>
+            <div class="sub-card-value" id="cnt-customizations">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Services</div>
+            <div class="sub-card-value" id="cnt-services">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Products</div>
+            <div class="sub-card-value" id="cnt-products">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Case Studies</div>
+            <div class="sub-card-value" id="cnt-case-studies">--</div>
+          </div>
+        </div>
+        
+        <div class="grid-group" style="margin-top: 1rem;">
+          <div class="sub-card">
+            <div class="sub-card-title">Total Active</div>
+            <div class="sub-card-value" style="color: var(--color-success);" id="cnt-active">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Total Draft</div>
+            <div class="sub-card-value" style="color: var(--color-warning);" id="cnt-draft">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Total Archived</div>
+            <div class="sub-card-value" style="color: var(--color-danger);" id="cnt-archived">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Validation / Issues Metrics -->
+      <div>
+        <div class="section-title">Validation Audits & Gaps</div>
+        <div class="grid-group" style="margin-top: 0.75rem;">
+          <div class="sub-card">
+            <div class="sub-card-title">Missing Images</div>
+            <div class="sub-card-value" id="iss-images">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Missing Brochures</div>
+            <div class="sub-card-value" id="iss-brochures">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">SEO Warning Gaps</div>
+            <div class="sub-card-value" id="iss-seo">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Duplicate Slugs</div>
+            <div class="sub-card-value" id="iss-duplicates">--</div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-title">Broken References</div>
+            <div class="sub-card-value" id="iss-references">--</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Actions Board -->
+  <div class="action-grid">
+    
+    <!-- Sync & Operations -->
+    <div class="glass-card">
+      <div class="section-title" style="margin-bottom: 1.25rem;">⚡ Core CMS Operations</div>
+      <div class="btn-group">
+        <button class="btn btn-primary" id="btn-sync" onclick="triggerSync()" title="Runs content-sync parser to compile spreadsheets and pages">
+          🔄 Update Website
+        </button>
+        <button class="btn btn-primary" id="btn-build" onclick="triggerBuild()" title="Runs Vite production asset builder">
+          🛠️ Build Website
+        </button>
+        <button class="btn btn-secondary" id="btn-edit" onclick="triggerOpenEdit()" title="Opens local edit folder">
+          📂 Open Edit Folder
+        </button>
+        <button class="btn btn-secondary" id="btn-reports" onclick="triggerOpenReports()" title="Opens reports folder in explorer">
+          📈 Open Reports Folder
+        </button>
+        <button class="btn btn-secondary" id="btn-backup-list" onclick="triggerOpenBackupModal()" title="View and restore backups">
+          ↩️ Restore Backup
+        </button>
+        <button class="btn btn-success" id="btn-push" onclick="triggerOpenPushModal()" title="Pushes committed master commits to origin repo">
+          🚀 Push To GitHub
+        </button>
+      </div>
+    </div>
+
+    <!-- Git Commit Form -->
+    <div class="glass-card commit-box">
+      <div class="section-title">💾 Git Version Control</div>
+      <div class="form-group">
+        <label class="form-label" for="commit-msg">Commit Message</label>
+        <input class="input-field" type="text" id="commit-msg" placeholder="CMS Update - Date">
+      </div>
+      <button class="btn btn-success" id="btn-commit" onclick="triggerCommit()">
+        💾 Commit Changes
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Logger & Stats -->
+  <div class="system-logger">
+    
+    <!-- Logger window -->
+    <div class="glass-card">
+      <div class="console-header">
+        <div class="console-title">🖥️ CMS Terminal Console Logger</div>
+        <button class="btn btn-secondary" style="padding: 0.35rem 0.7rem; font-size: 0.8rem; border-radius: 6px;" onclick="clearConsole()">
+          Clear Logs
+        </button>
+      </div>
+      <div class="console-log-box" id="console-logs">Console initiated. Ready for operations.</div>
+    </div>
+
+    <!-- System Info lists -->
+    <div class="glass-card">
+      <div class="section-title" style="margin-bottom: 1.25rem;">ℹ️ System Summary</div>
+      <div class="info-list">
+        <div class="info-item">
+          <div class="info-label">Active Branch</div>
+          <div class="info-value" id="stat-branch">--</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Modified files (uncommitted changes)</div>
+          <div class="info-value" style="color: var(--color-warning);" id="stat-changed-count">--</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Latest Commit</div>
+          <div class="info-value" id="stat-commit-hash">N/A</div>
+          <div class="info-value" style="font-weight: 500; font-size: 0.85rem; margin-top: 0.25rem;" id="stat-commit-msg">N/A</div>
+          <div class="info-value" style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.15rem;" id="stat-commit-author">N/A</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Status Toast -->
+<div class="toast" id="toast">Revisions successfully updated.</div>
+
+<!-- Modal 1: Restore Backup Dialog -->
+<div class="modal-overlay" id="backup-modal">
+  <div class="modal-content">
+    <div class="modal-header">↩️ Restore Spreadsheet Backup</div>
+    <div class="modal-body">
+      Select a historical spreadsheet database backup from `/edit/backups/` to restore.
+      This will copy the backup file over the active Excel spreadsheet and trigger an automatic sync run.
+      <select class="backup-list-select" id="backup-picker">
+        <option value="">-- Select a Backup File --</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('backup-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmRestoreBackup()">Restore now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: GitHub Push Confirmation Dialog -->
+<div class="modal-overlay" id="push-modal">
+  <div class="modal-content">
+    <div class="modal-header">🚀 Push to GitHub</div>
+    <div class="modal-body">
+      Are you sure you want to push changes to GitHub?
+      <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+        <div>📁 **Current Branch:** <span id="push-modal-branch">--</span></div>
+        <div>💾 **Last Commit:** <span id="push-modal-commit">--</span></div>
+        <div>🔄 **Last Sync Run:** <span id="push-modal-sync">--</span></div>
+        <div>🛠️ **Last Build Run:** <span id="push-modal-build">--</span></div>
+        <div>📁 **Staged / Untracked files changed:** <span id="push-modal-changed-count">0</span> files</div>
+      </div>
+      <div class="changed-files-box" id="push-modal-changed-files">No changes.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('push-modal')">Cancel</button>
+      <button class="btn btn-success" onclick="confirmPushToGithub()">Push Now</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── CORE DATA & INITS ───────────────────────────────────────
+  const circleCircumference = 502; // stroke-dasharray parameters of circle r=80
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set default commit message YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('commit-msg').value = `CMS Update - ${today}`;
+    
+    fetchStatus();
+    setInterval(fetchStatus, 30000); // refresh metadata every 30s
+  });
+
+  // Toggle dark/light themes
+  function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    localStorage.setItem('theme-selection', isLight ? 'light' : 'dark');
+  }
+
+  // Restore stored theme
+  if (localStorage.getItem('theme-selection') === 'light') {
+    document.body.classList.add('light-theme');
+  }
+
+  // Dynamic log visual prints
+  function log(text, type = 'info') {
+    const box = document.getElementById('console-logs');
+    const span = document.createElement('span');
+    span.className = type === 'error' ? 'log-err' : (type === 'warn' ? 'log-warn' : 'log-info');
+    span.textContent = `[${new Date().toLocaleTimeString()}] ${text}\n`;
+    box.appendChild(span);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function clearConsole() {
+    document.getElementById('console-logs').innerHTML = '';
+  }
+
+  function showToast(msg, isSuccess = true) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.background = isSuccess ? 'var(--color-success)' : 'var(--color-danger)';
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+  }
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  function setHealthValue(scoreStr) {
+    const scoreVal = parseInt(scoreStr.split('/')[0]) || 0;
+    const bar = document.getElementById('health-bar');
+    const valueEl = document.getElementById('health-value');
+    const labelEl = document.getElementById('health-label');
+    
+    valueEl.textContent = scoreVal;
+    
+    const offset = circleCircumference - (scoreVal / 100) * circleCircumference;
+    bar.style.strokeDashoffset = offset;
+    
+    if (scoreVal >= 90) {
+      bar.style.stroke = 'var(--color-success)';
+      bar.style.filter = 'drop-shadow(0 0 8px var(--color-success-glow))';
+      labelEl.textContent = 'Excellent Health';
+      labelEl.style.color = 'var(--color-success)';
+      labelEl.style.background = 'rgba(16, 185, 129, 0.1)';
+      labelEl.style.borderColor = 'rgba(16, 185, 129, 0.2)';
+    } else if (scoreVal >= 75) {
+      bar.style.stroke = 'var(--color-warning)';
+      bar.style.filter = 'drop-shadow(0 0 8px rgba(245, 158, 11, 0.4))';
+      labelEl.textContent = 'Good Health';
+      labelEl.style.color = 'var(--color-warning)';
+      labelEl.style.background = 'rgba(245, 158, 11, 0.1)';
+      labelEl.style.borderColor = 'rgba(245, 158, 11, 0.2)';
+    } else {
+      bar.style.stroke = 'var(--color-danger)';
+      bar.style.filter = 'drop-shadow(0 0 8px rgba(239, 68, 68, 0.4))';
+      labelEl.textContent = 'Fix Errors';
+      labelEl.style.color = 'var(--color-danger)';
+      labelEl.style.background = 'rgba(239, 68, 68, 0.1)';
+      labelEl.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+    }
+  }
+
+  function setButtonsDisabled(disabled) {
+    const btns = ['btn-sync', 'btn-build', 'btn-edit', 'btn-reports', 'btn-backup-list', 'btn-commit', 'btn-push'];
+    btns.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.disabled = disabled;
+    });
+  }
+
+  // Cache data to load on push modals
+  let lastSyncTimeCached = '--';
+  let lastBuildTimeCached = '--';
+  let currentBranchCached = 'master';
+  let lastCommitCached = 'Unknown';
+  let filesChangedCached = [];
+
+  // ── FETCH APP STATUS ─────────────────────────────────────────
+  async function fetchStatus() {
+    try {
+      const res = await fetch('/api/status');
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
+
+      // Save to cache variables
+      lastSyncTimeCached = data.lastSync;
+      lastBuildTimeCached = data.lastBuild;
+      currentBranchCached = data.currentBranch;
+      lastCommitCached = `${data.lastCommit.hash} - ${data.lastCommit.message}`;
+      filesChangedCached = data.filesChanged || [];
+
+      // Render Header row
+      document.getElementById('hdr-branch').textContent = data.currentBranch;
+      document.getElementById('hdr-sync').textContent = data.lastSync;
+      document.getElementById('hdr-build').textContent = data.lastBuild;
+      document.getElementById('hdr-commit').innerHTML = `<span class="info-code">${data.lastCommit.hash}</span>`;
+
+      // Render health radial bar
+      setHealthValue(data.healthScore);
+
+      // Render Content Counts
+      document.getElementById('cnt-customizations').textContent = data.contentCounts.totalCustomizations;
+      document.getElementById('cnt-services').textContent = data.contentCounts.totalServices;
+      document.getElementById('cnt-products').textContent = data.contentCounts.totalProducts;
+      document.getElementById('cnt-case-studies').textContent = data.contentCounts.totalCaseStudies;
+      document.getElementById('cnt-active').textContent = data.contentCounts.activeContent;
+      document.getElementById('cnt-draft').textContent = data.contentCounts.draftContent;
+      document.getElementById('cnt-archived').textContent = data.contentCounts.archivedContent;
+
+      // Render Issue Counts
+      const missingImages = data.issueCounts.missingImages;
+      const elImages = document.getElementById('iss-images');
+      elImages.textContent = missingImages;
+      elImages.style.color = missingImages > 0 ? 'var(--color-danger)' : 'var(--color-text-main)';
+
+      const missingBrochures = data.issueCounts.missingBrochures;
+      const elBrochures = document.getElementById('iss-brochures');
+      elBrochures.textContent = missingBrochures;
+      elBrochures.style.color = missingBrochures > 0 ? 'var(--color-danger)' : 'var(--color-text-main)';
+
+      const seoIssues = data.issueCounts.seoIssues;
+      const elSeo = document.getElementById('iss-seo');
+      elSeo.textContent = seoIssues;
+      elSeo.style.color = seoIssues > 0 ? 'var(--color-warning)' : 'var(--color-text-main)';
+
+      const duplicateSlugs = data.issueCounts.duplicateSlugs;
+      const elDuplicates = document.getElementById('iss-duplicates');
+      elDuplicates.textContent = duplicateSlugs;
+      elDuplicates.style.color = duplicateSlugs > 0 ? 'var(--color-danger)' : 'var(--color-text-main)';
+
+      const brokenReferences = data.issueCounts.brokenReferences;
+      const elReferences = document.getElementById('iss-references');
+      elReferences.textContent = brokenReferences;
+      elReferences.style.color = brokenReferences > 0 ? 'var(--color-danger)' : 'var(--color-text-main)';
+
+      // Render side summaries
+      document.getElementById('stat-branch').textContent = data.currentBranch;
+      document.getElementById('stat-changed-count').textContent = `${filesChangedCached.length} files`;
+      document.getElementById('stat-commit-hash').innerHTML = `<span class="info-code">${data.lastCommit.hash}</span>`;
+      document.getElementById('stat-commit-msg').textContent = data.lastCommit.message;
+      document.getElementById('stat-commit-author').textContent = `Committed by ${data.lastCommit.author} (${data.lastCommit.date})`;
+
+    } catch (err) {
+      log(`Failed to retrieve state parameters: ${err.message}`, 'error');
+    }
+  }
+
+  // ── BUTTON CLICK ACTIONS ─────────────────────────────────────
+
+  // 1. UPDATE WEBSITE
+  async function triggerSync() {
+    setButtonsDisabled(true);
+    log('Content Synchronization started. Fetching rows from Excel/CSV databases...', 'info');
+    try {
+      const res = await fetch('/api/sync-content', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.success) {
+        log(data.stdout, 'info');
+        showToast('Website content synced successfully!');
+        log('Sync completed successfully.', 'warn');
+        // Output CMS score parsed
+        fetchStatus().then(() => {
+          log(`CMS Content Updated. Health Score: ${document.getElementById('health-value').textContent}/100`, 'warn');
+        });
+      } else {
+        log(data.error || 'Sync process errored out', 'error');
+        if (data.stdout) log(data.stdout, 'info');
+        if (data.stderr) log(data.stderr, 'error');
+        showToast('Sync failed. Check logs.', false);
+      }
+    } catch (err) {
+      log(`Operation failed: ${err.message}`, 'error');
+      showToast('Connection timed out.', false);
+    } finally {
+      setButtonsDisabled(false);
+    }
+  }
+
+  // 2. PREVIEW WEBSITE
+  async function triggerPreview() {
+    log('Opening local server preview tab...', 'info');
+    try {
+      const res = await fetch('/api/preview-website', { method: 'POST' });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
+      log('Preview window triggered successfully.', 'info');
+    } catch (err) {
+      // Fallback: trigger preview directly from browser client side in new tab
+      window.open('http://localhost:3000', '_blank');
+      log('Preview page launched locally in browser.', 'info');
+    }
+  }
+
+  // 3. BUILD WEBSITE
+  async function triggerBuild() {
+    setButtonsDisabled(true);
+    log('Vite Production compilation started. Transforming files and building assets...', 'info');
+    try {
+      const res = await fetch('/api/build-website', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.success) {
+        log(data.stdout, 'info');
+        showToast('Website build completed successfully!');
+        log('Vite compilation succeeded.', 'warn');
+      } else {
+        log(data.error || 'Build process failed', 'error');
+        if (data.stdout) log(data.stdout, 'info');
+        if (data.stderr) log(data.stderr, 'error');
+        showToast('Build failed. Check console.', false);
+      }
+    } catch (err) {
+      log(`Operation failed: ${err.message}`, 'error');
+      showToast('Build request timed out.', false);
+    } finally {
+      setButtonsDisabled(false);
+      fetchStatus();
+    }
+  }
+
+  // 4. OPEN FOLDERS
+  async function triggerOpenEdit() {
+    log('Opening /edit directory in Windows Explorer...', 'info');
+    await fetch('/api/open-edit-folder', { method: 'POST' });
+  }
+
+  async function triggerOpenReports() {
+    log('Opening REPORTS directory in Windows Explorer...', 'info');
+    await fetch('/api/open-reports-folder', { method: 'POST' });
+  }
+
+  // 5. RESTORE BACKUP MODAL FLOW
+  async function triggerOpenBackupModal() {
+    log('Fetching list of historical backups...', 'info');
+    try {
+      const res = await fetch('/api/backups');
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
+
+      const picker = document.getElementById('backup-picker');
+      picker.innerHTML = '<option value="">-- Select a Backup File --</option>';
+      
+      if (data.backups.length === 0) {
+        picker.innerHTML += '<option value="" disabled>No backups found inside edit/backups/</option>';
+      } else {
+        data.backups.forEach(b => {
+          picker.innerHTML += `<option value="${b.filename}">${b.filename} (${b.size} - ${b.date})</option>`;
+        });
+      }
+      openModal('backup-modal');
+    } catch (err) {
+      log(`Unable to get backups list: ${err.message}`, 'error');
+      showToast('Error reading backups directory.', false);
+    }
+  }
+
+  async function confirmRestoreBackup() {
+    const filename = document.getElementById('backup-picker').value;
+    if (!filename) {
+      alert('Please select a backup from the dropdown menu first.');
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to restore "${filename}"? This will overwrite the active file in your edit/ folder and trigger a website update sync.`)) {
+      return;
+    }
+
+    closeModal('backup-modal');
+    setButtonsDisabled(true);
+    log(`Restoring database backup from file: ${filename}...`, 'warn');
+    
+    try {
+      const res = await fetch('/api/restore-backup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        log(data.message, 'warn');
+        if (data.stdout) log(data.stdout, 'info');
+        showToast('Backup restored and content synced successfully!');
+        log('Restore operation completed successfully.', 'warn');
+      } else {
+        log(data.error || 'Restore failed during sync', 'error');
+        showToast('Restore process failed. Check logs.', false);
+      }
+    } catch (err) {
+      log(`Operation failed: ${err.message}`, 'error');
+      showToast('Restore command timed out.', false);
+    } finally {
+      setButtonsDisabled(false);
+      fetchStatus();
+    }
+  }
+
+  // 6. COMMIT CHANGES
+  async function triggerCommit() {
+    const messageInput = document.getElementById('commit-msg').value.trim();
+    if (!messageInput) {
+      alert('Please enter a commit message describing your edits.');
+      return;
+    }
+
+    setButtonsDisabled(true);
+    log(`Creating local repository commit: "${messageInput}"...`, 'info');
+    try {
+      const res = await fetch('/api/commit-changes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: messageInput })
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        log(data.stdout || data.message, 'info');
+        showToast('CMS changes committed successfully!');
+        log('Commit created successfully.', 'warn');
+      } else {
+        log(data.error || 'Commit process failed', 'error');
+        showToast('Commit failed. See logs.', false);
+      }
+    } catch (err) {
+      log(`Operation failed: ${err.message}`, 'error');
+      showToast('Commit request failed.', false);
+    } finally {
+      setButtonsDisabled(false);
+      fetchStatus();
+    }
+  }
+
+  // 7. GITHUB PUSH MODAL SAFETY FLOW
+  function triggerOpenPushModal() {
+    // Populate push modal metadata
+    document.getElementById('push-modal-branch').textContent = currentBranchCached;
+    document.getElementById('push-modal-commit').textContent = lastCommitCached;
+    document.getElementById('push-modal-sync').textContent = lastSyncTimeCached;
+    document.getElementById('push-modal-build').textContent = lastBuildTimeCached;
+    
+    const count = filesChangedCached.length;
+    document.getElementById('push-modal-changed-count').textContent = count;
+    
+    const filesBox = document.getElementById('push-modal-changed-files');
+    if (count === 0) {
+      filesBox.textContent = 'No uncommitted file changes. Your local repository is clean and ready.';
+      filesBox.style.color = 'var(--color-success)';
+    } else {
+      filesBox.textContent = filesChangedCached.join('\n');
+      filesBox.style.color = 'var(--color-warning)';
+    }
+    
+    openModal('push-modal');
+  }
+
+  async function confirmPushToGithub() {
+    closeModal('push-modal');
+    setButtonsDisabled(true);
+    log(`Connecting to remote repository and pushing commits to master...`, 'info');
+    try {
+      const res = await fetch('/api/push-github', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.success) {
+        log(data.stdout, 'info');
+        showToast('Content successfully pushed to GitHub!');
+        log('Git Push Completed Successfully! All remote tracking branch records are up to date.', 'warn');
+      } else {
+        log(data.error || 'Push action rejected by host', 'error');
+        if (data.stdout) log(data.stdout, 'info');
+        if (data.stderr) log(data.stderr, 'error');
+        showToast('Push failed. Inspect git settings.', false);
+      }
+    } catch (err) {
+      log(`Push operation error: ${err.message}`, 'error');
+      showToast('Network push request timed out.', false);
+    } finally {
+      setButtonsDisabled(false);
+      fetchStatus();
+    }
+  }
+</script>
+</body>
+</html>
