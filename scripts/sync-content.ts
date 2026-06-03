@@ -1183,6 +1183,29 @@ ${seoIssues.length === 0 ? '| None | All SEO parameters comply with standards | 
     });
   });
 
+  // Calculate per-category details
+  function getCategoryStatusCounts(sheet: any[]) {
+    let active = 0;
+    let draft = 0;
+    let archived = 0;
+    sheet.forEach((row: any) => {
+      const status = String(row['Status'] || 'Active').trim().toLowerCase();
+      if (status === 'draft') {
+        draft++;
+      } else if (status === 'archived') {
+        archived++;
+      } else {
+        active++;
+      }
+    });
+    return { active, draft, archived };
+  }
+
+  const custCounts = getCategoryStatusCounts(rawCustomizations);
+  const servCounts = getCategoryStatusCounts(rawServices);
+  const prodCounts = getCategoryStatusCounts(rawProducts);
+  const csCounts = getCategoryStatusCounts(rawCaseStudies);
+
   // CMS_SUMMARY_REPORT.md
   const cmsSummaryContent = `# CMS Content Summary Dashboard
 
@@ -1198,18 +1221,17 @@ ${seoIssues.length === 0 ? '| None | All SEO parameters comply with standards | 
 | 🏆 CMS Health Score | **${healthScore}/100** |
 
 ## Detail Content Breakdowns
-| Metric | Count |
-|---|---|
-| Total Customizations | ${rawCustomizations.length} |
-| Total Services | ${rawServices.length} |
-| Total Products | ${rawProducts.length} |
-| Total Case Studies | ${rawCaseStudies.length} |
-| Total FAQs | ${faqsData.length} |
-| Total Active Testimonials | ${testimonialsData.length} |
-| Total Active Pricing Rows | ${pricingData.length} |
-| Total Active Offers | ${offersData.length} |
-| Total Industries | ${industriesData.length} |
-`;
+| Metric | Total | Active | Draft | Archived |
+|---|---|---|---|---|
+| Customizations | ${rawCustomizations.length} | ${custCounts.active} | ${custCounts.draft} | ${custCounts.archived} |
+| Services | ${rawServices.length} | ${servCounts.active} | ${servCounts.draft} | ${servCounts.archived} |
+| Products | ${rawProducts.length} | ${prodCounts.active} | ${prodCounts.draft} | ${prodCounts.archived} |
+| Case Studies | ${rawCaseStudies.length} | ${csCounts.active} | ${csCounts.draft} | ${csCounts.archived} |
+| FAQs | ${faqsData.length} | ${faqsData.length} | - | - |
+| Testimonials | ${testimonialsData.length} | ${testimonialsData.length} | - | - |
+| Pricing Rows | ${pricingData.length} | ${pricingData.length} | - | - |
+| Offers | ${offersData.length} | ${offersData.length} | - | - |
+| Industries | ${industriesData.length} | ${industriesData.length} | - | - |`;
   fs.writeFileSync(path.join(reportsDir, 'CMS_SUMMARY_REPORT.md'), cmsSummaryContent);
   
   // ROUTING_ARCHITECTURE_REPORT.md

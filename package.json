@@ -10,7 +10,8 @@
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
     "sync-content": "tsx scripts/sync-content.ts",
-    "bootstrap": "tsx scripts/bootstrap-content.ts"
+    "bootstrap": "tsx scripts/bootstrap-content.ts",
+    "test-cms": "tsx scripts/test-cms.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
