@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ind-1",
+    "industryName": "Hospitality",
+    "slug": "hospitality",
+    "description": "Hotels, lodging setups, guest houses, and restaurants.",
+    "bannerImage": ""
+  },
+  {
+    "id": "ind-2",
+    "industryName": "Retail",
+    "slug": "retail",
+    "description": "Supermarkets, apparel boutiques, POS outlets, and distributors.",
+    "bannerImage": ""
+  },
+  {
+    "id": "ind-3",
+    "industryName": "Manufacturing",
+    "slug": "manufacturing",
+    "description": "Factory operations, bill of materials tracking, and raw ingredients management.",
+    "bannerImage": ""
+  },
+  {
+    "id": "ind-4",
+    "industryName": "Logistics & Warehouse",
+    "slug": "logistics-warehouse",
+    "description": "Multi-godown management, batch tracking, and logistics.",
+    "bannerImage": ""
+  },
+  {
+    "id": "ind-5",
+    "industryName": "Professional Services",
+    "slug": "professional-services",
+    "description": "Consultancies, schools, payroll systems, and MIS dashboards.",
+    "bannerImage": ""
+  }
+]

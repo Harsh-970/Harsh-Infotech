@@ -1,0 +1,34 @@
+[
+  {
+    "id": "case-1",
+    "title": "Streamlining Front-Desk & Billing for Sea Breeze Luxury Hotel",
+    "slug": "sea-breeze-hotel",
+    "status": "Active",
+    "featured": true,
+    "industry": "Hospitality",
+    "clientType": "3-Star Boutique Hotel (50 Rooms)",
+    "problem": [
+      "Manual recording of room reservation sheets and guest ledger entries causing massive delays during checkout",
+      "Frequent billing errors on room services and dining bills between front desk and Tally Prime"
+    ],
+    "solution": [
+      "Deployed the Custom Hotel & Lodging Management System integrating reservation matrix, room services, and checkout invoicing directly in Tally Prime"
+    ],
+    "results": [
+      "Checkout processing time cut down from 15 minutes to under 2 minutes",
+      "Eliminated manual bookkeeping discrepancies between front-office and audit staff",
+      "GST tax allocation reports compile instantly on demand"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [],
+    "seoTitle": "Sea Breeze Hotel Checkout Automation Case Study - Harsh Infotech",
+    "seoDescription": "Read how Sea Breeze Hotel automated room reservations, service ledger billing, and checkout invoices with Tally Prime customizations.",
+    "priority": 10,
+    "tags": [
+      "Success Story",
+      "Bespoke Customization"
+    ],
+    "hasCustomImage": false
+  }
+]

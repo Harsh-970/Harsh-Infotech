@@ -1,0 +1,179 @@
+[
+  {
+    "id": "price-lic-1",
+    "planName": "Silver (Single User) - Monthly",
+    "serviceSlug": "tally-license",
+    "pricingPeriod": "Monthly",
+    "price": "₹750 / mo",
+    "features": [
+      "GST Ready Billing",
+      "Inventory Management",
+      "Bank Reconciliation",
+      "1 Concurrent User",
+      "Free Setup Assistance"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-lic-2",
+    "planName": "Silver (Single User) - Yearly",
+    "serviceSlug": "tally-license",
+    "pricingPeriod": "Yearly",
+    "price": "₹7,500 / yr",
+    "features": [
+      "GST Ready Billing",
+      "Inventory Management",
+      "Bank Reconciliation",
+      "1 Concurrent User",
+      "Save 2 Months",
+      "Free Setup Assistance"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-lic-3",
+    "planName": "Silver (Single User) - Perpetual",
+    "serviceSlug": "tally-license",
+    "pricingPeriod": "Perpetual",
+    "price": "₹22,500",
+    "features": [
+      "GST Ready Billing",
+      "Inventory Management",
+      "Bank Reconciliation",
+      "1 Concurrent User",
+      "One Time Purchase",
+      "Free Setup Assistance"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-lic-4",
+    "planName": "Gold (Multi User) - Monthly",
+    "serviceSlug": "tally-license",
+    "pricingPeriod": "Monthly",
+    "price": "₹1,500 / mo",
+    "features": [
+      "Everything in Silver",
+      "Unlimited Concurrent Users",
+      "Multi-Company Support",
+      "Remote Access Ready",
+      "Priority Support"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-lic-5",
+    "planName": "Gold (Multi User) - Yearly",
+    "serviceSlug": "tally-license",
+    "pricingPeriod": "Yearly",
+    "price": "₹15,000 / yr",
+    "features": [
+      "Everything in Silver",
+      "Unlimited Concurrent Users",
+      "Multi-Company Support",
+      "Remote Access Ready",
+      "Priority Support",
+      "Save 2 Months"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-lic-6",
+    "planName": "Gold (Multi User) - Perpetual",
+    "serviceSlug": "tally-license",
+    "pricingPeriod": "Perpetual",
+    "price": "₹67,500",
+    "features": [
+      "Everything in Silver",
+      "Unlimited Concurrent Users",
+      "Multi-Company Support",
+      "Remote Access Ready",
+      "Priority Support",
+      "One Time Purchase"
+    ],
+    "popular": true
+  },
+  {
+    "id": "price-cloud-1",
+    "planName": "Starter Cloud (SU)",
+    "serviceSlug": "tally-cloud",
+    "pricingPeriod": "Yearly",
+    "price": "₹7,200 / yr",
+    "features": [
+      "1 User Access",
+      "Secure Cloud Environment",
+      "Daily Automated Backups",
+      "Remote Login Capability",
+      "Standard Support"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-cloud-2",
+    "planName": "Business Cloud (MU)",
+    "serviceSlug": "tally-cloud",
+    "pricingPeriod": "Yearly",
+    "price": "₹7,200 per user / yr",
+    "features": [
+      "Multiple Users Access",
+      "Shared Cloud Environment",
+      "Daily Automated Backups",
+      "Remote Login Capability",
+      "Priority Technical Support"
+    ],
+    "popular": true
+  },
+  {
+    "id": "price-amc-1",
+    "planName": "Remote Support AMC",
+    "serviceSlug": "amc",
+    "pricingPeriod": "Yearly",
+    "price": "₹9,000 / yr (Single) | ₹13,500 / yr (Multi)",
+    "features": [
+      "Unlimited telephonic support (business hours)",
+      "Quick issue resolution",
+      "Guidance & troubleshooting"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-amc-2",
+    "planName": "Basic AMC",
+    "serviceSlug": "amc",
+    "pricingPeriod": "Yearly",
+    "price": "₹11,000 / yr (Single) | ₹18,000 / yr (Multi)",
+    "features": [
+      "All Remote AMC features",
+      "6 scheduled on-site visits",
+      "Regular system checks"
+    ],
+    "popular": true
+  },
+  {
+    "id": "price-amc-3",
+    "planName": "Plus AMC",
+    "serviceSlug": "amc",
+    "pricingPeriod": "Yearly",
+    "price": "₹25,000 – ₹35,000 / yr",
+    "features": [
+      "All Basic features",
+      "12 scheduled visits",
+      "Priority response support"
+    ],
+    "popular": false
+  },
+  {
+    "id": "price-amc-4",
+    "planName": "Premium AMC",
+    "serviceSlug": "amc",
+    "pricingPeriod": "Yearly",
+    "price": "₹35,000 – ₹45,000+ / yr",
+    "features": [
+      "All Plus features",
+      "16 scheduled visits",
+      "Highest priority response",
+      "Complete system health checks"
+    ],
+    "popular": false
+  }
+]

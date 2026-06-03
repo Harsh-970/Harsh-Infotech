@@ -1,0 +1,212 @@
+[
+  {
+    "id": "hotel-lodging",
+    "type": "customization",
+    "title": "Hotel & Lodging Management System",
+    "description": "Complete room reservation, check-in/check-out, guest ledger billing, and occupancy reporting integrated seamlessly with Tally Prime.",
+    "slug": "hotel-lodging",
+    "category": "Hotel",
+    "industry": "Hospitality",
+    "keywords": "Hotel Restaurant GST Billing Reports Tally Prime Tally ERP 9 Cloud Compatible GST Enabled Hotel Hospitality"
+  },
+  {
+    "id": "garment-retail",
+    "type": "customization",
+    "title": "Garment & Apparel Grid Billing Module",
+    "description": "Multi-dimensional billing grid (Size, Color, Brand, Style) with barcode integration for swift retail checkouts and clean stock tracking.",
+    "slug": "garment-retail",
+    "category": "Garment",
+    "industry": "Retail",
+    "keywords": "Garment Barcode POS Inventory Retail Tally Prime Barcode Support Cloud Compatible GST Enabled Garment Retail"
+  },
+  {
+    "id": "manufacturing-bom",
+    "type": "customization",
+    "title": "Auto-BOM & Manufacturing Consumption Module",
+    "description": "Automatic generation of production entries and raw material consumption vouchers based on sales invoices and Bills of Materials.",
+    "slug": "manufacturing-bom",
+    "category": "Manufacturing",
+    "industry": "Manufacturing",
+    "keywords": "Manufacturing BOM Inventory Automation Finance Tally Prime Tally ERP 9 Inventory Control Cloud Compatible Manufacturing Manufacturing"
+  },
+  {
+    "id": "multi-branch-sync",
+    "type": "customization",
+    "title": "Multi-Branch Real-Time Data Sync",
+    "description": "Sync all retail transactions, receipts, and inventory stock transfers across multiple physical locations and main head office seamlessly.",
+    "slug": "multi-branch-sync",
+    "category": "Integration",
+    "industry": "Logistics & Warehouse",
+    "keywords": "Integration Automation Multi Branch Cloud Compatible Reports Tally Prime Cloud Compatible Multi-Branch Support Integration Logistics & Warehouse"
+  },
+  {
+    "id": "payroll-biometric",
+    "type": "customization",
+    "title": "Payroll & Biometric Attendance Integration",
+    "description": "Link attendance logs from hardware scanners or mobile check-ins directly into Tally's payroll voucher system for single-click salaries.",
+    "slug": "payroll-biometric",
+    "category": "Payroll",
+    "industry": "Professional Services",
+    "keywords": "Payroll Automation Integration Reports Education Tally Prime Tally ERP 9 Hardware API GST Enabled Payroll Professional Services"
+  },
+  {
+    "id": "mis-dashboard",
+    "type": "customization",
+    "title": "MIS Dashboard & Visual Analytics Panel",
+    "description": "Beautiful graphical visual dashboard showing key business health vitals like accounts receivable, cash flows, top customers, and sales trends.",
+    "slug": "mis-dashboard",
+    "category": "MIS Reports",
+    "industry": "Professional Services",
+    "keywords": "MIS Reports Finance Mobile Access Reports Automation Tally Prime Cloud Compatible GST Enabled Mobile Access MIS Reports Professional Services"
+  },
+  {
+    "id": "warehouse-batch",
+    "type": "customization",
+    "title": "Warehouse & Batch Expiry Tracker",
+    "description": "Advanced batch tracking with manufacturing and expiry date alerts, multi-godown stock transfers, and rack allocation tags.",
+    "slug": "warehouse-batch",
+    "category": "Warehouse",
+    "industry": "Logistics & Warehouse",
+    "keywords": "Warehouse Inventory Barcode Healthcare Retail Tally Prime Tally ERP 9 Inventory Control Cloud Compatible Warehouse Logistics & Warehouse"
+  },
+  {
+    "id": "tally-crm",
+    "type": "customization",
+    "title": "Tally CRM & Lead Tracker Module",
+    "description": "Manage client interaction history, outstanding reminders, lead status, and sales representative targets right inside Tally Prime.",
+    "slug": "tally-crm",
+    "category": "CRM",
+    "industry": "Retail",
+    "keywords": "CRM Automation Mobile Access Finance Retail Tally Prime GST Enabled Mobile Access Cloud Compatible CRM Retail"
+  },
+  {
+    "id": "tally-license",
+    "type": "service",
+    "title": "Tally Prime License",
+    "description": "Get genuine Tally Prime licenses (Single & Multi User) with complete setup and guidance.",
+    "slug": "tally-license",
+    "category": "Main",
+    "industry": "N/A",
+    "keywords": "Core Tally Support Main"
+  },
+  {
+    "id": "tally-cloud",
+    "type": "service",
+    "title": "Tally on Cloud",
+    "description": "Access your business data anytime, anywhere with secure and reliable cloud solutions.",
+    "slug": "tally-cloud",
+    "category": "Main",
+    "industry": "N/A",
+    "keywords": "Core Tally Support Main"
+  },
+  {
+    "id": "tally-customization",
+    "type": "service",
+    "title": "Tally Customization",
+    "description": "Customize Tally according to your business workflow using advanced TDL solutions.",
+    "slug": "tally-customization",
+    "category": "Main",
+    "industry": "N/A",
+    "keywords": "Core Tally Support Main"
+  },
+  {
+    "id": "vps",
+    "type": "service",
+    "title": "VPS (Virtual Private Server)",
+    "description": "High-performance cloud servers for running business applications securely and efficiently.",
+    "slug": "vps",
+    "category": "More",
+    "industry": "N/A",
+    "keywords": "Infrastructure IT Services More"
+  },
+  {
+    "id": "amc",
+    "type": "service",
+    "title": "Tally AMC & Support",
+    "description": "Reliable annual maintenance and support for smooth business operations.",
+    "slug": "amc",
+    "category": "More",
+    "industry": "N/A",
+    "keywords": "Infrastructure IT Services More"
+  },
+  {
+    "id": "excel",
+    "type": "service",
+    "title": "Excel to Tally Integration",
+    "description": "Seamlessly import and manage your vast Excel data directly into Tally.",
+    "slug": "excel",
+    "category": "More",
+    "industry": "N/A",
+    "keywords": "Infrastructure IT Services More"
+  },
+  {
+    "id": "data-migration",
+    "type": "service",
+    "title": "Data Migration & Setup",
+    "description": "Secure transfer and setup of your existing business data to new systems or cloud.",
+    "slug": "data-migration",
+    "category": "More",
+    "industry": "N/A",
+    "keywords": "Infrastructure IT Services More"
+  },
+  {
+    "id": "hardware-support",
+    "type": "service",
+    "title": "Hardware & System Support",
+    "description": "Complete assistance for business systems and physical IT infrastructure.",
+    "slug": "hardware-support",
+    "category": "More",
+    "industry": "N/A",
+    "keywords": "Infrastructure IT Services More"
+  },
+  {
+    "id": "servers",
+    "type": "product",
+    "title": "Enterprise Servers",
+    "description": "Reliable and high-performance servers designed for non-stop business operations and data redundancy.",
+    "slug": "servers",
+    "category": "Hardware",
+    "industry": "N/A",
+    "keywords": "Hardware Office Infrastructure HP / Dell / Lenovo Hardware"
+  },
+  {
+    "id": "workstations",
+    "type": "product",
+    "title": "Professional Workstations",
+    "description": "Powerful desktop systems designed for heavy professional workloads, industrial use, and secure workflows.",
+    "slug": "workstations",
+    "category": "Hardware",
+    "industry": "N/A",
+    "keywords": "Hardware Office Infrastructure HP / Dell / Custom Builds Hardware"
+  },
+  {
+    "id": "printers",
+    "type": "product",
+    "title": "Commercial Printers",
+    "description": "Efficient high-volume printing solutions tailored for daily business accounting and invoicing needs.",
+    "slug": "printers",
+    "category": "Hardware",
+    "industry": "N/A",
+    "keywords": "Hardware Office Infrastructure Epson / HP / Canon Hardware"
+  },
+  {
+    "id": "scanners",
+    "type": "product",
+    "title": "High-Speed Scanners",
+    "description": "Fast document scanning solutions for achieving an organized, paperless workflow safely.",
+    "slug": "scanners",
+    "category": "Hardware",
+    "industry": "N/A",
+    "keywords": "Hardware Office Infrastructure Fujitsu / Canon Hardware"
+  },
+  {
+    "id": "case-1",
+    "type": "case-study",
+    "title": "Streamlining Front-Desk & Billing for Sea Breeze Luxury Hotel",
+    "description": "3-Star Boutique Hotel (50 Rooms)",
+    "slug": "sea-breeze-hotel",
+    "category": "Case Study",
+    "industry": "Hospitality",
+    "keywords": "Success Story Bespoke Customization Hospitality 3-Star Boutique Hotel (50 Rooms)"
+  }
+]

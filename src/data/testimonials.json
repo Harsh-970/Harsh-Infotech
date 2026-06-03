@@ -1,0 +1,50 @@
+[
+  {
+    "id": "test-1",
+    "featured": true,
+    "name": "Rajesh Sharma",
+    "role": "Business Owner",
+    "initials": "RS",
+    "text": "Harsh Infotech helped us streamline our Tally operations and saved hours of manual work."
+  },
+  {
+    "id": "test-2",
+    "featured": true,
+    "name": "Priya Mehta",
+    "role": "Accountant",
+    "initials": "PM",
+    "text": "Excellent support and fast implementation. Their Tally customization is top-notch."
+  },
+  {
+    "id": "test-3",
+    "featured": true,
+    "name": "Amit Verma",
+    "role": "Operations Manager",
+    "initials": "AV",
+    "text": "Smooth migration and zero data loss. Highly recommended for growing companies."
+  },
+  {
+    "id": "test-4",
+    "featured": true,
+    "name": "Sneha Patil",
+    "role": "Finance Head",
+    "initials": "SP",
+    "text": "Reliable AMC support and quick issue resolution every time."
+  },
+  {
+    "id": "test-5",
+    "featured": true,
+    "name": "Kunal Shah",
+    "role": "Startup Founder",
+    "initials": "KS",
+    "text": "Their cloud Tally setup allowed us to work from anywhere seamlessly."
+  },
+  {
+    "id": "test-6",
+    "featured": true,
+    "name": "Neha Gupta",
+    "role": "Admin Manager",
+    "initials": "NG",
+    "text": "Professional team with deep knowledge of business workflows."
+  }
+]

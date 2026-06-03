@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { promises as fs } from 'fs';
+import fsSync from 'fs';
 import path from 'path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 
@@ -127,6 +128,31 @@ const authLogPlugin = (): Plugin => ({
   },
 });
 
+const getDynamicInputs = () => {
+  const inputs: Record<string, string> = {
+    main: path.resolve(__dirname, 'index.html'),
+    about: path.resolve(__dirname, 'about.html'),
+    services: path.resolve(__dirname, 'services.html'),
+    moreServices: path.resolve(__dirname, 'more-services.html'),
+    products: path.resolve(__dirname, 'products.html'),
+    customizations: path.resolve(__dirname, 'customizations.html')
+  };
+
+  const categories = ['customizations', 'products', 'services', 'case-studies'];
+  categories.forEach(cat => {
+    const dirPath = path.resolve(__dirname, cat);
+    if (fsSync.existsSync(dirPath)) {
+      const files = fsSync.readdirSync(dirPath).filter(f => f.endsWith('.html'));
+      files.forEach(file => {
+        const name = `${cat}_${path.basename(file, '.html')}`;
+        inputs[name] = path.resolve(dirPath, file);
+      });
+    }
+  });
+
+  return inputs;
+};
+
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
@@ -141,19 +167,12 @@ export default defineConfig(({mode}) => {
     },
     build: {
       rollupOptions: {
-        input: {
-          main: path.resolve(__dirname, 'index.html'),
-          about: path.resolve(__dirname, 'about.html'),
-          services: path.resolve(__dirname, 'services.html'),
-          moreServices: path.resolve(__dirname, 'more-services.html'),
-          products: path.resolve(__dirname, 'products.html'),
-          customizations: path.resolve(__dirname, 'customizations.html')
-        }
+        input: getDynamicInputs()
       }
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
     },
   };

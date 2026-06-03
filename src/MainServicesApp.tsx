@@ -2,9 +2,56 @@ import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 import { Background, Navbar, Footer } from "./Shared";
 import { CheckCircle2, Zap, Globe, Cpu, ArrowRight, Star, ChevronDown } from "lucide-react";
+import servicesDataRaw from "./data/services.json";
+import pricingDataRaw from "./data/pricing.json";
+
+export interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  featured: boolean;
+  category: string;
+  description: string;
+  price: string;
+  benefits: string[];
+  features: string[];
+  image: string;
+  documentUrl: string;
+  relatedItems: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+  priority?: number;
+  tags?: string[];
+  hasCustomImage?: boolean;
+}
+
+export interface PricingPlan {
+  id: string;
+  planName: string;
+  serviceSlug: string;
+  pricingPeriod: string;
+  price: string;
+  features: string[];
+  popular: boolean;
+}
+
+const servicesData = servicesDataRaw as Service[];
+const pricingData = pricingDataRaw as PricingPlan[];
 
 export default function MainServicesApp() {
   const [showMoreCustomization, setShowMoreCustomization] = useState(false);
+  
+  // Dynamic service mappings
+  const licenseService = servicesData.find(s => s.slug === "tally-license");
+  const cloudService = servicesData.find(s => s.slug === "tally-cloud");
+  const customizationService = servicesData.find(s => s.slug === "tally-customization");
+
+  // Dynamic pricing plans
+  const licensePlans = pricingData.filter(p => p.serviceSlug === "tally-license");
+  const silverPlans = licensePlans.filter(p => p.planName.toLowerCase().includes("silver"));
+  const goldPlans = licensePlans.filter(p => p.planName.toLowerCase().includes("gold"));
+  const cloudPlans = pricingData.filter(p => p.serviceSlug === "tally-cloud");
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -53,15 +100,14 @@ export default function MainServicesApp() {
                 <Zap className="w-7 h-7 text-[#D4AF37]" />
               </div>
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold">Tally Prime License</h2>
+                <h2 className="text-4xl md:text-5xl font-bold">{licenseService?.title || "Tally Prime License"}</h2>
                 <p className="text-white/50 mt-1">Genuine licensing with complete setup and support</p>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-lg text-white/60 mb-12 max-w-3xl leading-relaxed">
-              Get genuine Tally Prime licenses (Single &amp; Multi User) directly from Tally Solutions certified partners.
-              Full setup, activation, migration and training included. Annual renewal pricing is the same as license cost.
+              {licenseService?.description || "Get genuine Tally Prime licenses (Single & Multi User) directly from Tally Solutions certified partners. Full setup, activation, migration and training included."}
             </p>
 
             {/* Plan cards */}
@@ -79,43 +125,42 @@ export default function MainServicesApp() {
 
                 {/* Pricing tiers */}
                 <div className="space-y-4 mb-8 z-10">
-                  <div className="flex items-center justify-between py-3 border-b border-white/10">
-                    <span className="text-white/70">Monthly Subscription</span>
-                    <span className="font-bold text-lg">₹750 / mo</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-white/10">
-                    <div>
-                      <span className="text-white/70">Yearly Subscription</span>
-                      <span className="ml-2 text-xs bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-0.5 rounded-full font-semibold">Save 2 months</span>
+                  {silverPlans.map((plan) => (
+                    <div key={plan.id} className="flex items-center justify-between py-3 border-b border-white/10">
+                      <div>
+                        <span className="text-white/70">{plan.planName.split(" - ")[1] || plan.planName}</span>
+                        {plan.features.includes("Save 2 Months") && (
+                          <span className="ml-2 text-xs bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-0.5 rounded-full font-semibold">Save 2 months</span>
+                        )}
+                        {plan.features.includes("One Time Purchase") && (
+                          <span className="ml-2 text-xs bg-white/10 text-white/60 px-2 py-0.5 rounded-full font-semibold">One time</span>
+                        )}
+                      </div>
+                      <span className="font-bold text-lg">{plan.price}</span>
                     </div>
-                    <span className="font-bold text-lg">₹7,500 / yr</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-white/10">
-                    <div>
-                      <span className="text-white/70">Perpetual License</span>
-                      <span className="ml-2 text-xs bg-white/10 text-white/60 px-2 py-0.5 rounded-full font-semibold">One time</span>
-                    </div>
-                    <span className="font-bold text-lg">₹22,500</span>
-                  </div>
+                  ))}
                   <div className="flex items-center justify-between py-3">
                     <span className="text-white/50 text-sm">Annual Renewal (Perpetual)</span>
-                    <span className="text-white/50 text-sm">₹22,500 / yr</span>
+                    <span className="text-white/50 text-sm">₹7,500 / yr</span>
                   </div>
                 </div>
 
                 <ul className="space-y-3 mb-8 z-10">
-                  {["GST Ready Billing", "Inventory Management", "Bank Reconciliation", "1 Concurrent User", "Free Setup Assistance"].map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-white/70">
-                      <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" /> {f}
-                    </li>
-                  ))}
+                  {(silverPlans[0]?.features || ["GST Ready Billing", "Inventory Management", "Bank Reconciliation", "1 Concurrent User", "Free Setup Assistance"])
+                    .filter(f => f !== "Save 2 Months" && f !== "One Time Purchase")
+                    .map((f, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm text-white/70">
+                        <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" /> {f}
+                      </li>
+                    ))}
                 </ul>
 
                 <a
-                  href="https://wa.me/917558604483?text=Hi, I am interested in Tally Prime Silver (Single User) License"
+                  href={`https://wa.me/917558604483?text=${encodeURIComponent("Hi, I am interested in Tally Prime Silver (Single User) License")}`}
                   data-auth-gated="true"
                   data-service-name="Tally Prime License"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-auto w-full py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all flex items-center justify-center gap-2 z-10"
                 >
                   Get Quote <ArrowRight className="w-4 h-4" />
@@ -134,43 +179,42 @@ export default function MainServicesApp() {
 
                 {/* Pricing tiers */}
                 <div className="space-y-4 mb-8 z-10">
-                  <div className="flex items-center justify-between py-3 border-b border-white/10">
-                    <span className="text-white/70">Monthly Subscription</span>
-                    <span className="font-bold text-lg">₹1,500 / mo</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-white/10">
-                    <div>
-                      <span className="text-white/70">Yearly Subscription</span>
-                      <span className="ml-2 text-xs bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-0.5 rounded-full font-semibold">Save 2 months</span>
+                  {goldPlans.map((plan) => (
+                    <div key={plan.id} className="flex items-center justify-between py-3 border-b border-white/10">
+                      <div>
+                        <span className="text-white/70">{plan.planName.split(" - ")[1] || plan.planName}</span>
+                        {plan.features.includes("Save 2 Months") && (
+                          <span className="ml-2 text-xs bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-0.5 rounded-full font-semibold">Save 2 months</span>
+                        )}
+                        {plan.features.includes("One Time Purchase") && (
+                          <span className="ml-2 text-xs bg-white/10 text-white/60 px-2 py-0.5 rounded-full font-semibold">One time</span>
+                        )}
+                      </div>
+                      <span className={`font-bold text-lg ${plan.popular ? "text-xl text-[#D4AF37]" : ""}`}>{plan.price}</span>
                     </div>
-                    <span className="font-bold text-lg">₹15,000 / yr</span>
-                  </div>
-                  <div className="flex items-center justify-between py-3 border-b border-white/10">
-                    <div>
-                      <span className="text-white/70">Perpetual License</span>
-                      <span className="ml-2 text-xs bg-white/10 text-white/60 px-2 py-0.5 rounded-full font-semibold">One time</span>
-                    </div>
-                    <span className="font-bold text-xl text-[#D4AF37]">₹67,500</span>
-                  </div>
+                  ))}
                   <div className="flex items-center justify-between py-3">
                     <span className="text-white/50 text-sm">Annual Renewal (Perpetual)</span>
-                    <span className="text-white/50 text-sm">₹67,500 / yr</span>
+                    <span className="text-white/50 text-sm">₹15,000 / yr</span>
                   </div>
                 </div>
 
                 <ul className="space-y-3 mb-8 z-10">
-                  {["Everything in Silver", "Unlimited Concurrent Users", "Multi-Company Support", "Remote Access Ready", "Priority Support"].map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-white/70">
-                      <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" /> {f}
-                    </li>
-                  ))}
+                  {(goldPlans[0]?.features || ["Everything in Silver", "Unlimited Concurrent Users", "Multi-Company Support", "Remote Access Ready", "Priority Support"])
+                    .filter(f => f !== "Save 2 Months" && f !== "One Time Purchase")
+                    .map((f, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm text-white/70">
+                        <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" /> {f}
+                      </li>
+                    ))}
                 </ul>
 
                 <a
-                  href="https://wa.me/917558604483?text=Hi, I am interested in Tally Prime Gold (Multi User) License"
+                  href={`https://wa.me/917558604483?text=${encodeURIComponent("Hi, I am interested in Tally Prime Gold (Multi User) License")}`}
                   data-auth-gated="true"
                   data-service-name="Tally Prime License"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-auto w-full py-3.5 rounded-full bg-[#D4AF37] text-black font-bold hover:bg-[#c9a830] transition-all flex items-center justify-center gap-2 z-10"
                 >
                   Get Quote <ArrowRight className="w-4 h-4" />
@@ -198,43 +242,28 @@ export default function MainServicesApp() {
                 <Globe className="w-7 h-7 text-[#D4AF37]" />
               </div>
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold">Tally on Cloud</h2>
+                <h2 className="text-4xl md:text-5xl font-bold">{cloudService?.title || "Tally on Cloud"}</h2>
                 <p className="text-white/50 mt-1">Access your Tally data anytime, anywhere</p>
               </div>
             </div>
 
             <p className="text-lg text-white/60 mb-12 max-w-3xl leading-relaxed">
-              We provide fully managed Tally on Cloud solutions without any technical complexity.
-              No need to worry about server configuration — everything is optimized for smooth and secure performance.
+              {cloudService?.description || "We provide fully managed Tally on Cloud solutions without any technical complexity. No need to worry about server configuration — everything is optimized for smooth and secure performance."}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              {[
-                {
-                  name: "SINGLE USER (SU)",
-                  price: "₹7,200",
-                  period: "/ year",
-                  features: ["1 User Access", "Secure Cloud Access", "Daily Backup", "Remote Login", "Cloud Support + Tally Support"],
-                },
-                {
-                  name: "MULTI USER (MU)",
-                  price: "₹7,200",
-                  period: "per user / year",
-                  features: ["Multiple Users Access", "Shared Cloud Environment", "Daily Backup", "Remote Login", "Cloud Support + Tally Support"],
-                  highlight: true,
-                },
-              ].map((plan, i) => (
+              {cloudPlans.map((plan) => (
                 <div
-                  key={i}
-                  className={`glass-card p-5 sm:p-8 flex flex-col relative overflow-hidden ${plan.highlight ? "border-[#D4AF37]/30" : ""}`}
+                  key={plan.id}
+                  className={`glass-card p-5 sm:p-8 flex flex-col relative overflow-hidden ${plan.popular ? "border-[#D4AF37]/30" : ""}`}
                 >
-                  {plan.highlight && (
+                  {plan.popular && (
                     <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/8 to-transparent pointer-events-none" />
                   )}
-                  {plan.highlight && (
+                  {plan.popular && (
                     <span className="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest text-[#D4AF37] bg-[#D4AF37]/15 px-3 py-1 rounded-full z-10">Popular</span>
                   )}
-                  <h3 className="text-2xl font-bold mb-6 z-10">{plan.name}</h3>
+                  <h3 className="text-2xl font-bold mb-6 z-10">{plan.planName.toUpperCase()}</h3>
                   <ul className="space-y-4 mb-10 flex-1 z-10">
                     {plan.features.map((f, fi) => (
                       <li key={fi} className="flex items-center gap-3 text-sm md:text-base text-white/80">
@@ -243,8 +272,8 @@ export default function MainServicesApp() {
                     ))}
                   </ul>
                   <div className="mb-0 z-10">
-                    <span className={`text-4xl font-black ${plan.highlight ? "text-[#D4AF37]" : ""}`}>{plan.price}</span>
-                    <span className="text-white/50 text-sm ml-1 block mt-1">{plan.period}</span>
+                    <span className={`text-4xl font-black ${plan.popular ? "text-[#D4AF37]" : ""}`}>{plan.price.split(' ')[0]}</span>
+                    <span className="text-white/50 text-sm ml-1 block mt-1">{plan.price.split(' ').slice(1).join(' ')}</span>
                   </div>
                 </div>
               ))}
@@ -259,19 +288,21 @@ export default function MainServicesApp() {
               </div>
               <div className="flex gap-4 w-full md:w-auto shrink-0">
                 <a
-                  href="https://wa.me/917558604483?text=Hi, I am interested in Tally on Cloud"
+                  href={`https://wa.me/917558604483?text=${encodeURIComponent("Hi, I am interested in Tally on Cloud")}`}
                   data-auth-gated="true"
                   data-service-name="Tally on Cloud"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all flex items-center justify-center gap-2"
                 >
                   Get Started
                 </a>
                 <a
-                  href="https://wa.me/917558604483?text=Hi, I am interested in Tally on Cloud"
+                  href={`https://wa.me/917558604483?text=${encodeURIComponent("Hi, I am interested in Tally on Cloud")}`}
                   data-auth-gated="true"
                   data-service-name="Tally on Cloud"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 py-3 rounded-full bg-[#D4AF37] text-black font-bold hover:bg-[#c9a830] transition-all flex items-center justify-center gap-2"
                 >
                   Contact on WhatsApp

@@ -1,44 +1,18 @@
 import React from "react";
 import { motion } from "motion/react";
 
-const testimonials = [
-  {
-    text: "Harsh Infotech helped us streamline our Tally operations and saved hours of manual work.",
-    name: "Rajesh Sharma",
-    role: "Business Owner",
-    initials: "RS",
-  },
-  {
-    text: "Excellent support and fast implementation. Their Tally customization is top-notch.",
-    name: "Priya Mehta",
-    role: "Accountant",
-    initials: "PM",
-  },
-  {
-    text: "Smooth migration and zero data loss. Highly recommended for growing companies.",
-    name: "Amit Verma",
-    role: "Operations Manager",
-    initials: "AV",
-  },
-  {
-    text: "Reliable AMC support and quick issue resolution every time.",
-    name: "Sneha Patil",
-    role: "Finance Head",
-    initials: "SP",
-  },
-  {
-    text: "Their cloud Tally setup allowed us to work from anywhere seamlessly.",
-    name: "Kunal Shah",
-    role: "Startup Founder",
-    initials: "KS",
-  },
-  {
-    text: "Professional team with deep knowledge of business workflows.",
-    name: "Neha Gupta",
-    role: "Admin Manager",
-    initials: "NG",
-  },
-];
+import testimonialsDataRaw from "./data/testimonials.json";
+
+export interface Testimonial {
+  id: string;
+  featured: boolean;
+  name: string;
+  role: string;
+  initials: string;
+  text: string;
+}
+
+const testimonials = testimonialsDataRaw as Testimonial[];
 
 const TestimonialsColumn = ({
   className = "",
@@ -85,9 +59,11 @@ const TestimonialsColumn = ({
 };
 
 export const Testimonials = () => {
-  const firstColumn = testimonials.slice(0, 3);
-  const secondColumn = testimonials.slice(3, 6);
-  const thirdColumn = testimonials.slice(1, 4);
+  const count = testimonials.length;
+  const colSize = Math.max(2, Math.ceil(count / 3));
+  const firstColumn = testimonials.slice(0, colSize);
+  const secondColumn = testimonials.slice(colSize, colSize * 2);
+  const thirdColumn = testimonials.slice(Math.max(0, colSize - 1), Math.max(colSize, colSize * 2 - 1));
 
   return (
     <section className="py-16 px-4 sm:px-6 md:py-24 lg:py-32 lg:px-20 overflow-hidden">

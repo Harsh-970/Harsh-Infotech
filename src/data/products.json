@@ -1,0 +1,130 @@
+[
+  {
+    "id": "servers",
+    "title": "Enterprise Servers",
+    "slug": "servers",
+    "status": "Active",
+    "featured": true,
+    "brand": "HP / Dell / Lenovo",
+    "category": "Hardware",
+    "description": "Reliable and high-performance servers designed for non-stop business operations and data redundancy.",
+    "price": "Starting at ₹85,000",
+    "specifications": [
+      "CPU: Dual Intel Xeon or AMD EPYC Processors",
+      "RAM: ECC DDR4/DDR5 Registered Modules",
+      "Storage: Enterprise SAS/SATA RAID arrays",
+      "Network: 10GbE SFP+ high-speed interfaces"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "workstations",
+      "printers",
+      "scanners"
+    ],
+    "seoTitle": "Enterprise Database & Application Servers - Harsh Infotech",
+    "seoDescription": "Procure certified enterprise servers from Dell, HP, and Lenovo optimized for local data hosting and virtual machines.",
+    "priority": 10,
+    "tags": [
+      "Hardware",
+      "Office Infrastructure"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "workstations",
+    "title": "Professional Workstations",
+    "slug": "workstations",
+    "status": "Active",
+    "featured": true,
+    "brand": "HP / Dell / Custom Builds",
+    "category": "Hardware",
+    "description": "Powerful desktop systems designed for heavy professional workloads, industrial use, and secure workflows.",
+    "price": "Starting at ₹45,000",
+    "specifications": [
+      "CPU: Intel Core i7/i9 or AMD Ryzen Threadripper",
+      "RAM: 32GB to 128GB High-speed channels",
+      "Storage: Ultra-fast NVMe PCIe M.2 SSDs",
+      "Graphics: Dedicated NVIDIA RTX professional GPUs"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "servers",
+      "printers",
+      "scanners"
+    ],
+    "seoTitle": "HP & Dell Professional Workstation Desktops - Harsh Infotech",
+    "seoDescription": "High-end workstations built for heavy accounting calculations, software compilation, and professional processing.",
+    "priority": 9,
+    "tags": [
+      "Hardware",
+      "Office Infrastructure"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "printers",
+    "title": "Commercial Printers",
+    "slug": "printers",
+    "status": "Active",
+    "featured": true,
+    "brand": "Epson / HP / Canon",
+    "category": "Hardware",
+    "description": "Efficient high-volume printing solutions tailored for daily business accounting and invoicing needs.",
+    "price": "Starting at ₹12,000",
+    "specifications": [
+      "Print Speed: 30 to 50+ pages per minute",
+      "Duty Cycle: Up to 50,000 printouts monthly",
+      "Connectivity: Gigabit LAN and WiFi network printing",
+      "Options: Monochrome / Color LaserJet and InkTank"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "servers",
+      "workstations",
+      "scanners"
+    ],
+    "seoTitle": "Heavy-Duty Office Printers & Laser Copiers - Harsh Infotech",
+    "seoDescription": "Equip your billing desk with reliable high-volume network laser printers from Epson, HP, and Canon.",
+    "priority": 8,
+    "tags": [
+      "Hardware",
+      "Office Infrastructure"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "scanners",
+    "title": "High-Speed Scanners",
+    "slug": "scanners",
+    "status": "Active",
+    "featured": true,
+    "brand": "Fujitsu / Canon",
+    "category": "Hardware",
+    "description": "Fast document scanning solutions for achieving an organized, paperless workflow safely.",
+    "price": "Starting at ₹8,500",
+    "specifications": [
+      "Feeder: Auto Document Feeder (ADF) up to 80 sheets",
+      "Resolution: Double-sided (Duplex) 600 DPI scans",
+      "Speed: 40 to 80 sheets scanned per minute",
+      "Software: Auto-OCR text identification included"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "servers",
+      "workstations",
+      "printers"
+    ],
+    "seoTitle": "High-Speed Document Scanners & Digitizers - Harsh Infotech",
+    "seoDescription": "Digitize invoices and corporate filings easily with fast sheet-fed scanners supporting optical character recognition.",
+    "priority": 7,
+    "tags": [
+      "Hardware",
+      "Office Infrastructure"
+    ],
+    "hasCustomImage": false
+  }
+]

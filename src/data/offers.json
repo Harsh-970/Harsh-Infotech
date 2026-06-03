@@ -1,0 +1,11 @@
+[
+  {
+    "id": "offer-1",
+    "offerName": "New Financial Year Discount",
+    "slug": "new-fy-discount",
+    "discount": "10%",
+    "description": "Get 10% off on all Tally customizations during the new financial year opening.",
+    "couponCode": "WELCOME10",
+    "expiryDate": "2026-07-31"
+  }
+]

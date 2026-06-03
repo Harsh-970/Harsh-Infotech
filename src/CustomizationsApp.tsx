@@ -4,13 +4,41 @@ import {
   Search, ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, HelpCircle, 
   Tag, MessageSquare, TrendingUp, Sparkles, Filter, RefreshCw,
   Phone, Globe, Info, Zap, Settings, Shield, ChevronDown,
-  Layers, Grid3X3, LayoutList
+  Layers, Grid3X3, LayoutList, FileDown
 } from "lucide-react";
 import { Background, Navbar, Footer } from "./Shared";
-import { customizationsData, CustomizationModule } from "./data/customizations";
+import customizationsDataRaw from "./data/customizations.json";
+
+export interface CustomizationModule {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  description: string;
+  features: string[];
+  benefits: string[];
+  price: string;
+  compatibility: string[];
+  image: string;
+  popular?: boolean;
+  featured: boolean;
+  industry: string;
+  tags: string[];
+  problemsSolved: string[];
+  workflow: string[];
+  faq: { q: string; a: string; }[];
+  documentUrl?: string;
+  hasCustomImage?: boolean;
+  relatedItems: string[];
+}
+
+const customizationsData = customizationsDataRaw as CustomizationModule[];
 
 export default function CustomizationsApp() {
   const [activeSlug, setActiveSlug] = useState<string | null>(() => {
+    if (typeof window !== "undefined" && (window as any).__ACTIVE_SLUG__) {
+      return (window as any).__ACTIVE_SLUG__;
+    }
     const params = new URLSearchParams(window.location.search);
     return params.get("module");
   });
@@ -286,6 +314,28 @@ export default function CustomizationsApp() {
   // Recommended modules for details page
   const recommendedModules = useMemo(() => {
     if (!activeModule) return [];
+    
+    // Explicit recommended matches from JSON database
+    if (activeModule.relatedItems && activeModule.relatedItems.length > 0) {
+      const matched = activeModule.relatedItems
+        .map(slug => customizationsData.find(m => m.slug === slug))
+        .filter(Boolean) as CustomizationModule[];
+      if (matched.length >= 3) return matched.slice(0, 3);
+      
+      // Fallback if less than 3
+      const ids = new Set(matched.map(m => m.id));
+      const primary = customizationsData.filter(m => 
+        m.id !== activeModule.id && 
+        !ids.has(m.id) &&
+        (m.category === activeModule.category || m.industry === activeModule.industry)
+      );
+      const combined = [...matched, ...primary];
+      const combinedIds = new Set(combined.map(c => c.id));
+      const backup = customizationsData.filter(m => m.id !== activeModule.id && !combinedIds.has(m.id));
+      return [...combined, ...backup].slice(0, 3);
+    }
+    
+    // Default fallback
     const primary = customizationsData.filter(m => 
       m.id !== activeModule.id && 
       (m.category === activeModule.category || m.industry === activeModule.industry)
@@ -553,7 +603,7 @@ export default function CustomizationsApp() {
                               onDragStart={() => setIsDragging(true)}
                               onDragEnd={handleDragEnd}
                               whileDrag={{ scale: 1.02, cursor: "grabbing", zIndex: filteredItems.length + 1 }}
-                              whileHover={layoutMode !== "stack" ? { y: -5 } : undefined}
+                              whileHover={layoutMode !== "stack" ? { y: -8, scale: 1.04, boxShadow: "var(--glass-shadow-hover), 0 0 25px rgba(212, 175, 55, 0.15)" } : undefined}
                               onClick={() => {
                                 if (isDragging) return;
                                 if (layoutMode === "stack" && !isTopCard) {
@@ -565,9 +615,12 @@ export default function CustomizationsApp() {
                               style={{
                                 position: layoutMode === "stack" ? "absolute" : "relative",
                                 // Disable CSS transitions when using Framer Motion layout to prevent conflicts
-                                transition: "border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                                transition: "border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                                 rotateX: isTopCard ? rotateX : 0,
-                                transformPerspective: 1000
+                                transformPerspective: 1000,
+                                backgroundImage: module.hasCustomImage ? `linear-gradient(to bottom, rgba(5, 12, 28, 0.4) 0%, rgba(5, 12, 28, 0.95) 90%), url(${module.image})` : undefined,
+                                backgroundSize: module.hasCustomImage ? 'cover' : undefined,
+                                backgroundPosition: module.hasCustomImage ? 'center' : undefined,
                               }}
                               className={`glass-card flex flex-col group ${
                                 layoutMode === "stack" ? "!absolute w-full max-w-xs h-[420px]" : "h-full"
@@ -575,7 +628,7 @@ export default function CustomizationsApp() {
                                 layoutMode === "list" ? "md:flex-row md:h-64" : ""
                               } ${
                                 layoutMode === "stack" && isTopCard ? "cursor-grab active:cursor-grabbing z-30" : ""
-                              }`}
+                              }`.trim()}
                             >
                               {/* Popular / Featured Badges */}
                               {module.popular && (
@@ -917,6 +970,16 @@ export default function CustomizationsApp() {
                       >
                         <Phone className="w-4 h-4" /> Call Sales Representative
                       </a>
+
+                      {activeModule.documentUrl && (
+                        <a
+                          href={activeModule.documentUrl}
+                          download
+                          className="w-full py-4 rounded-full bg-white/10 border border-white/20 hover:border-white/30 text-text-primary font-bold text-base hover:bg-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          <FileDown className="w-4 h-4" /> Download Brochure
+                        </a>
+                      )}
                     </div>
 
                     <div className="mt-6 flex flex-col gap-3 text-left w-full text-xs text-text-secondary">

@@ -1,0 +1,586 @@
+[
+  {
+    "id": "hotel-lodging",
+    "title": "Hotel & Lodging Management System",
+    "slug": "hotel-lodging",
+    "status": "Active",
+    "featured": true,
+    "category": "Hotel",
+    "industry": "Hospitality",
+    "description": "Complete room reservation, check-in/check-out, guest ledger billing, and occupancy reporting integrated seamlessly with Tally Prime.",
+    "fullDescription": "Complete automation module tailored for the Hospitality industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Lack of real-time guest balance checking causing billing disputes",
+      "Time-consuming manual transfer of front-desk transactions into Tally",
+      "Complex tax allocation across different lodging tariffs and restaurant bills"
+    ],
+    "benefits": [
+      "Eliminates duplicate entries between front-desk software and accounting",
+      "Real-time occupancy tracking for improved room allocation",
+      "Accurate GST calculation on lodging services and food/beverages",
+      "Enhanced guest experience with fast check-out times"
+    ],
+    "features": [
+      "Dynamic room reservation matrix and availability board",
+      "Instant check-in and automated guest registration cards",
+      "Room service billing and restaurant KOT integration",
+      "Multi-tariff support based on seasons and occupancy",
+      "One-click check-out with detailed tax invoice generation"
+    ],
+    "workflow": [
+      "Guest reserves a room via phone or online portal",
+      "Front-desk checks availability on room matrix and marks check-in",
+      "Restaurant/room service orders are recorded directly under the guest room folder",
+      "System auto-calculates room charges, taxes, and service fees on checkout",
+      "Receipt is generated and accounting entries sync instantly to Tally Prime"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Tally ERP 9",
+      "Cloud Compatible",
+      "GST Enabled"
+    ],
+    "price": "₹12,500",
+    "relatedItems": [
+      "garment-retail",
+      "manufacturing-bom",
+      "multi-branch-sync"
+    ],
+    "image": "/assets/customizations/hotel.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Hotel & Lodging Management System",
+    "seoTitle": "Hotel & Lodging Management System - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Hotel & Lodging Management System: Complete room reservation, check-in/check-out, guest ledger billing, and occupancy reporting integrated seamlessly with Tally Prime.",
+    "priority": 10,
+    "tags": [
+      "Hotel",
+      "Restaurant",
+      "GST",
+      "Billing",
+      "Reports"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "Does this module support multiple room categories?",
+        "a": "Yes, you can create unlimited room categories (e.g., Deluxe, Suite, Standard) and set custom rates and seasonal tariffs for each."
+      },
+      {
+        "q": "Can it run on Tally on Cloud?",
+        "a": "Absolutely, this customization is fully optimized to run on cloud servers without any lag."
+      },
+      {
+        "q": "Is guest ID scanning supported?",
+        "a": "Yes, you can attach scanned guest ID documents (Aadhar, Passport) directly to the guest ledger."
+      }
+    ]
+  },
+  {
+    "id": "garment-retail",
+    "title": "Garment & Apparel Grid Billing Module",
+    "slug": "garment-retail",
+    "status": "Active",
+    "featured": true,
+    "category": "Garment",
+    "industry": "Retail",
+    "description": "Multi-dimensional billing grid (Size, Color, Brand, Style) with barcode integration for swift retail checkouts and clean stock tracking.",
+    "fullDescription": "Complete automation module tailored for the Retail industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Slow billing lines due to cashiers manually typing product codes",
+      "Inability to track exact stock quantities for separate sizes of the same model",
+      "Disputes in brand-wise sales commissions and royalty reporting"
+    ],
+    "benefits": [
+      "Increases cashier throughput during peak retail hours",
+      "Allows tracking stock levels at the micro-attribute level (e.g., XL - Blue - Levi's)",
+      "Reduces manual search errors during invoice creation",
+      "Enables automated stock re-order alerts based on size/color availability"
+    ],
+    "features": [
+      "Grid matrix item selection (Size x Color x Brand) on a single billing line",
+      "1D and 2D barcode scanner integration for automated product search",
+      "Dynamic discount and promotional scheme application based on brands/styles",
+      "E-Way bill and E-Invoicing triggers directly from the POS interface",
+      "Multi-store stock visibility and transfer tracking"
+    ],
+    "workflow": [
+      "Barcode labels are printed and attached to garments during inwarding",
+      "During sales, the cashier scans the barcode or selects size/color from the grid",
+      "Tally auto-populates product specs, rates, and active discounts",
+      "System deducts stock from the specific size/color bin",
+      "POS thermal receipt or tax invoice is generated instantly"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Barcode Support",
+      "Cloud Compatible",
+      "GST Enabled"
+    ],
+    "price": "₹9,500",
+    "relatedItems": [
+      "tally-crm",
+      "hotel-lodging",
+      "manufacturing-bom"
+    ],
+    "image": "/assets/customizations/garment.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Garment & Apparel Grid Billing Module",
+    "seoTitle": "Garment & Apparel Grid Billing Module - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Garment & Apparel Grid Billing Module: Multi-dimensional billing grid (Size, Color, Brand, Style) with barcode integration for swift retail checkouts and clean stock tracking.",
+    "priority": 9,
+    "tags": [
+      "Garment",
+      "Barcode",
+      "POS",
+      "Inventory",
+      "Retail"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "Can I print customized price tags with barcodes?",
+        "a": "Yes, this module includes a customizable barcode label designer that supports printing size, color, price, and barcode directly onto labels."
+      },
+      {
+        "q": "How does it handle product returns or exchanges?",
+        "a": "A quick exchange/return button allows cashiers to pull up the original bill, scan returned items, and adjust inventory and credits on the spot."
+      }
+    ]
+  },
+  {
+    "id": "manufacturing-bom",
+    "title": "Auto-BOM & Manufacturing Consumption Module",
+    "slug": "manufacturing-bom",
+    "status": "Active",
+    "featured": false,
+    "category": "Manufacturing",
+    "industry": "Manufacturing",
+    "description": "Automatic generation of production entries and raw material consumption vouchers based on sales invoices and Bills of Materials.",
+    "fullDescription": "Complete automation module tailored for the Manufacturing industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Inaccurate inventory levels caused by delayed or missing consumption journals",
+      "Difficulty in tracking actual profit margins per production batch due to manual calculation",
+      "Unmanaged wastage leading to discrepancies in physical stock takes"
+    ],
+    "benefits": [
+      "Ensures stock books are kept accurate without manual physical stock journals",
+      "Provides exact cost-of-goods-sold (COGS) analytics to monitor margins",
+      "Automates raw material requisition planning based on active order books",
+      "Tracks production efficiency and alerts on excessive material wastage"
+    ],
+    "features": [
+      "Multi-level Bill of Materials (BOM) setup with wastage percentages",
+      "Auto-triggering of physical stock consumption on sales voucher validation",
+      "Production cost tracking including wages, power, and overhead allocation",
+      "Real-time raw material shortage alerts before commencing production",
+      "Batch-wise tracking of finished goods and expiry control"
+    ],
+    "workflow": [
+      "Define standard Bill of Materials (BOM) for finished items",
+      "Enter a Sales Invoice for finished products",
+      "Module runs background consumption checks for raw ingredients",
+      "System automatically generates manufacturing journal and consumption voucher",
+      "Inventory lists and cost ledgers update instantly"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Tally ERP 9",
+      "Inventory Control",
+      "Cloud Compatible"
+    ],
+    "price": "₹15,000",
+    "relatedItems": [
+      "hotel-lodging",
+      "garment-retail",
+      "multi-branch-sync"
+    ],
+    "image": "/assets/customizations/manufacturing.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Auto-BOM & Manufacturing Consumption Module",
+    "seoTitle": "Auto-BOM & Manufacturing Consumption Module - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Auto-BOM & Manufacturing Consumption Module: Automatic generation of production entries and raw material consumption vouchers based on sales invoices and Bills of Materials.",
+    "priority": 8,
+    "tags": [
+      "Manufacturing",
+      "BOM",
+      "Inventory",
+      "Automation",
+      "Finance"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "What happens if raw materials are out of stock?",
+        "a": "The module will flag a warnings report displaying the missing quantities, allowing you to choose whether to block billing or allow negative inventory."
+      },
+      {
+        "q": "Does it support co-products or by-products?",
+        "a": "Yes, you can configure by-products and scrap generation percentages inside the BOM settings."
+      }
+    ]
+  },
+  {
+    "id": "multi-branch-sync",
+    "title": "Multi-Branch Real-Time Data Sync",
+    "slug": "multi-branch-sync",
+    "status": "Active",
+    "featured": true,
+    "category": "Integration",
+    "industry": "Logistics & Warehouse",
+    "description": "Sync all retail transactions, receipts, and inventory stock transfers across multiple physical locations and main head office seamlessly.",
+    "fullDescription": "Complete automation module tailored for the Logistics & Warehouse industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Out-of-sync inventory leading to branches committing sales for out-of-stock items",
+      "Hours of manual reconciliation at the end of every week to check consolidated sales",
+      "Loss of transaction data during branch internet disruptions"
+    ],
+    "benefits": [
+      "Head office has immediate visibility of overall cash-flow and revenue",
+      "Prevents branches from overselling inventory available in other godowns",
+      "Ensures unified pricing and item database across all stores",
+      "Zero manual data export-import overheads"
+    ],
+    "features": [
+      "Automated background sync intervals (real-time or scheduled queue)",
+      "Conflict resolution protocol for concurrent ledger edits",
+      "Offline sync buffer that auto-uploads transactions when internet resumes",
+      "Consolidated multi-branch financial reports and trial balances",
+      "Centralized master inventory control and SKU cataloging"
+    ],
+    "workflow": [
+      "Branch A records sales invoice locally or on cloud",
+      "Sync agent verifies data integrity and uploads payload to HO server",
+      "Central database processes transaction and updates global stock book",
+      "Consolidated dashboards at HO update with latest branch KPIs"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Cloud Compatible",
+      "Multi-Branch Support"
+    ],
+    "price": "₹18,000",
+    "relatedItems": [
+      "warehouse-batch",
+      "hotel-lodging",
+      "garment-retail"
+    ],
+    "image": "/assets/customizations/sync.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Multi-Branch Real-Time Data Sync",
+    "seoTitle": "Multi-Branch Real-Time Data Sync - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Multi-Branch Real-Time Data Sync: Sync all retail transactions, receipts, and inventory stock transfers across multiple physical locations and main head office seamlessly.",
+    "priority": 7,
+    "tags": [
+      "Integration",
+      "Automation",
+      "Multi Branch",
+      "Cloud Compatible",
+      "Reports"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "Does it require static IP at all branch locations?",
+        "a": "No, a standard internet connection is sufficient. The sync communicates securely over web services."
+      },
+      {
+        "q": "Can I disable certain branches from editing masters?",
+        "a": "Yes, you can enforce read-only permissions for product masters at branch levels, allowing modifications only at the Head Office."
+      }
+    ]
+  },
+  {
+    "id": "payroll-biometric",
+    "title": "Payroll & Biometric Attendance Integration",
+    "slug": "payroll-biometric",
+    "status": "Active",
+    "featured": false,
+    "category": "Payroll",
+    "industry": "Professional Services",
+    "description": "Link attendance logs from hardware scanners or mobile check-ins directly into Tally's payroll voucher system for single-click salaries.",
+    "fullDescription": "Complete automation module tailored for the Professional Services industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Incorrect salary payments caused by manual translation of card punches",
+      "Delays in salary distribution due to complex manual calculations",
+      "Compliance penalties due to miscalculated PF and ESIC liabilities"
+    ],
+    "benefits": [
+      "Saves hours of HR time spent compiling Excel sheets manually",
+      "Eliminates payroll calculation errors and manual data entry mistakes",
+      "Ensures compliance with statutory regulations (PF, ESIC, Professional Tax)",
+      "Provides transparent attendance logs to employees, boosting trust"
+    ],
+    "features": [
+      "Direct API sync with biometric devices (ZKTeco, Matrix, Essl, etc.)",
+      "Auto-calculation of overtime, late marks, half-days, and paid leaves",
+      "Custom salary structures containing allowances, PF, ESIC, and TDS",
+      "One-click monthly salary generation and automated email payslips",
+      "Employee self-service portal compatibility for attendance sheets"
+    ],
+    "workflow": [
+      "Employees punch attendance on biometric device",
+      "Sync tool downloads punch logs daily and parses into attendance records",
+      "At month-end, HR triggers automated calculation inside Tally Prime",
+      "Payroll voucher is generated, and payslips are emailed automatically",
+      "Bank transfer spreadsheet is generated for bulk bank payments"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Tally ERP 9",
+      "Hardware API",
+      "GST Enabled"
+    ],
+    "price": "₹11,000",
+    "relatedItems": [
+      "mis-dashboard",
+      "hotel-lodging",
+      "garment-retail"
+    ],
+    "image": "/assets/customizations/payroll.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Payroll & Biometric Attendance Integration",
+    "seoTitle": "Payroll & Biometric Attendance Integration - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Payroll & Biometric Attendance Integration: Link attendance logs from hardware scanners or mobile check-ins directly into Tally's payroll voucher system for single-click salaries.",
+    "priority": 6,
+    "tags": [
+      "Payroll",
+      "Automation",
+      "Integration",
+      "Reports",
+      "Education"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "What types of biometric devices are supported?",
+        "a": "Any biometric scanner that supports database exports (SQL/Access) or has a web API is fully compatible."
+      },
+      {
+        "q": "Does it handle multiple shifts and night shifts?",
+        "a": "Yes, you can configure unlimited shifts and specify custom rules for night shift allowances and overtime."
+      }
+    ]
+  },
+  {
+    "id": "mis-dashboard",
+    "title": "MIS Dashboard & Visual Analytics Panel",
+    "slug": "mis-dashboard",
+    "status": "Active",
+    "featured": true,
+    "category": "MIS Reports",
+    "industry": "Professional Services",
+    "description": "Beautiful graphical visual dashboard showing key business health vitals like accounts receivable, cash flows, top customers, and sales trends.",
+    "fullDescription": "Complete automation module tailored for the Professional Services industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Executives struggling to understand raw numbers and ledger lists",
+      "Missing cash-flow issues until bank balances reach critical lows",
+      "Management requesting custom reports from busy accounting staff daily"
+    ],
+    "benefits": [
+      "Enables fast, data-backed decisions for promoters and executives",
+      "Identifies lagging collections before they turn into bad debts",
+      "Reduces reliance on complex Tally menus for simple financial reviews",
+      "Accessible by managers without giving them direct edit access to accounting vouchers"
+    ],
+    "features": [
+      "Real-time charts showing sales growth, top-selling products, and revenue lines",
+      "Ageing analysis visual tool for tracking outstanding payments",
+      "Automated PDF reports emailed directly to management every evening",
+      "Cash flow forecasting tool based on outstanding payables and receivables",
+      "Comparative charts for current year vs previous year metrics"
+    ],
+    "workflow": [
+      "Sales, receipts, and invoices are entered into Tally normally",
+      "MIS Module reads financial variables dynamically",
+      "Visual cards render charts (pie charts, bar graphs, indicators)",
+      "CEO accesses the dashboard via local system, cloud, or email PDF attachment"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Cloud Compatible",
+      "GST Enabled",
+      "Mobile Access"
+    ],
+    "price": "₹8,000",
+    "relatedItems": [
+      "payroll-biometric",
+      "hotel-lodging",
+      "garment-retail"
+    ],
+    "image": "/assets/customizations/dashboard.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: MIS Dashboard & Visual Analytics Panel",
+    "seoTitle": "MIS Dashboard & Visual Analytics Panel - Tally Customizations | Harsh Infotech",
+    "seoDescription": "MIS Dashboard & Visual Analytics Panel: Beautiful graphical visual dashboard showing key business health vitals like accounts receivable, cash flows, top customers, and sales trends.",
+    "priority": 5,
+    "tags": [
+      "MIS Reports",
+      "Finance",
+      "Mobile Access",
+      "Reports",
+      "Automation"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "Can I customize the charts displayed on the dashboard?",
+        "a": "Yes, you can pin specific charts, configure targets/KPI limits, and select which categories or ledgers to track."
+      },
+      {
+        "q": "Does it work on mobile phones?",
+        "a": "Yes, this customized visual dashboard is optimized for responsive mobile browsers."
+      }
+    ]
+  },
+  {
+    "id": "warehouse-batch",
+    "title": "Warehouse & Batch Expiry Tracker",
+    "slug": "warehouse-batch",
+    "status": "Active",
+    "featured": false,
+    "category": "Warehouse",
+    "industry": "Logistics & Warehouse",
+    "description": "Advanced batch tracking with manufacturing and expiry date alerts, multi-godown stock transfers, and rack allocation tags.",
+    "fullDescription": "Complete automation module tailored for the Logistics & Warehouse industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Shipping expired goods to retail clients resulting in compliance problems",
+      "Staff spending hours searching for items in disorganized warehouses",
+      "Writing off inventory due to stock going unnoticed in remote godowns"
+    ],
+    "benefits": [
+      "Prevents loss of capital due to expired stocks sitting in warehouses",
+      "Speeds up packaging cycles by providing warehouse rack coordinates",
+      "Simplifies inventory audits by separating stocks godown-wise",
+      "Accurate tracking of batch profitability and costing"
+    ],
+    "features": [
+      "Batch-wise inventory classification with manufacturing/expiry details",
+      "FIFO (First-In, First-Out) stock suggestions during invoice creation",
+      "Automated warnings when billing items nearing their expiry date",
+      "Multi-godown stock allocation matrix inside sales/purchase vouchers",
+      "Godown-wise rack location coordinates search tool"
+    ],
+    "workflow": [
+      "Items are inwarded with batch number, manufacturing date, and rack code",
+      "Vouchers allocate items to designated Godowns",
+      "Billing pulls items using automated FIFO expiry suggestions",
+      "Reports trigger warning on items expiring within 30, 60, or 90 days"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "Tally ERP 9",
+      "Inventory Control",
+      "Cloud Compatible"
+    ],
+    "price": "₹10,500",
+    "relatedItems": [
+      "multi-branch-sync",
+      "hotel-lodging",
+      "garment-retail"
+    ],
+    "image": "/assets/customizations/warehouse.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Warehouse & Batch Expiry Tracker",
+    "seoTitle": "Warehouse & Batch Expiry Tracker - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Warehouse & Batch Expiry Tracker: Advanced batch tracking with manufacturing and expiry date alerts, multi-godown stock transfers, and rack allocation tags.",
+    "priority": 4,
+    "tags": [
+      "Warehouse",
+      "Inventory",
+      "Barcode",
+      "Healthcare",
+      "Retail"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "Is this suitable for pharmaceutical distribution?",
+        "a": "Absolutely, this customization is built specifically to address drug license guidelines and drug expiry tracking."
+      },
+      {
+        "q": "Can I allocate stock to multiple godowns on a single bill?",
+        "a": "Yes, you can split a single invoice line item into multiple godowns and batches in a small sub-screen."
+      }
+    ]
+  },
+  {
+    "id": "tally-crm",
+    "title": "Tally CRM & Lead Tracker Module",
+    "slug": "tally-crm",
+    "status": "Active",
+    "featured": false,
+    "category": "CRM",
+    "industry": "Retail",
+    "description": "Manage client interaction history, outstanding reminders, lead status, and sales representative targets right inside Tally Prime.",
+    "fullDescription": "Complete automation module tailored for the Retail industry. Integrates with standard Tally structures to compile operational parameters seamlessly.",
+    "problemsSolved": [
+      "Leads falling through the cracks due to tracking on separate spreadsheets",
+      "Difficulty in assigning credit for sales to specific representatives",
+      "Delays in sending quotation updates to prospective clients"
+    ],
+    "benefits": [
+      "Bridges the gap between sales activity and invoicing records",
+      "Reduces payment outstanding delays with automated client alerts",
+      "Retains client relationship history even when sales executives leave",
+      "Increases quotation conversion ratios with timely notifications"
+    ],
+    "features": [
+      "Lead stage tracking (New, Contacted, Proposal, Negotiation, Closed)",
+      "Daily follow-up reminders and scheduled tasks calendar",
+      "Auto-generation of quotations directly from leads list",
+      "Sales executive performance dashboard and targets tracker",
+      "WhatsApp outstanding collection alerts sent in bulk"
+    ],
+    "workflow": [
+      "Inward a lead and assign it to a sales executive",
+      "Executive updates stages and follow-up logs",
+      "Quotations are generated, and converted into Sales Orders",
+      "Invoicing triggers and closes the CRM ticket automatically",
+      "Outstanding sync tools notify client on WhatsApp when collection is due"
+    ],
+    "compatibility": [
+      "Tally Prime",
+      "GST Enabled",
+      "Mobile Access",
+      "Cloud Compatible"
+    ],
+    "price": "₹14,000",
+    "relatedItems": [
+      "garment-retail",
+      "hotel-lodging",
+      "manufacturing-bom"
+    ],
+    "image": "/assets/customizations/crm.jpg",
+    "bannerImage": "",
+    "documentUrl": "",
+    "whatsAppCTA": "Hi, I am interested in details and pricing for the Tally module: Tally CRM & Lead Tracker Module",
+    "seoTitle": "Tally CRM & Lead Tracker Module - Tally Customizations | Harsh Infotech",
+    "seoDescription": "Tally CRM & Lead Tracker Module: Manage client interaction history, outstanding reminders, lead status, and sales representative targets right inside Tally Prime.",
+    "priority": 3,
+    "tags": [
+      "CRM",
+      "Automation",
+      "Mobile Access",
+      "Finance",
+      "Retail"
+    ],
+    "hasCustomImage": false,
+    "faq": [
+      {
+        "q": "Can sales executives access this outside office?",
+        "a": "Yes, if Tally is hosted on cloud, executives can access lead sheets via mobile or web client."
+      },
+      {
+        "q": "Is there a limit to the number of leads I can track?",
+        "a": "No, the module is optimized to store and track tens of thousands of leads without slowing down Tally."
+      }
+    ]
+  }
+]

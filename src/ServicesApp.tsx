@@ -1,7 +1,60 @@
 import { motion } from "motion/react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Background, Navbar, Footer } from "./Shared";
 import { CheckCircle2, Server, Settings, FileSpreadsheet, Database, Monitor, ArrowRight } from "lucide-react";
+import servicesDataRaw from "./data/services.json";
+import pricingDataRaw from "./data/pricing.json";
+
+export interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  featured: boolean;
+  category: string;
+  description: string;
+  price: string;
+  benefits: string[];
+  features: string[];
+  image: string;
+  documentUrl: string;
+  relatedItems: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+  priority?: number;
+  tags?: string[];
+  hasCustomImage?: boolean;
+}
+
+export interface PricingPlan {
+  id: string;
+  planName: string;
+  serviceSlug: string;
+  pricingPeriod: string;
+  price: string;
+  features: string[];
+  popular: boolean;
+}
+
+const servicesData = servicesDataRaw as Service[];
+const pricingData = pricingDataRaw as PricingPlan[];
+
+const getServiceIcon = (slug: string) => {
+  if (slug === 'vps') return <Server className="w-12 h-12 mb-6 text-[#D4AF37]" />;
+  if (slug === 'amc') return <Settings className="w-12 h-12 mb-6 text-[#D4AF37]" />;
+  if (slug === 'excel') return <FileSpreadsheet className="w-12 h-12 mb-6 text-[#D4AF37]" />;
+  if (slug === 'data-migration') return <Database className="w-12 h-12 mb-6 text-[#D4AF37]" />;
+  if (slug === 'hardware-support') return <Monitor className="w-12 h-12 mb-6 text-[#D4AF37]" />;
+  return <Server className="w-12 h-12 mb-6 text-[#D4AF37]" />;
+};
+
+const getServiceCta = (slug: string) => {
+  if (slug === "amc") return "Get Contract";
+  if (slug === "excel") return "Request Demo";
+  if (slug === "data-migration") return "Start Migration";
+  if (slug === "hardware-support") return "Contact Support";
+  return "View Plans";
+};
 
 export default function ServicesApp() {
   useEffect(() => {
@@ -16,53 +69,36 @@ export default function ServicesApp() {
     }
   }, []);
 
-  const services = [
-    {
-      id: "vps",
-      title: "VPS (Virtual Private Server)",
-      desc: "High-performance cloud servers for running business applications securely and efficiently.",
-      icon: <Server className="w-12 h-12 mb-6" />,
-      features: ["99.9% Uptime Guarantee", "SSD Backed Storage", "24/7 Monitoring", "Full Root Access"],
-      price: "₹1,999/mo",
-      cta: "View Plans"
-    },
-    {
-      id: "amc",
-      title: "Tally AMC & Support",
-      desc: "Reliable annual maintenance and support for smooth business operations.",
-      icon: <Settings className="w-12 h-12 mb-6" />,
-      features: ["Priority Remote Support", "Data Corruption Fixes", "Version Upgrades", "On-site Visits"],
-      price: "₹4,500/yr",
-      cta: "Get Contract"
-    },
-    {
-      id: "excel",
-      title: "Excel to Tally Integration",
-      desc: "Seamlessly import and manage your vast Excel data directly into Tally.",
-      icon: <FileSpreadsheet className="w-12 h-12 mb-6" />,
-      features: ["Bulk Ledger Creation", "Voucher Imports", "Custom Mapping", "Error Validation"],
-      price: "Custom",
-      cta: "Request Demo"
-    },
-    {
-      id: "data",
-      title: "Data Migration & Setup",
-      desc: "Secure transfer and setup of your existing business data to new systems or cloud.",
-      icon: <Database className="w-12 h-12 mb-6" />,
-      features: ["Zero Data Loss guarantee", "Downtime Minimization", "Secure Encryption", "Post-Migration Audit"],
-      price: "Custom",
-      cta: "Start Migration"
-    },
-    {
-      id: "hardware",
-      title: "Hardware & System Support",
-      desc: "Complete assistance for business systems and physical IT infrastructure.",
-      icon: <Monitor className="w-12 h-12 mb-6" />,
-      features: ["Network Troubleshooting", "Hardware Repair", "System Upgrades", "Peripheral Setup"],
-      price: "Hourly",
-      cta: "Contact Support"
-    }
-  ];
+  // Filter dynamic services list (only supplementary solutions)
+  const services = useMemo(() => {
+    return servicesData
+      .filter(s => s.category === "More")
+      .map(s => ({
+        id: s.slug, // mapping slug to id for anchors
+        title: s.title,
+        desc: s.description,
+        icon: getServiceIcon(s.slug),
+        features: s.features,
+        price: s.price,
+        cta: getServiceCta(s.slug)
+      }));
+  }, []);
+
+  // Filter dynamic AMC plans
+  const amcPlans = useMemo(() => {
+    return pricingData
+      .filter(p => p.serviceSlug === "amc")
+      .map(p => {
+        const isMulti = p.price.includes('|');
+        return {
+          name: p.planName,
+          pricingSingle: isMulti ? p.price.split('|')[0].replace('(Single)', '').trim() : p.price,
+          pricingMulti: isMulti ? p.price.split('|')[1].replace('(Multi)', '').trim() : "",
+          features: p.features,
+          popular: p.popular
+        };
+      });
+  }, []);
 
   return (
     <div className="min-h-screen selection:bg-white selection:text-black">
@@ -85,39 +121,8 @@ export default function ServicesApp() {
         </section>
 
         <div className="flex flex-col gap-12 md:gap-20 lg:gap-24 px-4 sm:px-6 lg:px-20 max-w-7xl mx-auto flex-1">
-          {services.map((svc, i) => {
+          {services.map((svc) => {
             if (svc.id === "amc") {
-              const amcPlans = [
-                {
-                  name: "Remote Support AMC",
-                  pricingSingle: "₹9,000 / year",
-                  pricingMulti: "₹13,500 / year",
-                  features: ["Unlimited telephonic support (business hours)", "Quick issue resolution", "Guidance & troubleshooting"],
-                  popular: false
-                },
-                {
-                  name: "Basic AMC",
-                  pricingSingle: "₹11,000 / year",
-                  pricingMulti: "₹18,000 / year",
-                  features: ["All Remote AMC features", "6 scheduled on-site visits", "Regular system checks"],
-                  popular: true
-                },
-                {
-                  name: "Plus AMC",
-                  pricingSingle: "₹25,000 – ₹35,000 / year",
-                  pricingMulti: "",
-                  features: ["All Basic features", "12 scheduled visits", "Priority support"],
-                  popular: false
-                },
-                {
-                  name: "Premium AMC",
-                  pricingSingle: "₹35,000 – ₹45,000+ / year",
-                  pricingMulti: "",
-                  features: ["All Plus features", "16 scheduled visits", "Highest priority support", "Complete system monitoring"],
-                  popular: false
-                }
-              ];
-
               return (
                 <motion.section 
                   key={svc.id} id={svc.id}
@@ -224,7 +229,7 @@ export default function ServicesApp() {
                   <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <h3 className="text-white/40 font-bold tracking-widest uppercase mb-4 text-sm z-10">Starting at</h3>
                   <div className="text-5xl font-black mb-8 z-10">{svc.price}</div>
-                  <a href={`https://wa.me/917558604483?text=Hi, I am interested in ${svc.title}`} data-auth-gated="true" data-service-name={svc.title} target="_blank" className="w-full py-4 rounded-full bg-white text-black font-bold text-lg hover:bg-white/90 transition-colors flex items-center justify-center gap-2 z-10">
+                  <a href={`https://wa.me/917558604483?text=${encodeURIComponent(`Hi, I am interested in ${svc.title}`)}`} data-auth-gated="true" data-service-name={svc.title} target="_blank" rel="noopener noreferrer" className="w-full py-4 rounded-full bg-white text-black font-bold text-lg hover:bg-white/90 transition-colors flex items-center justify-center gap-2 z-10 cursor-pointer">
                     {svc.cta} <ArrowRight className="w-5 h-5" />
                   </a>
                 </div>

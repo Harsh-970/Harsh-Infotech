@@ -1,0 +1,121 @@
+[
+  {
+    "id": "faq-1",
+    "featured": true,
+    "category": "Hotel",
+    "question": "Does this module support multiple room categories?",
+    "answer": "Yes, you can create unlimited room categories (e.g., Deluxe, Suite, Standard) and set custom rates and seasonal tariffs for each."
+  },
+  {
+    "id": "faq-2",
+    "featured": true,
+    "category": "Hotel",
+    "question": "Can it run on Tally on Cloud?",
+    "answer": "Absolutely, this customization is fully optimized to run on cloud servers without any lag."
+  },
+  {
+    "id": "faq-3",
+    "featured": true,
+    "category": "Hotel",
+    "question": "Is guest ID scanning supported?",
+    "answer": "Yes, you can attach scanned guest ID documents (Aadhar, Passport) directly to the guest ledger."
+  },
+  {
+    "id": "faq-4",
+    "featured": true,
+    "category": "Garment",
+    "question": "Can I print customized price tags with barcodes?",
+    "answer": "Yes, this module includes a customizable barcode label designer that supports printing size, color, price, and barcode directly onto labels."
+  },
+  {
+    "id": "faq-5",
+    "featured": true,
+    "category": "Garment",
+    "question": "How does it handle product returns or exchanges?",
+    "answer": "A quick exchange/return button allows cashiers to pull up the original bill, scan returned items, and adjust inventory and credits on the spot."
+  },
+  {
+    "id": "faq-6",
+    "featured": true,
+    "category": "Manufacturing",
+    "question": "What happens if raw materials are out of stock?",
+    "answer": "The module will flag a warnings report displaying the missing quantities, allowing you to choose whether to block billing or allow negative inventory."
+  },
+  {
+    "id": "faq-7",
+    "featured": true,
+    "category": "Manufacturing",
+    "question": "Does it support co-products or by-products?",
+    "answer": "Yes, you can configure by-products and scrap generation percentages inside the BOM settings."
+  },
+  {
+    "id": "faq-8",
+    "featured": true,
+    "category": "Integration",
+    "question": "Does it require static IP at all branch locations?",
+    "answer": "No, a standard internet connection is sufficient. The sync communicates securely over web services."
+  },
+  {
+    "id": "faq-9",
+    "featured": true,
+    "category": "Integration",
+    "question": "Can I disable certain branches from editing masters?",
+    "answer": "Yes, you can enforce read-only permissions for product masters at branch levels, allowing modifications only at the Head Office."
+  },
+  {
+    "id": "faq-10",
+    "featured": true,
+    "category": "Payroll",
+    "question": "What types of biometric devices are supported?",
+    "answer": "Any biometric scanner that supports database exports (SQL/Access) or has a web API is fully compatible."
+  },
+  {
+    "id": "faq-11",
+    "featured": true,
+    "category": "Payroll",
+    "question": "Does it handle multiple shifts and night shifts?",
+    "answer": "Yes, you can configure unlimited shifts and specify custom rules for night shift allowances and overtime."
+  },
+  {
+    "id": "faq-12",
+    "featured": true,
+    "category": "MIS Reports",
+    "question": "Can I customize the charts displayed on the dashboard?",
+    "answer": "Yes, you can pin specific charts, configure targets/KPI limits, and select which categories or ledgers to track."
+  },
+  {
+    "id": "faq-13",
+    "featured": true,
+    "category": "MIS Reports",
+    "question": "Does it work on mobile phones?",
+    "answer": "Yes, this customized visual dashboard is optimized for responsive mobile browsers."
+  },
+  {
+    "id": "faq-14",
+    "featured": true,
+    "category": "Warehouse",
+    "question": "Is this suitable for pharmaceutical distribution?",
+    "answer": "Absolutely, this customization is built specifically to address drug license guidelines and drug expiry tracking."
+  },
+  {
+    "id": "faq-15",
+    "featured": true,
+    "category": "Warehouse",
+    "question": "Can I allocate stock to multiple godowns on a single bill?",
+    "answer": "Yes, you can split a single invoice line item into multiple godowns and batches in a small sub-screen."
+  },
+  {
+    "id": "faq-16",
+    "featured": true,
+    "category": "CRM",
+    "question": "Can sales executives access this outside office?",
+    "answer": "Yes, if Tally is hosted on cloud, executives can access lead sheets via mobile or web client."
+  },
+  {
+    "id": "faq-17",
+    "featured": true,
+    "category": "CRM",
+    "question": "Is there a limit to the number of leads I can track?",
+    "answer": "No, the module is optimized to store and track tens of thousands of leads without slowing down Tally."
+  }
+]

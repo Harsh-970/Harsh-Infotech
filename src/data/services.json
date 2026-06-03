@@ -1,0 +1,287 @@
+[
+  {
+    "id": "tally-license",
+    "title": "Tally Prime License",
+    "slug": "tally-license",
+    "status": "Active",
+    "featured": true,
+    "category": "Main",
+    "description": "Get genuine Tally Prime licenses (Single & Multi User) with complete setup and guidance.",
+    "price": "₹7,500/yr",
+    "benefits": [
+      "Certified Tally Solutions partner",
+      "Lifetime module upgrades",
+      "Expert installation support"
+    ],
+    "features": [
+      "GST Ready Billing",
+      "Inventory Management",
+      "Bank Reconciliation",
+      "Multi-Company Support",
+      "Setup Assistance"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "tally-cloud",
+      "tally-customization",
+      "vps"
+    ],
+    "seoTitle": "Genuine Tally Prime License (Silver & Gold) - Harsh Infotech",
+    "seoDescription": "Purchase official Tally Prime Single User (Silver) and Multi User (Gold) licenses with free setup and support from Harsh Infotech.",
+    "priority": 10,
+    "tags": [
+      "Core Tally",
+      "Support"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "tally-cloud",
+    "title": "Tally on Cloud",
+    "slug": "tally-cloud",
+    "status": "Active",
+    "featured": true,
+    "category": "Main",
+    "description": "Access your business data anytime, anywhere with secure and reliable cloud solutions.",
+    "price": "₹7,200/yr",
+    "benefits": [
+      "Work from anywhere without complex server setups",
+      "Protects financial databases from local hardware failures",
+      "Scales users instantly"
+    ],
+    "features": [
+      "Secure Remote Login",
+      "Daily Automated Backups",
+      "99.9% Uptime Guarantee",
+      "Multi-device compatibility",
+      "Dedicated Support"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "tally-license",
+      "tally-customization",
+      "vps"
+    ],
+    "seoTitle": "Secure Tally on Cloud Hosting & Remote Access - Harsh Infotech",
+    "seoDescription": "Host your Tally Prime database on our secure, fully-managed cloud server. Access data anywhere with 99.9% uptime and daily backups.",
+    "priority": 9,
+    "tags": [
+      "Core Tally",
+      "Support"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "tally-customization",
+    "title": "Tally Customization",
+    "slug": "tally-customization",
+    "status": "Active",
+    "featured": true,
+    "category": "Main",
+    "description": "Customize Tally according to your business workflow using advanced TDL solutions.",
+    "price": "Custom",
+    "benefits": [
+      "Bridges accounting with day-to-day operations",
+      "Eliminates redundant manual spreadsheet data entry",
+      "Custom-built for your business scale"
+    ],
+    "features": [
+      "Invoice Customization",
+      "MIS Dashboard Integrations",
+      "Approval Workflows",
+      "Statutory Compliance automation"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "tally-license",
+      "tally-cloud",
+      "vps"
+    ],
+    "seoTitle": "Custom TDL Customization & Module Development - Harsh Infotech",
+    "seoDescription": "Design custom templates, automate voucher approvals, and integrate third-party APIs with Tally Prime TDL development services.",
+    "priority": 8,
+    "tags": [
+      "Core Tally",
+      "Support"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "vps",
+    "title": "VPS (Virtual Private Server)",
+    "slug": "vps",
+    "status": "Active",
+    "featured": false,
+    "category": "More",
+    "description": "High-performance cloud servers for running business applications securely and efficiently.",
+    "price": "₹1,999/mo",
+    "benefits": [
+      "High availability for hosting corporate applications",
+      "Enterprise-grade safety configurations"
+    ],
+    "features": [
+      "99.9% Uptime Guarantee",
+      "SSD Backed Storage",
+      "24/7 Monitoring",
+      "Full Root Access"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "amc",
+      "excel",
+      "data-migration"
+    ],
+    "seoTitle": "High Performance Business VPS Server Hosting - Harsh Infotech",
+    "seoDescription": "Host your legacy or web business software on high-speed SSD backed VPS servers with root access and 24/7 support.",
+    "priority": 7,
+    "tags": [
+      "Infrastructure",
+      "IT Services"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "amc",
+    "title": "Tally AMC & Support",
+    "slug": "amc",
+    "status": "Active",
+    "featured": false,
+    "category": "More",
+    "description": "Reliable annual maintenance and support for smooth business operations.",
+    "price": "₹4,500/yr",
+    "benefits": [
+      "Zero operational halts with rapid response technicians",
+      "Keeps your accounting logs healthy"
+    ],
+    "features": [
+      "Priority Remote Support",
+      "Data Corruption Fixes",
+      "Version Upgrades",
+      "On-site Visits"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "vps",
+      "excel",
+      "data-migration"
+    ],
+    "seoTitle": "Annual Maintenance Contract (AMC) for Tally Prime - Harsh Infotech",
+    "seoDescription": "Sign up for comprehensive Tally AMC support including data recovery, priority telephonic guidance, and remote updates.",
+    "priority": 6,
+    "tags": [
+      "Infrastructure",
+      "IT Services"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "excel",
+    "title": "Excel to Tally Integration",
+    "slug": "excel",
+    "status": "Active",
+    "featured": false,
+    "category": "More",
+    "description": "Seamlessly import and manage your vast Excel data directly into Tally.",
+    "price": "Custom",
+    "benefits": [
+      "Imports thousands of entries within seconds",
+      "Prevents duplicate typing errors"
+    ],
+    "features": [
+      "Bulk Ledger Creation",
+      "Voucher Imports",
+      "Custom Mapping",
+      "Error Validation"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "vps",
+      "amc",
+      "data-migration"
+    ],
+    "seoTitle": "Excel to Tally XML/TDL Data Import Utilities - Harsh Infotech",
+    "seoDescription": "Automate ledger imports and bulk voucher entries from Excel sheets directly into Tally Prime with mapping tools.",
+    "priority": 5,
+    "tags": [
+      "Infrastructure",
+      "IT Services"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "data-migration",
+    "title": "Data Migration & Setup",
+    "slug": "data-migration",
+    "status": "Active",
+    "featured": false,
+    "category": "More",
+    "description": "Secure transfer and setup of your existing business data to new systems or cloud.",
+    "price": "Custom",
+    "benefits": [
+      "Clean upgrade from Tally ERP9 to Tally Prime",
+      "Reorganizes accounting years securely"
+    ],
+    "features": [
+      "Zero Data Loss guarantee",
+      "Downtime Minimization",
+      "Secure Encryption",
+      "Post-Migration Audit"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "vps",
+      "amc",
+      "excel"
+    ],
+    "seoTitle": "Safe Tally Data Migration & Accounting Setup - Harsh Infotech",
+    "seoDescription": "Reorganize financial periods and migrate accounting data between servers with zero loss and full data audits.",
+    "priority": 4,
+    "tags": [
+      "Infrastructure",
+      "IT Services"
+    ],
+    "hasCustomImage": false
+  },
+  {
+    "id": "hardware-support",
+    "title": "Hardware & System Support",
+    "slug": "hardware-support",
+    "status": "Active",
+    "featured": false,
+    "category": "More",
+    "description": "Complete assistance for business systems and physical IT infrastructure.",
+    "price": "Hourly",
+    "benefits": [
+      "Maintains office computers and printers at peak performance",
+      "Proactive hardware checkups"
+    ],
+    "features": [
+      "Network Troubleshooting",
+      "Hardware Repair",
+      "System Upgrades",
+      "Peripheral Setup"
+    ],
+    "image": "",
+    "documentUrl": "",
+    "relatedItems": [
+      "vps",
+      "amc",
+      "excel"
+    ],
+    "seoTitle": "Corporate IT Support & Hardware Maintenance - Harsh Infotech",
+    "seoDescription": "Get network diagnostics, computer repairs, server installs, and office hardware maintenance services in Mumbai.",
+    "priority": 3,
+    "tags": [
+      "Infrastructure",
+      "IT Services"
+    ],
+    "hasCustomImage": false
+  }
+]
