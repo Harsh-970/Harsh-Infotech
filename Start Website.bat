@@ -2,6 +2,21 @@
 echo Starting up Harsh Infotech Website Servers...
 echo.
 
+:: Detect Node.js
+where node >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+    if exist "E:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64" (
+        set "PATH=E:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64;%PATH%"
+    ) else if exist "D:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64" (
+        set "PATH=D:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64;%PATH%"
+    ) else (
+        echo ❌ ERROR: Node.js was not found globally or in the local Dashboard project folder.
+        echo Please make sure Node.js is installed.
+        pause
+        exit /b 1
+    )
+)
+
 :: Start the npm dev server in the background
 echo 1. Launching main website server on port 3000...
 start /B cmd /c "npm run dev"

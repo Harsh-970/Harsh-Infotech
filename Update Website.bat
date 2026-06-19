@@ -6,6 +6,21 @@ echo   Updating website content... Please wait...
 echo ====================================================
 echo.
 
+:: Detect Node.js
+where node >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+    if exist "E:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64" (
+        set "PATH=E:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64;%PATH%"
+    ) else if exist "D:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64" (
+        set "PATH=D:\Dashboard for Harsh Infotech\dashboard\node-v20.14.0-win-x64;%PATH%"
+    ) else (
+        echo ❌ ERROR: Node.js was not found globally or in the local Dashboard project folder.
+        echo Please make sure Node.js is installed.
+        pause
+        exit /b 1
+    )
+)
+
 :: Run sync-content script
 call npm run sync-content
 
