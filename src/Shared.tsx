@@ -213,10 +213,10 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden xl:flex items-center gap-5 xl:gap-8 z-[120] ml-16 xl:ml-24">
-          <a href="/" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Home</a>
+          <a href="/" className={`text-sm font-medium transition-colors ${(pathname === "/" || pathname === "/index.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>Home</a>
           
           <div className="group relative">
-            <a href="/services.html" className="flex items-center gap-1 text-sm font-medium text-white/70 hover:text-white transition-colors py-4">
+            <a href="/services.html" className={`flex items-center gap-1 text-sm font-medium transition-colors py-4 ${(pathname.includes("services.html") || pathname.includes("more-services.html")) ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>
               Services <ChevronDown className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
             </a>
             <div className="absolute top-[85%] left-0 w-60 rounded-xl glass-menu shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
@@ -237,7 +237,7 @@ export const Navbar = () => {
             </div>
           </div>
           <div className="group relative">
-            <a href="/products.html" className="flex items-center gap-1 text-sm font-medium text-white/70 hover:text-white transition-colors py-4">
+            <a href="/products.html" className={`flex items-center gap-1 text-sm font-medium transition-colors py-4 ${pathname.includes("products.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>
               Products <ChevronDown className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
             </a>
             <div className="absolute top-[85%] left-0 w-48 rounded-xl glass-menu shadow-2xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden z-[150]">
@@ -250,7 +250,9 @@ export const Navbar = () => {
             </div>
           </div>
 
-          <a href="/about.html" className="text-sm font-medium text-white/70 hover:text-white transition-colors">About</a>
+          <a href="/offers.html" className={`text-sm font-medium transition-colors ${pathname.includes("offers.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>Offers</a>
+          <a href="/jobs.html" className={`text-sm font-medium transition-colors ${pathname.includes("jobs.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>Jobs</a>
+          <a href="/about.html" className={`text-sm font-medium transition-colors ${pathname.includes("about.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>About</a>
           <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
         </div>
 
@@ -306,12 +308,14 @@ export const Navbar = () => {
               className="w-[85%] max-w-sm h-full bg-[#050505]/95 backdrop-blur-2xl shadow-2xl shadow-black border-l border-white/10 p-10 flex flex-col justify-center"
             >
               <nav className="flex flex-col gap-6 text-center text-xl font-bold">
-                <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Home</a>
-                <a href="/services.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Services</a>
-                <a href="/customizations.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1 text-[#D4AF37]">Customizations</a>
-                <a href="/products.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">Products</a>
-                <a href="/about.html" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#D4AF37] transition-colors py-1">About</a>
-                <a href="#contact" data-auth-gated="true" onClick={() => { setIsMobileMenuOpen(false); }} className="hover:text-[#D4AF37] transition-colors py-1">Contact</a>
+                <a href="/" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${(pathname === "/" || pathname === "/index.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Home</a>
+                <a href="/services.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${(pathname.includes("services.html") || pathname.includes("more-services.html")) ? "text-[#D4AF37]" : "text-white/70"}`}>Services</a>
+                <a href="/customizations.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("customizations.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Customizations</a>
+                <a href="/products.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("products.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Products</a>
+                <a href="/offers.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("offers.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Offers</a>
+                <a href="/jobs.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("jobs.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Jobs</a>
+                <a href="/about.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("about.html") ? "text-[#D4AF37]" : "text-white/70"}`}>About</a>
+                <a href="#contact" data-auth-gated="true" onClick={() => { setIsMobileMenuOpen(false); }} className="hover:text-[#D4AF37] text-white/70 transition-colors py-1">Contact</a>
                 
                 <div className="h-px bg-white/10 my-4" />
                 
@@ -394,7 +398,7 @@ export const Footer = () => {
             <li><a href="/" className="footer-link transition-colors">Home</a></li>
             <li><a href="/services.html" className="footer-link transition-colors">Services</a></li>
             <li><a href="/about.html" className="footer-link transition-colors">About Us</a></li>
-            <li><a href="#" className="footer-link transition-colors">Careers</a></li>
+            <li><a href="/jobs.html" className="footer-link transition-colors">Careers & Jobs</a></li>
           </ul>
         </div>
 

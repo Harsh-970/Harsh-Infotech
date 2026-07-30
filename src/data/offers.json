@@ -1,11 +1,42 @@
 [
   {
     "id": "offer-1",
-    "offerName": "New Financial Year Discount",
-    "slug": "new-fy-discount",
-    "discount": "10%",
-    "description": "Get 10% off on all Tally customizations during the new financial year opening.",
+    "offerName": "Financial Year Opening Discount",
+    "slug": "fy-opening-discount",
+    "discount": "10% OFF",
+    "category": "Customization",
+    "description": "Get a flat 10% discount on all custom TDL module developments and integrations to kickstart your new financial year seamlessly.",
     "couponCode": "WELCOME10",
-    "expiryDate": "2026-07-31"
+    "expiryDate": "2026-08-31"
+  },
+  {
+    "id": "offer-2",
+    "offerName": "Tally on Cloud VPS Trial",
+    "slug": "tally-cloud-vps-trial",
+    "discount": "14-DAY TRIAL",
+    "category": "Cloud VPS",
+    "description": "Experience zero-latency multi-user Tally Prime access from anywhere with a 14-day risk-free trial of our high-speed secure virtual private servers.",
+    "couponCode": "CLOUDTRY14",
+    "expiryDate": "2026-09-30"
+  },
+  {
+    "id": "offer-3",
+    "offerName": "AMC Support Bundle Offer",
+    "slug": "amc-support-bundle",
+    "discount": "6 MONTHS FREE",
+    "category": "Support & AMC",
+    "description": "Secure your business operations with our Annual Maintenance Contract. Purchase a 2-year AMC package and receive 6 additional months of support completely free.",
+    "couponCode": "AMCSECURE",
+    "expiryDate": "2026-10-31"
+  },
+  {
+    "id": "offer-4",
+    "offerName": "Complimentary ERP Data Migration",
+    "slug": "free-erp-migration",
+    "discount": "FREE SETUP",
+    "category": "Migration",
+    "description": "Ready to upgrade? We offer free data migration and ledger verification when migrating your historical databases from legacy Tally ERP 9 to Tally Prime.",
+    "couponCode": "MIGRATEFREE",
+    "expiryDate": "2026-08-15"
   }
 ]

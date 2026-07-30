@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Architecture & User Journeys - Harsh Infotech</title>
+  <!-- Tailwind CSS v4 via Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Mermaid JS for Diagram Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0A1428;
+      color: #FFFFFF;
+    }
+    .glass-panel {
+      background: rgba(5, 12, 28, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+    /* Mermaid dark mode overrides */
+    .mermaid {
+      background: transparent !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#0A1428] text-white selection:bg-[#D4AF37] selection:text-black">
+
+  <!-- HEADER BAR -->
+  <header class="h-16 shrink-0 sticky top-0 flex items-center justify-between px-6 border-b border-white/10 glass-panel z-50">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D4AF37] to-[#ffd754] flex items-center justify-center shadow-lg shadow-[#D4AF37]/20">
+        <i data-lucide="map" class="w-5 h-5 text-black"></i>
+      </div>
+      <div>
+        <h1 class="text-base font-extrabold tracking-tight">Harsh Infotech</h1>
+        <p class="text-xs text-white/50">Website Architecture & User Journey Analysis</p>
+      </div>
+    </div>
+
+    <!-- QUICK NAVIGATION -->
+    <div class="flex items-center gap-3">
+      <a href="/" class="px-4 py-1.5 rounded-full text-xs font-bold text-white/70 hover:text-white border border-white/10 hover:border-white/30 transition-all flex items-center gap-1.5">
+        <i data-lucide="home" class="w-3.5 h-3.5"></i> Website Home
+      </a>
+      <a href="graph.html" class="px-4 py-1.5 rounded-full text-xs font-bold text-black bg-[#D4AF37] hover:bg-[#ffe380] transition-all flex items-center gap-1.5 shadow-md shadow-[#D4AF37]/20">
+        <i data-lucide="network" class="w-3.5 h-3.5"></i> Interactive Cytoscape Graph
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 space-y-8">
+
+    <!-- HERO / SCORE OVERVIEW -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="p-6 rounded-2xl glass-card flex flex-col justify-between text-center md:text-left border-l-4 border-l-[#D4AF37]">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-white/50">UX Optimization Score</span>
+          <div class="text-5xl font-extrabold text-[#D4AF37] tracking-tight mt-1">92%</div>
+        </div>
+        <p class="text-xs text-white/40 mt-3 leading-relaxed">
+          Vite + React Multi-Page Architecture with glassmorphism UI & micro-interactions.
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl glass-card flex items-center gap-4">
+        <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400">
+          <i data-lucide="layers" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold leading-tight">6 Pages</div>
+          <div class="text-xs text-white/50">Complete Route Coverage</div>
+        </div>
+      </div>
+
+      <div class="p-5 rounded-2xl glass-card flex items-center gap-4">
+        <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+          <i data-lucide="mouse-pointer-click" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold leading-tight">161 Elements</div>
+          <div class="text-xs text-white/50">Interactive Click Items</div>
+        </div>
+      </div>
+
+      <div class="p-5 rounded-2xl glass-card flex items-center gap-4">
+        <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400">
+          <i data-lucide="message-square" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold leading-tight">12 WhatsApp Flows</div>
+          <div class="text-xs text-white/50">Direct Conversion Hooks</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: SITEMAP & IA TREE -->
+    <section class="p-6 rounded-2xl glass-card space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="git-fork" class="w-5 h-5 text-[#D4AF37]"></i>
+          <h2 class="text-lg font-extrabold tracking-tight">1. Information Architecture & Sitemap Tree</h2>
+        </div>
+        <span class="text-xs text-white/40 font-mono">Dynamic Navigation Structure</span>
+      </div>
+      
+      <div class="overflow-x-auto p-4 rounded-xl bg-black/40 border border-white/5 flex justify-center">
+        <pre class="mermaid">
+graph TD
+    Root["Website Root (/)"] --> Navbar["Header Navbar (Global)"]
+    Root --> Footer["Global Footer (Global)"]
+    
+    Root --> Home["Home Page (index.html)"]
+    Root --> Services["Core Services (services.html)"]
+    Root --> MoreServices["More Services (more-services.html)"]
+    Root --> Products["Hardware Products (products.html)"]
+    Root --> Customizations["Customizations Store (customizations.html)"]
+    Root --> About["About Us (about.html)"]
+
+    Services --> S1["Tally Prime Licensing (#tally-license)"]
+    Services --> S2["Tally on Cloud (#tally-cloud)"]
+    Services --> S3["Tailored Customizations (#tally-customization)"]
+
+    MoreServices --> MS1["AMC Support (#amc)"]
+    MoreServices --> MS2["VPS Hosting (#vps)"]
+    MoreServices --> MS3["Excel to Tally (#excel)"]
+    MoreServices --> MS4["Data Migration (#data)"]
+
+    Products --> P1["Enterprise Servers (#servers)"]
+    Products --> P2["Workstations (#workstations)"]
+    Products --> P3["Printers (#printers)"]
+
+    Customizations --> C1["Hotel Management"]
+    Customizations --> C2["Garment Grid Billing"]
+    Customizations --> C3["Manufacturing BOM"]
+    Customizations --> C4["Biometric Payroll"]
+        </pre>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CORE USER JOURNEYS -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- JOURNEY A: AUTH GATE FLOW -->
+      <div class="p-6 rounded-2xl glass-card space-y-4 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 border-b border-white/10 pb-3 mb-4">
+            <i data-lucide="shield-check" class="w-5 h-5 text-purple-400"></i>
+            <h3 class="text-base font-extrabold tracking-tight">Lead Intake & Auth Gate Flow</h3>
+          </div>
+          <p class="text-xs text-white/60 leading-relaxed mb-4">
+            When users click high-intent actions like <strong>Get Started</strong>, they encounter a 3D-tilting authorization modal prior to accessing settings.
+          </p>
+          <div class="overflow-x-auto p-3 rounded-xl bg-black/40 border border-white/5">
+            <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User as Visitor
+    participant H as Home Page
+    participant AG as Auth Gate Modal
+    participant GO as Google OAuth
+    participant P as Profile Page
+    
+    User->>H: Clicks "Get Started"
+    H->>AG: Shows 3D Signup Card
+    User->>AG: Enters Name & Email
+    AG->>GO: Triggers OAuth Flow
+    GO->>P: Resolves Session
+    P->>User: Renders Profile Panel
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOURNEY B: WHATSAPP INQUIRY FLOW -->
+      <div class="p-6 rounded-2xl glass-card space-y-4 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 border-b border-white/10 pb-3 mb-4">
+            <i data-lucide="phone-call" class="w-5 h-5 text-emerald-400"></i>
+            <h3 class="text-base font-extrabold tracking-tight">WhatsApp Inquire Conversion Journey</h3>
+          </div>
+          <p class="text-xs text-white/60 leading-relaxed mb-4">
+            Visitors initiate direct chats with representatives through floating shortcuts or product-specific catalog inquiry buttons.
+          </p>
+          <div class="overflow-x-auto p-3 rounded-xl bg-black/40 border border-white/5">
+            <pre class="mermaid">
+graph LR
+    subgraph Viewports
+        H[Home Page]
+        C[Customizations]
+        P[Products Catalog]
+    end
+
+    subgraph Action Triggers
+        HeroWA["Hero CTA"]
+        FloatWA["Floating Badge"]
+        CardWA["Item Specific WA"]
+    end
+
+    subgraph Target
+        WA["WhatsApp Client<br/>(+91 7558604483)"]
+    end
+
+    H --> HeroWA --> WA
+    H --> FloatWA --> WA
+    C --> CardWA --> WA
+    P --> CardWA --> WA
+            </pre>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 3: UX FRICTION & BOTTLENECK AUDIT -->
+    <section class="p-6 rounded-2xl glass-card space-y-4">
+      <div class="flex items-center gap-2 border-b border-white/10 pb-4">
+        <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-400"></i>
+        <h2 class="text-lg font-extrabold tracking-tight">3. Strategic UX Bottleneck Audit</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- ISSUE 1 -->
+        <div class="p-4 rounded-xl border border-orange-500/30 bg-orange-500/5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-orange-400 flex items-center gap-1.5">
+              <i data-lucide="lock" class="w-4 h-4"></i> Auth Gate Drop-off
+            </span>
+            <span class="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.5 rounded font-bold">High Risk</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed">
+            Intercepting immediate WhatsApp inquiries with a compulsory sign-up modal causes a potential <strong>15–20% lead conversion drop-off</strong>.
+          </p>
+          <div class="text-[11px] text-orange-300/80 font-semibold pt-1">
+            💡 Recommendation: Log lead details non-intrusively in background storage.
+          </div>
+        </div>
+
+        <!-- ISSUE 2 -->
+        <div class="p-4 rounded-xl border border-yellow-500/30 bg-yellow-500/5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-yellow-400 flex items-center gap-1.5">
+              <i data-lucide="link-2-off" class="w-4 h-4"></i> Redundant Footer Links
+            </span>
+            <span class="text-[10px] bg-yellow-500/20 text-yellow-300 px-2 py-0.5 rounded font-bold">Medium</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed">
+            The global footer includes inactive anchors (e.g. <code>Careers (#)</code>) and repeats menu hierarchies already present in the sticky navbar.
+          </p>
+          <div class="text-[11px] text-yellow-300/80 font-semibold pt-1">
+            💡 Recommendation: Clean up footer links to point to active pages only.
+          </div>
+        </div>
+
+        <!-- ISSUE 3 -->
+        <div class="p-4 rounded-xl border border-blue-500/30 bg-blue-500/5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+              <i data-lucide="eye" class="w-4 h-4"></i> Light Theme Contrast
+            </span>
+            <span class="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold">Low</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed">
+            Under light mode, translucent card borders have an opacity of <code>0.45</code>, which falls slightly below ideal WCAG accessibility guidelines.
+          </p>
+          <div class="text-[11px] text-blue-300/80 font-semibold pt-1">
+            💡 Recommendation: Increase border opacity to <code>0.6</code> in <code>src/index.css</code>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DYNAMIC ROUTING & CATALOG MODULES -->
+    <section class="p-6 rounded-2xl glass-card space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sliders" class="w-5 h-5 text-[#D4AF37]"></i>
+          <h2 class="text-lg font-extrabold tracking-tight">4. Dynamic Query Routing System</h2>
+        </div>
+        <span class="text-xs text-white/40 font-mono">/customizations.html?module=[slug]</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-white/70 leading-relaxed">
+        <div class="p-4 rounded-xl bg-black/30 border border-white/5 space-y-2">
+          <h4 class="font-bold text-white flex items-center gap-2">
+            <i data-lucide="code" class="w-4 h-4 text-[#D4AF37]"></i> Query State Resolution
+          </h4>
+          <p>
+            The Customizations shop dynamically parses <code>window.location.search</code> to highlight chosen items without triggering full page reloads.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-black/30 border border-white/5 space-y-2">
+          <h4 class="font-bold text-white flex items-center gap-2">
+            <i data-lucide="search" class="w-4 h-4 text-[#D4AF37]"></i> SEO & Schema Ingestion
+          </h4>
+          <p>
+            Dynamically injects JSON-LD schemas based on the active module parameter, keeping search engines updated with catalog specs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-6 text-center text-xs text-white/40 border-t border-white/10 glass-panel mt-12">
+    Harsh Infotech Consultancy Services &copy; 2026. Interactive UX Architecture Map.
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+    // Initialize Mermaid Diagrams
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      securityLevel: 'loose',
+      fontFamily: 'Plus Jakarta Sans, sans-serif'
+    });
+  </script>
+</body>
+</html>

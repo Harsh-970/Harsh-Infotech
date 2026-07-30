@@ -1,0 +1,91 @@
+[
+  {
+    "id": "job-1",
+    "title": "Tally TDL Developer",
+    "slug": "tally-tdl-developer",
+    "department": "Engineering",
+    "location": "Remote / Mumbai, India",
+    "type": "Full-Time",
+    "salaryRange": "₹4,00,000 - ₹8,00,000 / year",
+    "description": "We are looking for an experienced Tally TDL Developer to design, develop, and maintain custom modules (TDL) and integrations for our clients. You will work on vertical solutions, API integrations, and database migrations.",
+    "requirements": [
+      "2+ years of professional TDL (Tally Definition Language) development experience.",
+      "Deep understanding of Tally Prime architecture, tables, and ODBC/XML integrations.",
+      "Experience developing custom invoices, GST reports, and payment gateway integrations.",
+      "Strong debugging and problem-solving skills."
+    ],
+    "benefits": [
+      "Flexible working hours and remote options.",
+      "Health insurance coverage.",
+      "Performance-based bonuses and incentives.",
+      "Career growth opportunities in enterprise software integrations."
+    ],
+    "priority": 10
+  },
+  {
+    "id": "job-2",
+    "title": "Tally Technical Support Specialist",
+    "slug": "tally-technical-support-specialist",
+    "department": "Customer Support",
+    "location": "Mumbai, India (On-site)",
+    "type": "Full-Time",
+    "salaryRange": "₹2,50,000 - ₹4,50,000 / year",
+    "description": "Join our fast-paced support team assisting customers with Tally Prime installation, license troubleshooting, data synchronization, data split, and system configurations.",
+    "requirements": [
+      "Excellent knowledge of Tally Prime features (GST, inventory, payroll, e-invoicing).",
+      "Prior experience in Tally customer support or accounting operations.",
+      "Basic understanding of Windows OS, networking, and hardware setup.",
+      "Good communication skills in Hindi and English."
+    ],
+    "benefits": [
+      "Comprehensive training on enterprise IT systems.",
+      "Paid leave policy.",
+      "Dynamic and friendly work culture."
+    ],
+    "priority": 8
+  },
+  {
+    "id": "job-3",
+    "title": "Cloud Systems & VPS Administrator",
+    "slug": "cloud-systems-vps-administrator",
+    "department": "IT Operations",
+    "location": "Remote",
+    "type": "Full-Time",
+    "salaryRange": "₹5,00,000 - ₹9,00,000 / year",
+    "description": "We are seeking a Cloud Systems Administrator to manage our VPS infrastructure hosting Tally on Cloud. You will oversee VM provisioning, network security (firewalls, RDP settings), backup strategies, and server performance monitoring.",
+    "requirements": [
+      "Strong experience with Windows Server administration (Active Directory, RDS, RDP licensing).",
+      "Knowledge of virtualization technologies and cloud platforms (AWS, Azure, or private VPS setups).",
+      "Understanding of security protocols, firewalls, and data backup automation.",
+      "Ability to handle high-availability server issues independently."
+    ],
+    "benefits": [
+      "Work from anywhere in India.",
+      "Latest hardware setup budget.",
+      "Professional certification sponsorship."
+    ],
+    "priority": 9
+  },
+  {
+    "id": "job-4",
+    "title": "Business Development Executive (IT Sales)",
+    "slug": "business-development-executive",
+    "department": "Sales",
+    "location": "Mumbai, India",
+    "type": "Full-Time",
+    "salaryRange": "₹3,00,000 - ₹6,00,000 / year + commission",
+    "description": "Drive growth by selling Tally Prime licenses, Tally on Cloud services, customization contracts, and hardware bundles to SMEs and enterprise clients in Mumbai.",
+    "requirements": [
+      "1+ years of B2B or IT software sales experience.",
+      "Familiarity with financial software or Tally ecosystems is a strong plus.",
+      "Excellent presentation, negotiation, and relationship-building skills.",
+      "Self-motivated with a track record of meeting sales targets."
+    ],
+    "benefits": [
+      "Attractive uncapped sales commission structure.",
+      "Travel allowance.",
+      "Mentorship from senior business leaders."
+    ],
+    "priority": 7
+  }
+]
