@@ -2,6 +2,7 @@ import { ChevronDown, Cpu, Mail, Phone, MapPin, Github, Twitter, Linkedin, Menu,
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useAuth } from "./Auth";
+import { ContactModal } from "./components/ContactModal";
 
 export const Logo = ({
   className = "flex items-center gap-3",
@@ -127,6 +128,7 @@ export const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
   const pathname = window.location.pathname;
@@ -179,6 +181,13 @@ export const Navbar = () => {
     topCtaLink = "/more-services.html";
   }
 
+  const handleTopCtaClick = (e: React.MouseEvent) => {
+    if (topCtaLink === "#contact") {
+      e.preventDefault();
+      setIsContactModalOpen(true);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -196,6 +205,7 @@ export const Navbar = () => {
 
   return (
     <>
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
       <nav 
         className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-12 lg:py-4 xl:px-20 xl:py-5 z-50 transition-transform duration-300 ease-in-out bg-glass border-b border-[var(--glass-border)] shadow-[var(--glass-shadow)] ${
           isVisible ? "translate-y-0" : "-translate-y-full"
@@ -231,8 +241,8 @@ export const Navbar = () => {
                 
                 <a href="/more-services.html#vps" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">VPS</a>
                 <a href="/more-services.html#excel" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Excel to Tally</a>
-                <a href="/more-services.html#data" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Data Migration</a>
-                <a href="/more-services.html#hardware" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Hardware Support</a>
+                <a href="/more-services.html#data-migration" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Data Migration</a>
+                <a href="/more-services.html#hardware-support" className="px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Hardware Support</a>
               </div>
             </div>
           </div>
@@ -253,7 +263,13 @@ export const Navbar = () => {
           <a href="/offers.html" className={`text-sm font-medium transition-colors ${pathname.includes("offers.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>Offers</a>
           <a href="/jobs.html" className={`text-sm font-medium transition-colors ${pathname.includes("jobs.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>Jobs</a>
           <a href="/about.html" className={`text-sm font-medium transition-colors ${pathname.includes("about.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>About</a>
-          <a href="#contact" data-auth-gated="true" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
+          <button 
+            type="button"
+            onClick={() => setIsContactModalOpen(true)}
+            className="text-sm font-medium text-white/70 hover:text-white transition-colors cursor-pointer"
+          >
+            Contact
+          </button>
         </div>
 
         <div className="flex items-center gap-4 xl:gap-5 xl:pl-8 xl:border-l xl:border-[var(--glass-border)] xl:ml-8">
@@ -271,8 +287,8 @@ export const Navbar = () => {
             </button>
             <a 
               href={topCtaLink} 
-              data-auth-gated="true" 
-              className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 text-center"
+              onClick={handleTopCtaClick}
+              className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 text-center cursor-pointer"
             >
               {topCtaText}
             </a>
@@ -315,7 +331,13 @@ export const Navbar = () => {
                 <a href="/offers.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("offers.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Offers</a>
                 <a href="/jobs.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("jobs.html") ? "text-[#D4AF37]" : "text-white/70"}`}>Jobs</a>
                 <a href="/about.html" onClick={() => setIsMobileMenuOpen(false)} className={`hover:text-[#D4AF37] transition-colors py-1 ${pathname.includes("about.html") ? "text-[#D4AF37]" : "text-white/70"}`}>About</a>
-                <a href="#contact" data-auth-gated="true" onClick={() => { setIsMobileMenuOpen(false); }} className="hover:text-[#D4AF37] text-white/70 transition-colors py-1">Contact</a>
+                <button 
+                  type="button" 
+                  onClick={() => { setIsMobileMenuOpen(false); setIsContactModalOpen(true); }} 
+                  className="hover:text-[#D4AF37] text-white/70 transition-colors py-1 text-center font-bold cursor-pointer"
+                >
+                  Contact
+                </button>
                 
                 <div className="h-px bg-white/10 my-4" />
                 
@@ -342,14 +364,15 @@ export const Navbar = () => {
                 <div className="h-px bg-white/10 my-4" />
 
                 <div className="flex gap-4 justify-center items-center mt-2">
-                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
-                    <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
+                    <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain footer-icon-img" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-all group border border-white/5 hover:border-[#D4AF37]/50">
-                    <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain filter brightness-0 invert group-hover:brightness-0 group-hover:invert-0 transition-all" />
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
+                    <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain footer-icon-img" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Twitter className="w-5 h-5" /></a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all"><Linkedin className="w-5 h-5" /></a>
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group"><Twitter className="w-5 h-5 footer-icon-svg" /></a>
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group"><Github className="w-5 h-5 footer-icon-svg" /></a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group"><Linkedin className="w-5 h-5 footer-icon-svg" /></a>
                 </div>
               </nav>
             </motion.div>
@@ -380,15 +403,15 @@ export const Footer = () => {
             Building the future of digital infrastructure. Premium solutions for ambitious companies.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
               <img src="/Facebook.png" alt="Facebook" className="w-5 h-5 object-contain footer-icon-img" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group">
               <img src="/Instagram.png" alt="Instagram" className="w-5 h-5 object-contain footer-icon-img" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all"><Twitter className="w-5 h-5 footer-icon-svg" /></a>
-            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all"><Github className="w-5 h-5 footer-icon-svg" /></a>
-            <a href="#" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all"><Linkedin className="w-5 h-5 footer-icon-svg" /></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group"><Twitter className="w-5 h-5 footer-icon-svg" /></a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group"><Github className="w-5 h-5 footer-icon-svg" /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full footer-social-icon flex items-center justify-center transition-all group"><Linkedin className="w-5 h-5 footer-icon-svg" /></a>
           </div>
         </div>
 
