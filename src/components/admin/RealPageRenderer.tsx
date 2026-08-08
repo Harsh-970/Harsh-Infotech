@@ -85,28 +85,42 @@ export const RealPageRenderer: React.FC<RealPageRendererProps> = ({ page, onElem
     }
 
     // Find closest element with editable data tag or element type
-    const editableTarget = target.closest('[data-editable-id], h1, h2, h3, p, button, img, section, a');
+    const editableTarget = target.closest('[data-editor-id], [data-editor-type], [data-editable-id], button, img, h1, h2, h3, p, [data-card-id], section, a');
 
     if (editableTarget) {
+      const editorId = editableTarget.getAttribute('data-editor-id') || editableTarget.getAttribute('data-editable-id') || `${editableTarget.tagName.toLowerCase()}-${Date.now()}`;
+      const editorType = editableTarget.getAttribute('data-editor-type');
+      const editorLabel = editableTarget.getAttribute('data-editor-label');
+      
       const tagName = editableTarget.tagName.toLowerCase();
-      let elementType: any = 'text';
-      if (tagName === 'button' || tagName === 'a') elementType = 'button';
-      else if (tagName === 'img') elementType = 'image';
-      else if (tagName === 'section') elementType = 'spacing';
+      let elementType: any = editorType || 'text';
+      if (!editorType) {
+        if (tagName === 'button' || tagName === 'a') elementType = 'button';
+        else if (tagName === 'img') elementType = 'image';
+        else if (tagName === 'h1' || tagName === 'h2' || tagName === 'h3') elementType = 'text';
+        else if (tagName === 'p') elementType = 'text';
+        else if (tagName === 'section') elementType = 'spacing';
+      }
 
-      const elementId = editableTarget.getAttribute('data-editable-id') || `${tagName}-${Date.now()}`;
-      const textContent = editableTarget.textContent || '';
+      const textContent = editableTarget.textContent?.trim() || '';
+      const src = (editableTarget as HTMLImageElement).src || '';
+      const elementName = editorLabel || (
+        elementType === 'button' ? `Button (${textContent.slice(0, 15) || 'CTA'})` :
+        elementType === 'image' ? `Image (${editableTarget.getAttribute('alt') || 'Asset'})` :
+        elementType === 'card' ? `Card Component` :
+        `${tagName.toUpperCase()} Element`
+      );
 
       EditingEngine.selectElement({
-        selectedId: elementId,
+        selectedId: editorId,
         componentId: getComponentIdForSlug(page.slug),
-        elementName: `${tagName.toUpperCase()} Element`,
+        elementName,
         elementType,
-        data: { textContent }
+        data: { textContent, src, tag: tagName }
       });
 
       if (onElementClick) {
-        onElementClick(elementId, elementType, { textContent });
+        onElementClick(editorId, elementType, { textContent, src });
       }
     }
   };

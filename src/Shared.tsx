@@ -208,6 +208,9 @@ export const Navbar = () => {
     <>
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
       <nav 
+        data-editor-id="website.navbar"
+        data-editor-type="navbar"
+        data-editor-label="Website Header Navbar"
         className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-12 lg:py-4 xl:px-20 xl:py-5 z-50 transition-transform duration-300 ease-in-out bg-glass border-b border-[var(--glass-border)] shadow-[var(--glass-shadow)] ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
@@ -266,6 +269,9 @@ export const Navbar = () => {
           <a href="/about.html" className={`text-sm font-medium transition-colors ${pathname.includes("about.html") ? "text-[#D4AF37]" : "text-white/70 hover:text-white"}`}>About</a>
           <button 
             type="button"
+            data-editor-id="website.navbar.contact"
+            data-editor-type="button"
+            data-editor-label="Navbar Contact Button"
             onClick={() => setIsContactModalOpen(true)}
             className="text-sm font-medium text-white/70 hover:text-white transition-colors cursor-pointer"
           >
@@ -281,6 +287,9 @@ export const Navbar = () => {
           <div className="hidden xl:flex flex-col gap-2">
             <button
               type="button"
+              data-editor-id="website.navbar.signup"
+              data-editor-type="button"
+              data-editor-label="Navbar Sign Up Button"
               onClick={() => openAuthGate()}
               className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 cursor-pointer text-center"
             >
@@ -288,6 +297,9 @@ export const Navbar = () => {
             </button>
             <a 
               href={topCtaLink} 
+              data-editor-id="website.navbar.cta"
+              data-editor-type="button"
+              data-editor-label="Navbar Dynamic CTA Button"
               onClick={handleTopCtaClick}
               className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 text-center cursor-pointer"
             >

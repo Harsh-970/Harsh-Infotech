@@ -6,7 +6,13 @@ export type EditableFieldType =
   | 'color' 
   | 'select' 
   | 'spacing' 
-  | 'array';
+  | 'array'
+  | 'card'
+  | 'heading'
+  | 'paragraph'
+  | 'navbar'
+  | 'footer'
+  | 'section';
 
 export interface EditableFieldSchema {
   id: string;
