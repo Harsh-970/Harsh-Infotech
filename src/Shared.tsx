@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useAuth } from "./Auth";
 import { ContactModal } from "./components/ContactModal";
+import { useCMS } from "./context/CMSContext";
 
 export const Logo = ({
   className = "flex items-center gap-3",
@@ -387,6 +388,29 @@ export const Navbar = () => {
 };
 
 export const Footer = () => {
+  const { addSubscriber } = useCMS();
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [newsletterError, setNewsletterError] = useState("");
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterError("");
+    
+    if (!newsletterEmail || !/^\S+@\S+\.\S+$/.test(newsletterEmail)) {
+      setNewsletterError("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      addSubscriber(newsletterEmail, 'footer_newsletter');
+      setIsSubscribed(true);
+      setNewsletterEmail("");
+    } catch (err) {
+      setNewsletterError("Failed to save subscription. Please try again.");
+    }
+  };
+
   return (
     <footer id="contact" className="site-footer max-w-7xl mx-auto mb-10 mt-20 md:mt-32 pt-16 pb-10 px-6 lg:px-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -451,14 +475,30 @@ export const Footer = () => {
         <div>
           <h4 className="footer-primary-text font-bold mb-6">Newsletter</h4>
           <p className="footer-secondary-text text-sm mb-4">Subscribe to our latest updates.</p>
-          <div className="flex gap-2">
-            <input 
-              type="email" 
-              placeholder="Email address" 
-              className="newsletter-input flex-1"
-            />
-            <button className="newsletter-btn">Join</button>
-          </div>
+          
+          {isSubscribed ? (
+            <div className="p-3 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs rounded-xl flex items-center gap-2">
+              ✓ Thank you! You are subscribed.
+            </div>
+          ) : (
+            <form onSubmit={handleNewsletterSubmit} className="space-y-2">
+              <div className="flex gap-2">
+                <input 
+                  type="email" 
+                  placeholder="Email address" 
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  className="newsletter-input flex-1 px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-[#D4AF37]"
+                />
+                <button type="submit" className="newsletter-btn px-4 py-2 bg-[#D4AF37] hover:bg-[#c9a830] text-black font-extrabold text-xs rounded-xl transition-all cursor-pointer">
+                  Join
+                </button>
+              </div>
+              {newsletterError && (
+                <p className="text-[11px] text-red-400 font-semibold">{newsletterError}</p>
+              )}
+            </form>
+          )}
         </div>
       </div>
       

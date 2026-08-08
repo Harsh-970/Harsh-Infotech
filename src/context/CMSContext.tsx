@@ -37,6 +37,13 @@ export interface FlowItem {
   description: string;
 }
 
+export interface SubscriberItem {
+  id: string;
+  email: string;
+  subscribedAt: string;
+  source: string;
+}
+
 export interface CMSSettings {
   adminPasscode: string;
   siteName: string;
@@ -45,12 +52,16 @@ export interface CMSSettings {
   contactEmail: string;
   autoSaveDrafts: boolean;
   lastPublishedAt?: string;
+  accentColor?: string;
+  fontFamily?: string;
+  borderRadius?: string;
 }
 
 export interface CMSData {
   pages: PageItem[];
   links: LinkItem[];
   visualFlow: FlowItem[];
+  subscribers: SubscriberItem[];
   settings: CMSSettings;
 }
 
@@ -70,6 +81,7 @@ interface CMSContextType {
   deleteLink: (id: string) => void;
   addFlowStep: (flow: Omit<FlowItem, 'id'>) => void;
   deleteFlowStep: (id: string) => void;
+  addSubscriber: (email: string, source?: string) => void;
   updateSettings: (settings: Partial<CMSSettings>) => void;
 }
 
@@ -77,13 +89,17 @@ const defaultData: CMSData = {
   pages: [],
   links: [],
   visualFlow: [],
+  subscribers: [],
   settings: {
     adminPasscode: 'admin123',
     siteName: 'Harsh Infotech Consultancy Services',
     contactPhone: '+917558604483',
     contactWhatsApp: '917558604483',
     contactEmail: 'info@harshinfotech.com',
-    autoSaveDrafts: true
+    autoSaveDrafts: true,
+    accentColor: '#D4AF37',
+    fontFamily: 'Inter',
+    borderRadius: '12px'
   }
 };
 
@@ -272,6 +288,19 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   };
 
+  const addSubscriber = (email: string, source: string = 'newsletter') => {
+    const newSubscriber: SubscriberItem = {
+      id: `sub-${Date.now()}`,
+      email,
+      subscribedAt: new Date().toISOString(),
+      source
+    };
+    saveDraftToDiskAndStorage({
+      ...drafts,
+      subscribers: [newSubscriber, ...(drafts.subscribers || [])]
+    });
+  };
+
   const updateSettings = (settingsData: Partial<CMSSettings>) => {
     saveDraftToDiskAndStorage({
       ...drafts,
@@ -300,6 +329,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         deleteLink,
         addFlowStep,
         deleteFlowStep,
+        addSubscriber,
         updateSettings
       }}
     >

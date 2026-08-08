@@ -12,11 +12,8 @@ import {
   Tablet, 
   Smartphone, 
   Sparkles,
-  ZoomIn,
-  ZoomOut,
   Maximize,
-  Minimize,
-  RotateCcw
+  Minimize
 } from 'lucide-react';
 
 interface VisualPageEditorProps {
@@ -28,7 +25,6 @@ interface VisualPageEditorProps {
 export const VisualPageEditor: React.FC<VisualPageEditorProps> = ({ page, onBackToBlueprint, onNavigatePage }) => {
   const { updatePage, saveDraft, publishAll } = useCMS();
   const [activeViewport, setActiveViewport] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
-  const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -55,7 +51,7 @@ export const VisualPageEditor: React.FC<VisualPageEditorProps> = ({ page, onBack
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  // Keyboard Shortcuts for Undo (Ctrl+Z), Redo (Ctrl+Shift+Z), and Fullscreen toggle
+  // Keyboard Shortcuts for Undo (Ctrl+Z) and Redo (Ctrl+Shift+Z)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
@@ -171,61 +167,34 @@ export const VisualPageEditor: React.FC<VisualPageEditorProps> = ({ page, onBack
       </header>
 
       {/* MAIN WORKSPACE: REAL PAGE COMPONENT RENDERER + FLOATING TOOLBAR + STICKY DYNAMIC INSPECTOR */}
-      <div className="flex-1 flex overflow-hidden relative">
+      <div className="flex-1 flex overflow-hidden relative h-[calc(100vh-4rem)]">
         {/* REAL PAGE COMPONENT CANVAS WORKSPACE */}
-        <main className="flex-1 bg-[#05080e] overflow-y-auto p-4 sm:p-8 flex flex-col items-center justify-start relative">
+        <main className="flex-1 bg-[#05080e] overflow-y-auto p-4 sm:p-8 flex flex-col items-center justify-start relative scroll-smooth">
           
           {/* FLOATING GLASSMORPHIC CANVAS TOOLBAR */}
-          <div className="sticky top-4 z-40 bg-[#0b1329]/95 backdrop-blur-2xl border border-white/15 px-4 py-2 rounded-2xl shadow-2xl flex items-center gap-4 text-xs mb-4">
-            {/* Viewport Toggles */}
+          <div className="sticky top-0 z-40 bg-[#0b1329]/95 backdrop-blur-2xl border border-white/15 px-4 py-2 rounded-2xl shadow-2xl flex items-center gap-4 text-xs mb-4 shrink-0">
+            {/* Authentic Responsive Viewport Toggles */}
             <div className="flex items-center gap-1 p-1 bg-black/40 border border-white/10 rounded-xl">
               <button
                 onClick={() => setActiveViewport('desktop')}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${activeViewport === 'desktop' ? 'bg-[#D4AF37] text-black font-bold shadow' : 'text-white/60 hover:text-white'}`}
-                title="Desktop View (100%)"
+                title="Desktop View (1440px Viewport)"
               >
-                <Monitor className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Desktop</span>
+                <Monitor className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Desktop (1440px)</span>
               </button>
               <button
                 onClick={() => setActiveViewport('tablet')}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${activeViewport === 'tablet' ? 'bg-[#D4AF37] text-black font-bold shadow' : 'text-white/60 hover:text-white'}`}
-                title="Tablet View (768px)"
+                title="Tablet View (768px Viewport)"
               >
-                <Tablet className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Tablet</span>
+                <Tablet className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Tablet (768px)</span>
               </button>
               <button
                 onClick={() => setActiveViewport('mobile')}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${activeViewport === 'mobile' ? 'bg-[#D4AF37] text-black font-bold shadow' : 'text-white/60 hover:text-white'}`}
-                title="Mobile View (375px)"
+                title="Mobile View (390px Viewport)"
               >
-                <Smartphone className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Mobile</span>
-              </button>
-            </div>
-
-            <div className="h-4 w-px bg-white/15" />
-
-            {/* Zoom Controls */}
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => setZoomLevel(prev => Math.max(prev - 10, 50))}
-                className="p-1.5 bg-white/5 hover:bg-white/15 rounded-lg text-white/80 hover:text-white transition-colors"
-                title="Zoom Out (-10%)"
-              >
-                <ZoomOut className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={() => setZoomLevel(100)}
-                className="px-2 py-1 bg-white/5 hover:bg-white/15 rounded-lg text-[11px] font-mono text-white/80 hover:text-white transition-colors"
-                title="Reset Zoom (100%)"
-              >
-                {zoomLevel}%
-              </button>
-              <button
-                onClick={() => setZoomLevel(prev => Math.min(prev + 10, 150))}
-                className="p-1.5 bg-white/5 hover:bg-white/15 rounded-lg text-white/80 hover:text-white transition-colors"
-                title="Zoom In (+10%)"
-              >
-                <ZoomIn className="w-3.5 h-3.5" />
+                <Smartphone className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Mobile (390px)</span>
               </button>
             </div>
 
@@ -246,24 +215,20 @@ export const VisualPageEditor: React.FC<VisualPageEditorProps> = ({ page, onBack
             </button>
           </div>
 
-          {/* PAGE PREVIEW FRAME WRAPPER WITH DYNAMIC VIEWPORT & ZOOM SCALE */}
+          {/* AUTHENTIC VIEWPORT CONTAINER (NO CSS TRANSFORM SCALE) */}
           <div
-            style={{
-              transform: `scale(${zoomLevel / 100})`,
-              transformOrigin: 'top center'
-            }}
-            className={`transition-all duration-300 bg-[#070b13] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-4 relative ${
+            className={`transition-all duration-300 bg-[#070b13] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-2 relative min-h-max flex flex-col ${
               activeViewport === 'desktop'
-                ? 'w-full max-w-6xl'
+                ? 'w-full max-w-[1440px]'
                 : activeViewport === 'tablet'
                 ? 'w-[768px]'
-                : 'w-[375px]'
+                : 'w-[390px]'
             }`}
           >
             {/* Visual Page Banner Indicator */}
-            <div className="p-3 bg-[#0b1329] border-b border-white/10 flex items-center justify-between text-xs text-white/50">
+            <div className="p-3 bg-[#0b1329] border-b border-white/10 flex items-center justify-between text-xs text-white/50 shrink-0">
               <span className="flex items-center gap-1.5 font-mono">
-                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" /> Authentic React Component ({page.title}) - 1 Source of Truth
+                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" /> Authentic React Component ({page.title}) - Viewport: {activeViewport.toUpperCase()} ({activeViewport === 'desktop' ? '1440px' : activeViewport === 'tablet' ? '768px' : '390px'})
               </span>
               <span className="text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full border border-emerald-400/20 font-bold">
                 Editor Mode Active
@@ -271,7 +236,9 @@ export const VisualPageEditor: React.FC<VisualPageEditorProps> = ({ page, onBack
             </div>
 
             {/* REAL PAGE COMPONENT RENDERER */}
-            <RealPageRenderer page={page} onNavigatePage={onNavigatePage} />
+            <div className="w-full flex-1 flex flex-col">
+              <RealPageRenderer page={page} onNavigatePage={onNavigatePage} />
+            </div>
           </div>
         </main>
 
@@ -281,4 +248,5 @@ export const VisualPageEditor: React.FC<VisualPageEditorProps> = ({ page, onBack
     </div>
   );
 };
+
 
