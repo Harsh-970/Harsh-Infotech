@@ -542,54 +542,60 @@
   text-decoration: underline;
 }
 
-/* Footer social icon wrap */
-.site-footer .footer-social-icon {
+/* Globalized social icon wrap (applies to footer and mobile menu) */
+.footer-social-icon {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
 }
-.site-footer .footer-social-icon:hover {
+.footer-icon-svg {
+  color: #F5F7FA;
+  opacity: 0.9;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+.footer-icon-img {
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-social-icon:hover {
   background: #D4AF37;
   border-color: #D4AF37;
 }
-.site-footer .footer-social-icon:hover .footer-icon-svg {
-  color: #051931 !important;
+.footer-social-icon:hover .footer-icon-svg {
+  color: #051931;
+  opacity: 1;
 }
-.site-footer .footer-social-icon:hover .footer-icon-img {
-  filter: brightness(0) saturate(100%) invert(8%) sepia(35%) saturate(3015%); /* Force dark blue */
+.footer-social-icon:hover .footer-icon-img {
+  filter: brightness(0) saturate(100%);
+  opacity: 1;
 }
 
-.light .site-footer .footer-social-icon {
+.light .footer-social-icon {
   background: rgba(74, 127, 167, 0.12);
   border: 1px solid rgba(74, 127, 167, 0.25);
 }
-.light .site-footer .footer-social-icon:hover {
+.light .footer-icon-svg {
+  color: #1A3D63;
+  opacity: 0.95;
+}
+.light .footer-icon-img {
+  filter: none;
+  opacity: 0.95;
+}
+
+.light .footer-social-icon:hover {
   background: #1A3D63;
   border-color: #1A3D63;
 }
-.light .site-footer .footer-social-icon:hover .footer-icon-svg {
-  color: #F6FAFD !important;
+.light .footer-social-icon:hover .footer-icon-svg {
+  color: #F6FAFD;
+  opacity: 1;
 }
-.light .site-footer .footer-social-icon:hover .footer-icon-img {
-  filter: brightness(0) invert(1) !important;
-}
-
-/* Footer Icon visibility (25% increase => setting to high opacity) */
-.site-footer .footer-icon-svg {
-  color: #F5F7FA !important;
-  opacity: 0.9 !important;
-}
-.site-footer .footer-icon-img {
-  filter: brightness(0) invert(1) !important;
-  opacity: 0.9 !important;
-}
-
-.light .site-footer .footer-icon-svg {
-  color: #1A3D63 !important;
-  opacity: 0.95 !important;
-}
-.light .site-footer .footer-icon-img {
-  filter: none !important;
-  opacity: 0.95 !important;
+.light .footer-social-icon:hover .footer-icon-img {
+  filter: brightness(0) invert(1);
+  opacity: 1;
 }
 
 /* Newsletter Input styles */

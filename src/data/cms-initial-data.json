@@ -1,0 +1,224 @@
+{
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home Page",
+      "slug": "home",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "Harsh Infotech Consultancy Services - Complete Tally Solutions",
+      "seoDescription": "We help businesses simplify accounting, automate workflows, and scale operations with powerful Tally solutions.",
+      "content": {
+        "heroTitle": "Reliably Great",
+        "heroSubtitle": "Efficiently Fast",
+        "heroDescription": "Complete Tally Solutions for Modern Businesses. We help businesses simplify accounting, automate workflows, and scale operations with powerful Tally solutions.",
+        "primaryCtaLabel": "Get Started",
+        "secondaryCtaLabel": "Contact Sales"
+      }
+    },
+    {
+      "id": "about",
+      "title": "About Us",
+      "slug": "about",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "About Harsh Infotech - 15+ Years of Tally Expertise",
+      "seoDescription": "Learn about Harsh Infotech Consultancy Services, trusted by over 1000+ businesses across India.",
+      "content": {
+        "heroTitle": "Empowering Businesses",
+        "heroSubtitle": "With Smart Accounting & Automation",
+        "heroDescription": "With over 15 years of industry leadership, Harsh Infotech delivers tailored Tally software solutions, customization, cloud integration, and 24/7 expert support.",
+        "primaryCtaLabel": "Our Story",
+        "secondaryCtaLabel": "Meet the Team"
+      }
+    },
+    {
+      "id": "services",
+      "title": "Services",
+      "slug": "services",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "Tally Services & Support - Harsh Infotech",
+      "seoDescription": "Comprehensive Tally services including implementation, cloud hosting, customization, data sync, and annual maintenance.",
+      "content": {
+        "heroTitle": "Comprehensive Tally Services",
+        "heroSubtitle": "Tailored for Your Growth",
+        "heroDescription": "From single-user setups to enterprise multi-location data synchronization and cloud hosting, we cover every aspect of Tally operations.",
+        "primaryCtaLabel": "Explore Services",
+        "secondaryCtaLabel": "Request Consultation"
+      }
+    },
+    {
+      "id": "products",
+      "title": "Products",
+      "slug": "products",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "Tally Prime Products & Licenses - Harsh Infotech",
+      "seoDescription": "Official Tally Prime Silver, Gold, Audit, and Tally on Cloud subscription options.",
+      "content": {
+        "heroTitle": "Official Tally Software & Licenses",
+        "heroSubtitle": "Genuine Products & Subscriptions",
+        "heroDescription": "Get official Tally Prime licenses, renewals, and cloud hosting solutions with instant setup and dedicated support.",
+        "primaryCtaLabel": "View Pricing",
+        "secondaryCtaLabel": "Buy License"
+      }
+    },
+    {
+      "id": "customizations",
+      "title": "Customizations",
+      "slug": "customizations",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "Tally TDL Customization Modules - Harsh Infotech",
+      "seoDescription": "Over 50+ ready-to-use Tally modules: auto backup, WhatsApp invoice integration, barcode printing, and custom invoice formats.",
+      "content": {
+        "heroTitle": "Tailored Tally Modules",
+        "heroSubtitle": "Automate Your Specific Workflows",
+        "heroDescription": "Enhance standard Tally Prime with custom reports, automated WhatsApp invoicing, multi-godown allocation, and specialized TDL add-ons.",
+        "primaryCtaLabel": "Browse Modules",
+        "secondaryCtaLabel": "Request Custom TDL"
+      }
+    },
+    {
+      "id": "offers",
+      "title": "Special Offers",
+      "slug": "offers",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "Exclusive Tally Deals & Discounts - Harsh Infotech",
+      "seoDescription": "Limited-time offers on Tally Prime renewals, Cloud hosting bundles, and TDL customization packs.",
+      "content": {
+        "heroTitle": "Exclusive Deals & Bundles",
+        "heroSubtitle": "Maximize Value for Your Business",
+        "heroDescription": "Save big with combined Tally Prime licensing + Tally on Cloud + WhatsApp add-on annual packages.",
+        "primaryCtaLabel": "Claim Offer",
+        "secondaryCtaLabel": "Speak to Advisor"
+      }
+    },
+    {
+      "id": "jobs",
+      "title": "Careers & Jobs",
+      "slug": "jobs",
+      "status": "published",
+      "lastModified": "2026-08-08",
+      "seoTitle": "Careers at Harsh Infotech - Join Our Team",
+      "seoDescription": "Explore open career positions for Tally support executives, TDL developers, and sales specialists.",
+      "content": {
+        "heroTitle": "Grow Your Career With Us",
+        "heroSubtitle": "Join Harsh Infotech Family",
+        "heroDescription": "We are looking for passionate Tally experts, developers, and customer support stars to build the future of business automation.",
+        "primaryCtaLabel": "View Openings",
+        "secondaryCtaLabel": "Submit Resume"
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "nav-home",
+      "label": "Home",
+      "type": "navigation",
+      "target": "/",
+      "category": "Navbar Link",
+      "active": true
+    },
+    {
+      "id": "nav-about",
+      "label": "About Us",
+      "type": "navigation",
+      "target": "/about.html",
+      "category": "Navbar Link",
+      "active": true
+    },
+    {
+      "id": "nav-services",
+      "label": "Services",
+      "type": "navigation",
+      "target": "/services.html",
+      "category": "Navbar Link",
+      "active": true
+    },
+    {
+      "id": "nav-products",
+      "label": "Products",
+      "type": "navigation",
+      "target": "/products.html",
+      "category": "Navbar Link",
+      "active": true
+    },
+    {
+      "id": "nav-customizations",
+      "label": "Customizations",
+      "type": "navigation",
+      "target": "/customizations.html",
+      "category": "Navbar Link",
+      "active": true
+    },
+    {
+      "id": "action-whatsapp",
+      "label": "Instant WhatsApp Chat",
+      "type": "whatsapp",
+      "target": "https://wa.me/917558604483?text=Hi%20Harsh%20Infotech%2C%20I%20want%20to%20know%20more%20about%20Tally%20Solutions",
+      "category": "Direct Action",
+      "phone": "917558604483",
+      "message": "Hi Harsh Infotech, I want to know more about Tally Solutions",
+      "active": true
+    },
+    {
+      "id": "action-call",
+      "label": "Direct Call Support",
+      "type": "call",
+      "target": "tel:+917558604483",
+      "category": "Direct Action",
+      "phone": "+917558604483",
+      "active": true
+    },
+    {
+      "id": "action-qr",
+      "label": "Instant QR Scan & Pay",
+      "type": "qr_code",
+      "target": "/assets/qr-code.png",
+      "category": "Direct Action",
+      "active": true
+    }
+  ],
+  "visualFlow": [
+    {
+      "id": "flow-1",
+      "source": "Homepage Hero CTA",
+      "target": "Services / Customizations Page",
+      "actionType": "Internal Page Navigation",
+      "description": "Visitor clicks 'Get Started' button on Home Page"
+    },
+    {
+      "id": "flow-2",
+      "source": "Services / Customizations Page",
+      "target": "Tally on Cloud / License Options",
+      "actionType": "Option Selection",
+      "description": "Visitor selects Tally on Cloud or Single User / Multi User plan"
+    },
+    {
+      "id": "flow-3",
+      "source": "Tally on Cloud / License Options",
+      "target": "Purchase / Enquiry Action",
+      "actionType": "Conversion Action",
+      "description": "Visitor clicks 'Buy Now' or 'Instant Enquiry' CTA"
+    },
+    {
+      "id": "flow-4",
+      "source": "Purchase / Enquiry Action",
+      "target": "WhatsApp Chat / Call Support / QR Payment",
+      "actionType": "Fulfillment",
+      "description": "Instant contact via WhatsApp (917558604483), direct call, or QR payment"
+    }
+  ],
+  "settings": {
+    "adminPasscode": "admin123",
+    "siteName": "Harsh Infotech Consultancy Services",
+    "contactPhone": "+917558604483",
+    "contactWhatsApp": "917558604483",
+    "contactEmail": "info@harshinfotech.com",
+    "autoSaveDrafts": true,
+    "lastPublishedAt": "2026-08-08T16:00:00Z"
+  }
+}

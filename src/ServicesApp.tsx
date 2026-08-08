@@ -58,14 +58,17 @@ const getServiceCta = (slug: string) => {
 
 export default function ServicesApp() {
   useEffect(() => {
+    const activeSlug = typeof window !== "undefined" ? (window as any).__ACTIVE_SLUG__ : null;
     const hash = window.location.hash;
-    if (hash) {
+    const targetId = hash ? hash.replace('#', '') : activeSlug;
+    
+    if (targetId) {
       setTimeout(() => {
-        const element = document.querySelector(hash);
+        const element = document.getElementById(targetId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      }, 150);
     }
   }, []);
 

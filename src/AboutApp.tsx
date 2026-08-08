@@ -76,7 +76,7 @@ export default function AboutApp() {
                 { title: 'Tally Solutions', link: '/services.html' },
                 { title: 'Cloud & VPS Services', link: '/more-services.html#vps' },
                 { title: 'Tally Customization', link: '/services.html#tally-customization' },
-                { title: 'Hardware & IT Support', link: '/products.html#hardware' }
+                { title: 'Hardware & IT Support', link: '/products.html' }
               ].map((item, i) => (
                 <a href={item.link} key={i} className="p-8 glass-card flex flex-col items-center hover:scale-105 transition-transform group cursor-pointer">
                   <CheckCircle2 className="w-8 h-8 mb-4 text-white/80 group-hover:text-[#D4AF37] transition-colors" />

@@ -6,10 +6,26 @@ import { Background, Navbar, Footer, Logo } from "./Shared";
 import { Testimonials } from "./Testimonials";
 import { useAuth } from "./Auth";
 
+import { useCMSContent } from "./hooks/useCMSContent";
+
 const Hero = () => {
   const { isAuthenticated, openAuthGate } = useAuth();
+  const { content, isPreview } = useCMSContent('home');
+
+  const heroTitle = content?.heroTitle || "Reliably Great";
+  const heroSubtitle = content?.heroSubtitle || "Efficiently Fast";
+  const heroDescription = content?.heroDescription || "We help businesses simplify accounting, automate workflows, and scale operations with powerful Tally solutions.";
+  const primaryCtaLabel = content?.primaryCtaLabel || "Get Started";
+
   return (
     <section id="home" className="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 text-center lg:flex-row lg:text-left lg:px-8 xl:px-20 max-w-7xl mx-auto gap-6 sm:gap-8 lg:gap-10 xl:gap-16 pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-10 lg:pb-16">
+      {isPreview && (
+        <div className="fixed top-20 right-6 z-50 p-3 rounded-xl bg-amber-500/90 text-black font-bold text-xs shadow-2xl backdrop-blur-md flex items-center gap-2 border border-amber-300">
+          <span className="w-2 h-2 rounded-full bg-black animate-ping" />
+          Preview Mode: Viewing Safe Draft State
+        </div>
+      )}
+
       <div className="flex-1 z-10 w-full flex flex-col items-center lg:items-start">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
@@ -17,8 +33,8 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="text-[clamp(2rem,4vw+1rem,4rem)] lg:text-[clamp(2.5rem,5vw+1rem,4.5rem)] xl:text-[5rem] font-extrabold tracking-tighter leading-[1.05] break-words mb-4 sm:mb-5 lg:mb-6 w-full max-w-[90%] mx-auto lg:mx-0"
         >
-          <span className="block">Reliably <span className="text-[#D4AF37] lg:text-white">Great</span></span>
-          <span className="block text-white/40 mt-1">Efficiently Fast</span>
+          <span className="block">{heroTitle}</span>
+          <span className="block text-white/40 mt-1">{heroSubtitle}</span>
         </motion.h1>
         
         <motion.p 
@@ -28,7 +44,7 @@ const Hero = () => {
           className="text-lg md:text-xl text-white/60 max-w-xl mb-6 sm:mb-8 lg:mb-10 mx-auto lg:mx-0"
         >
           <strong className="block text-white mb-2">Complete Tally Solutions for Modern Businesses</strong>
-          We help businesses simplify accounting, automate workflows, and scale operations with powerful Tally solutions.
+          {heroDescription}
         </motion.p>
 
         {/* Desktop CTA Button */}
@@ -49,7 +65,7 @@ const Hero = () => {
           }}
           className="hidden lg:block px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_24px_rgba(255,255,255,0.15)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] hover:bg-white/90 transition-all duration-200"
         >
-          Get Started
+          {primaryCtaLabel}
         </motion.button>
 
         {/* Mobile CTA Buttons */}
@@ -190,8 +206,8 @@ const MoreSolutions = () => {
     { icon: <Globe />, title: "VPS (Virtual Private Server)", id: "vps", desc: "High-performance cloud servers for running business applications securely and efficiently." },
     { icon: <Cpu />, title: "Tally AMC & Support", id: "amc", desc: "Reliable annual maintenance and support for smooth business operations." },
     { icon: <Zap />, title: "Excel to Tally Integration", id: "excel", desc: "Seamlessly import and manage your Excel data into Tally." },
-    { icon: <Users />, title: "Data Migration & Setup", id: "data", desc: "Secure transfer and setup of your existing business data." },
-    { icon: <Phone />, title: "Hardware & System Support", id: "hardware", desc: "Complete assistance for business systems and IT infrastructure." },
+    { icon: <Users />, title: "Data Migration & Setup", id: "data-migration", desc: "Secure transfer and setup of your existing business data." },
+    { icon: <Phone />, title: "Hardware & System Support", id: "hardware-support", desc: "Complete assistance for business systems and IT infrastructure." },
   ];
 
   return (

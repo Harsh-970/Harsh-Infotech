@@ -93,6 +93,28 @@ export default function ProductsApp() {
     }
   }, [activeSlug]);
 
+  // Scrolling to hash when catalog is visible
+  useEffect(() => {
+    if (!activeSlug) {
+      const handleHashChange = () => {
+        const hash = window.location.hash;
+        if (hash) {
+          setTimeout(() => {
+            const targetId = hash.replace('#', '');
+            const element = document.getElementById(targetId);
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 150);
+        }
+      };
+      // Run once on mount / status transition
+      handleHashChange();
+      window.addEventListener("hashchange", handleHashChange);
+      return () => window.removeEventListener("hashchange", handleHashChange);
+    }
+  }, [activeSlug]);
+
   // Derived filter options
   const categories = useMemo(() => {
     return ["All", ...Array.from(new Set(productsData.map(p => p.category)))];
@@ -282,6 +304,7 @@ export default function ProductsApp() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {filteredProducts.map((prod) => (
                     <motion.div
+                      id={prod.slug}
                       key={prod.id}
                       whileHover={{ y: -8, scale: 1.04, boxShadow: "var(--glass-shadow-hover), 0 0 25px rgba(212, 175, 55, 0.15)" }}
                       style={{
@@ -435,6 +458,10 @@ export default function ProductsApp() {
                         href={`https://wa.me/917558604483?text=${encodeURIComponent(`Hi, I am interested in details and quote for: ${activeProduct.brand} ${activeProduct.title}`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-auth-gated="true"
+                        data-auth-action="whatsapp"
+                        data-service-name={`${activeProduct.brand} ${activeProduct.title}`}
+                        data-message={`Hi, I am interested in details and quote for: ${activeProduct.brand} ${activeProduct.title}`}
                         className="w-full py-4 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] text-black font-black text-base hover:brightness-110 shadow-lg hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
                       >
                         Request Quote on WhatsApp

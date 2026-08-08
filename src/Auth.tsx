@@ -26,6 +26,7 @@ type DeferredAction = {
   target?: string | null;
   emailTo?: string;
   phone?: string;
+  customMessage?: string;
 };
 
 const PERSIST_KEY = "harsh_infotech_auth_persistent";
@@ -497,6 +498,7 @@ const createDeferredAction = (element: HTMLElement): DeferredAction => {
     return {
       type: "whatsapp",
       phone: element.getAttribute("data-phone") ?? "917558604483",
+      customMessage: element.getAttribute("data-message") ?? undefined,
     };
   }
 
@@ -518,7 +520,9 @@ const performDeferredAction = (action: DeferredAction, session: AuthSession | nu
   if (action.type === "whatsapp") {
     if (!session) return;
     const selectedService = sessionStorage.getItem(LAST_SERVICE_KEY);
-    const message = buildWhatsAppMessage(session, selectedService);
+    const userName = createUserName(session.email);
+    const baseMsg = action.customMessage ?? (selectedService ? `Hello, I am interested in ${selectedService}.` : "Hello, I am interested in Harsh Infotech Consultancy Services.");
+    const message = `${baseMsg}\nName: ${userName}\nCompany: ${session.companyName}`;
     const url = `https://wa.me/${action.phone ?? "917558604483"}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     return;

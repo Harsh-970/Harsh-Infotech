@@ -53,12 +53,15 @@ export default function MainServicesApp() {
   const goldPlans = licensePlans.filter(p => p.planName.toLowerCase().includes("gold"));
   const cloudPlans = pricingData.filter(p => p.serviceSlug === "tally-cloud");
   useEffect(() => {
+    const activeSlug = typeof window !== "undefined" ? (window as any).__ACTIVE_SLUG__ : null;
     const hash = window.location.hash;
-    if (hash) {
+    const targetId = hash ? hash.replace('#', '') : activeSlug;
+    
+    if (targetId) {
       setTimeout(() => {
-        const element = document.querySelector(hash);
+        const element = document.getElementById(targetId);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          element.scrollIntoView({ behavior: 'smooth' });
         }
       }, 150);
     }

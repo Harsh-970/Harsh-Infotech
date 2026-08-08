@@ -128,9 +128,144 @@ const authLogPlugin = (): Plugin => ({
   },
 });
 
+const CMS_DRAFTS_FILE = path.resolve(__dirname, 'data', 'cms-drafts.json');
+const CMS_PUBLISHED_FILE = path.resolve(__dirname, 'data', 'cms-published.json');
+const CMS_SEED_FILE = path.resolve(__dirname, 'src', 'data', 'cms-initial-data.json');
+
+const loadCmsData = async () => {
+  let drafts = null;
+  let published = null;
+
+  try {
+    const raw = await fs.readFile(CMS_DRAFTS_FILE, 'utf8');
+    drafts = JSON.parse(raw);
+  } catch {
+    try {
+      const rawSeed = await fs.readFile(CMS_SEED_FILE, 'utf8');
+      drafts = JSON.parse(rawSeed);
+      await fs.mkdir(path.dirname(CMS_DRAFTS_FILE), { recursive: true });
+      await fs.writeFile(CMS_DRAFTS_FILE, JSON.stringify(drafts, null, 2), 'utf8');
+    } catch {
+      drafts = { pages: [], links: [], visualFlow: [], settings: { adminPasscode: "admin123" } };
+    }
+  }
+
+  try {
+    const rawPub = await fs.readFile(CMS_PUBLISHED_FILE, 'utf8');
+    published = JSON.parse(rawPub);
+  } catch {
+    published = drafts;
+    try {
+      await fs.mkdir(path.dirname(CMS_PUBLISHED_FILE), { recursive: true });
+      await fs.writeFile(CMS_PUBLISHED_FILE, JSON.stringify(published, null, 2), 'utf8');
+    } catch {}
+  }
+
+  return { drafts, published };
+};
+
+const cmsAdminPlugin = (): Plugin => ({
+  name: 'cms-admin-plugin',
+  configureServer(server) {
+    // Route redirect middleware: /admin -> /admin.html
+    server.middlewares.use((req, res, next) => {
+      if (req.url === '/admin' || req.url === '/admin/') {
+        req.url = '/admin.html';
+      }
+      next();
+    });
+
+    // API Middleware
+    server.middlewares.use('/api/admin', async (req, res, next) => {
+      const url = req.url ?? '';
+
+      if (req.method === 'GET' && (url === '/data' || url.startsWith('/data?'))) {
+        try {
+          const cms = await loadCmsData();
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ ok: true, drafts: cms.drafts, published: cms.published }));
+        } catch (err: any) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ ok: false, error: err.message }));
+        }
+        return;
+      }
+
+      if (req.method === 'POST' && url === '/drafts') {
+        let body = '';
+        req.on('data', (chunk) => { body += chunk.toString(); });
+        req.on('end', async () => {
+          try {
+            const parsed = JSON.parse(body);
+            await fs.mkdir(path.dirname(CMS_DRAFTS_FILE), { recursive: true });
+            await fs.writeFile(CMS_DRAFTS_FILE, JSON.stringify(parsed, null, 2), 'utf8');
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ ok: true, message: 'Draft saved to disk.' }));
+          } catch (err: any) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ ok: false, error: err.message }));
+          }
+        });
+        return;
+      }
+
+      if (req.method === 'POST' && url === '/publish') {
+        let body = '';
+        req.on('data', (chunk) => { body += chunk.toString(); });
+        req.on('end', async () => {
+          try {
+            const parsed = JSON.parse(body);
+            parsed.settings = {
+              ...parsed.settings,
+              lastPublishedAt: new Date().toISOString()
+            };
+            await fs.mkdir(path.dirname(CMS_PUBLISHED_FILE), { recursive: true });
+            await fs.writeFile(CMS_PUBLISHED_FILE, JSON.stringify(parsed, null, 2), 'utf8');
+            await fs.writeFile(CMS_DRAFTS_FILE, JSON.stringify(parsed, null, 2), 'utf8');
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ ok: true, published: parsed }));
+          } catch (err: any) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ ok: false, error: err.message }));
+          }
+        });
+        return;
+      }
+
+      if (req.method === 'GET' && url === '/media') {
+        try {
+          const assetsDir = path.resolve(__dirname, 'public', 'assets');
+          let files: string[] = [];
+          if (fsSync.existsSync(assetsDir)) {
+            files = fsSync.readdirSync(assetsDir).map(f => `/assets/${f}`);
+          }
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ ok: true, media: files }));
+        } catch (err: any) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ ok: false, error: err.message }));
+        }
+        return;
+      }
+
+      next();
+    });
+  },
+});
+
 const getDynamicInputs = () => {
   const inputs: Record<string, string> = {
     main: path.resolve(__dirname, 'index.html'),
+    admin: path.resolve(__dirname, 'admin.html'),
     about: path.resolve(__dirname, 'about.html'),
     services: path.resolve(__dirname, 'services.html'),
     moreServices: path.resolve(__dirname, 'more-services.html'),
@@ -159,7 +294,7 @@ const getDynamicInputs = () => {
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss(), authLogPlugin()],
+    plugins: [react(), tailwindcss(), authLogPlugin(), cmsAdminPlugin()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },
@@ -180,3 +315,4 @@ export default defineConfig(({mode}) => {
     },
   };
 });
+
