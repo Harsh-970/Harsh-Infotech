@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import cmsInitialData from '../data/cms-initial-data.json';
 
 export interface PageItem {
   id: string;
@@ -85,21 +86,23 @@ interface CMSContextType {
   updateSettings: (settings: Partial<CMSSettings>) => void;
 }
 
+const initialData = cmsInitialData as any;
+
 const defaultData: CMSData = {
-  pages: [],
-  links: [],
-  visualFlow: [],
-  subscribers: [],
+  pages: (initialData.pages || []) as PageItem[],
+  links: (initialData.links || []) as LinkItem[],
+  visualFlow: (initialData.visualFlow || []) as FlowItem[],
+  subscribers: (initialData.subscribers || []) as SubscriberItem[],
   settings: {
-    adminPasscode: 'admin123',
-    siteName: 'Harsh Infotech Consultancy Services',
-    contactPhone: '+917558604483',
-    contactWhatsApp: '917558604483',
-    contactEmail: 'info@harshinfotech.com',
+    adminPasscode: initialData.settings?.adminPasscode || 'admin123',
+    siteName: initialData.settings?.siteName || 'Harsh Infotech Consultancy Services',
+    contactPhone: initialData.settings?.contactPhone || '+917558604483',
+    contactWhatsApp: initialData.settings?.contactWhatsApp || '917558604483',
+    contactEmail: initialData.settings?.contactEmail || 'info@harshinfotech.com',
     autoSaveDrafts: true,
-    accentColor: '#D4AF37',
-    fontFamily: 'Inter',
-    borderRadius: '12px'
+    accentColor: initialData.settings?.accentColor || '#D4AF37',
+    fontFamily: initialData.settings?.fontFamily || 'Inter',
+    borderRadius: initialData.settings?.borderRadius || '12px'
   }
 };
 
@@ -108,12 +111,28 @@ const CMSContext = createContext<CMSContextType | undefined>(undefined);
 export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [drafts, setDrafts] = useState<CMSData>(() => {
     const saved = localStorage.getItem('hi_cms_drafts');
-    return saved ? JSON.parse(saved) : defaultData;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && Array.isArray(parsed.pages) && parsed.pages.length > 0) {
+          return parsed;
+        }
+      } catch (e) {}
+    }
+    return defaultData;
   });
 
   const [published, setPublished] = useState<CMSData>(() => {
     const saved = localStorage.getItem('hi_cms_published');
-    return saved ? JSON.parse(saved) : defaultData;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && Array.isArray(parsed.pages) && parsed.pages.length > 0) {
+          return parsed;
+        }
+      } catch (e) {}
+    }
+    return defaultData;
   });
 
   const [isDraftModified, setIsDraftModified] = useState(false);
