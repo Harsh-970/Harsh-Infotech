@@ -357,10 +357,27 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   );
 };
 
+const fallbackCMSContext: CMSContextType = {
+  drafts: defaultData,
+  published: defaultData,
+  isDraftModified: false,
+  isLoading: false,
+  saveDraft: async () => {},
+  publishAll: async () => {},
+  addPage: () => {},
+  updatePage: () => {},
+  duplicatePage: () => {},
+  deletePage: () => {},
+  addLink: () => {},
+  updateLink: () => {},
+  deleteLink: () => {},
+  addFlowStep: () => {},
+  deleteFlowStep: () => {},
+  addSubscriber: () => {},
+  updateSettings: () => {}
+};
+
 export const useCMS = () => {
   const context = useContext(CMSContext);
-  if (!context) {
-    throw new Error('useCMS must be used within a CMSProvider');
-  }
-  return context;
+  return context || fallbackCMSContext;
 };
