@@ -48,25 +48,17 @@ const Hero = () => {
         </motion.p>
 
         {/* Desktop CTA Button */}
-        <motion.button 
+        <motion.a 
+          href="/about.html"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            if (isAuthenticated) {
-              document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
-            } else {
-              openAuthGate(() => {
-                document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
-              });
-            }
-          }}
-          className="hidden lg:block px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_24px_rgba(255,255,255,0.15)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] hover:bg-white/90 transition-all duration-200"
+          className="hidden lg:inline-flex items-center justify-center px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_24px_rgba(255,255,255,0.15)] hover:shadow-[0_0_32px_rgba(255,255,255,0.25)] hover:bg-white/90 transition-all duration-200 cursor-pointer"
         >
           {primaryCtaLabel}
-        </motion.button>
+        </motion.a>
 
         {/* Mobile CTA Buttons */}
         <motion.div
