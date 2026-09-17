@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Background, Navbar, Footer } from "./Shared";
-import { Tag, Calendar, Copy, Check, ArrowRight, Star, AlertCircle, Percent } from "lucide-react";
+import { Background, Navbar, Footer, openContactModal } from "./Shared";
+import { Tag, Calendar, Copy, Check, ArrowRight, Star, AlertCircle, Percent, Clock, Mail, MessageSquare } from "lucide-react";
 import offersDataRaw from "./data/offers.json";
 
 export interface Offer {
@@ -16,6 +16,13 @@ export interface Offer {
 }
 
 const offersData = offersDataRaw as Offer[];
+
+/**
+ * Feature flag for promotional offers display.
+ * Set to true to re-enable seasonal offers and promotional cards.
+ * When false, displays a clean 'offers updating' notice while safely preserving all data and components.
+ */
+const SHOW_ACTIVE_OFFERS = false;
 
 export default function OffersApp() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -93,132 +100,197 @@ export default function OffersApp() {
           </motion.p>
         </section>
 
-        {/* Filters */}
-        <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-12">
-          <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
-            {categories.map((cat, i) => (
-              <button
-                key={i}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
-                  selectedCategory === cat
-                    ? "bg-white text-black border-white shadow-lg shadow-white/5"
-                    : "bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </section>
+        {SHOW_ACTIVE_OFFERS ? (
+          <>
+            {/* Filters */}
+            <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-12">
+              <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
+                {categories.map((cat, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                      selectedCategory === cat
+                        ? "bg-white text-black border-white shadow-lg shadow-white/5"
+                        : "bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </section>
 
-        {/* Offers Grid */}
-        <section className="px-4 sm:px-6 lg:px-12 xl:px-20 max-w-7xl mx-auto">
-          <AnimatePresence mode="popLayout">
-            {filteredOffers.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {filteredOffers.map((offer, idx) => {
-                  const urgent = isExpiredSoon(offer.expiryDate);
-                  return (
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.5, delay: idx * 0.05 }}
-                      key={offer.id}
-                      className="glass-card p-6 sm:p-8 lg:p-10 flex flex-col justify-between hover:shadow-[0_8px_32px_rgba(212,175,55,0.08)] relative group overflow-hidden"
-                    >
-                      {/* Gold pulse border highlights */}
-                      <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      <div>
-                        {/* Tags */}
-                        <div className="flex justify-between items-center mb-6 gap-2">
-                          <span className="px-3.5 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold uppercase tracking-wider">
-                            {offer.category}
-                          </span>
-                          
-                          <div className="flex items-center gap-1.5 text-xs text-white/40 font-medium">
-                            <Calendar className="w-3.5 h-3.5" />
-                            <span>Expires: {new Date(offer.expiryDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                          </div>
-                        </div>
-
-                        {/* Title and Discount */}
-                        <div className="flex items-baseline gap-3 mb-4 flex-wrap">
-                          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{offer.offerName}</h2>
-                          <span className="text-2xl font-black text-[#D4AF37] bg-white/5 border border-white/10 px-3 py-1 rounded-xl flex items-center gap-1 shrink-0">
-                            <Percent className="w-5 h-5 text-[#D4AF37]" />
-                            {offer.discount}
-                          </span>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-sm sm:text-base text-white/60 leading-relaxed mb-8">{offer.description}</p>
-                      </div>
-
-                      <div className="mt-auto space-y-4">
-                        {/* Coupon copy section */}
-                        <div className="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5">
-                          <div className="flex flex-col pl-2">
-                            <span className="text-[10px] text-white/30 uppercase tracking-widest font-semibold">Promo Code</span>
-                            <span className="text-base font-black tracking-wider text-white uppercase">{offer.couponCode}</span>
-                          </div>
-                          
-                          <button
-                            type="button"
-                            onClick={() => copyToClipboard(offer.couponCode)}
-                            className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white hover:text-black transition-all flex items-center gap-2 text-xs font-bold cursor-pointer"
-                          >
-                            {copiedCode === offer.couponCode ? (
-                              <>
-                                <Check className="w-3.5 h-3.5 text-green-500" />
-                                <span className="text-green-500">Copied!</span>
-                              </>
-                            ) : (
-                              <>
-                                <Copy className="w-3.5 h-3.5" />
-                                <span>Copy Code</span>
-                              </>
-                            )}
-                          </button>
-                        </div>
-
-                        {/* Claim CTA button */}
-                        <a
-                          href="#"
-                          data-auth-gated="true"
-                          data-auth-action="whatsapp"
-                          data-phone="917558604483"
-                          data-service-name={`Offer: ${offer.offerName} (${offer.couponCode})`}
-                          className="w-full py-4 px-6 rounded-2xl bg-white text-black font-bold text-center transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/5 flex items-center justify-center gap-2 group/btn cursor-pointer"
+            {/* Offers Grid */}
+            <section className="px-4 sm:px-6 lg:px-12 xl:px-20 max-w-7xl mx-auto">
+              <AnimatePresence mode="popLayout">
+                {filteredOffers.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {filteredOffers.map((offer, idx) => {
+                      const urgent = isExpiredSoon(offer.expiryDate);
+                      return (
+                        <motion.div
+                          layout
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.5, delay: idx * 0.05 }}
+                          key={offer.id}
+                          className="glass-card p-6 sm:p-8 lg:p-10 flex flex-col justify-between hover:shadow-[0_8px_32px_rgba(212,175,55,0.08)] relative group overflow-hidden"
                         >
-                          <span>Claim Offer via WhatsApp</span>
-                          <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                        </a>
+                          {/* Gold pulse border highlights */}
+                          <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          
+                          <div>
+                            {/* Tags */}
+                            <div className="flex justify-between items-center mb-6 gap-2">
+                              <span className="px-3.5 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold uppercase tracking-wider">
+                                {offer.category}
+                              </span>
+                              
+                              <div className="flex items-center gap-1.5 text-xs text-white/40 font-medium">
+                                <Calendar className="w-3.5 h-3.5" />
+                                <span>Expires: {new Date(offer.expiryDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                              </div>
+                            </div>
 
-                        {/* Urgency warning banner if expiring soon */}
-                        {urgent && (
-                          <div className="flex items-center gap-2 text-red-400 justify-center text-xs mt-2 font-semibold">
-                            <AlertCircle className="w-4 h-4 shrink-0" />
-                            <span>Expiring soon! Claim before it runs out.</span>
+                            {/* Title and Discount */}
+                            <div className="flex items-baseline gap-3 mb-4 flex-wrap">
+                              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{offer.offerName}</h2>
+                              <span className="text-2xl font-black text-[#D4AF37] bg-white/5 border border-white/10 px-3 py-1 rounded-xl flex items-center gap-1 shrink-0">
+                                <Percent className="w-5 h-5 text-[#D4AF37]" />
+                                {offer.discount}
+                              </span>
+                            </div>
+
+                            {/* Description */}
+                            <p className="text-sm sm:text-base text-white/60 leading-relaxed mb-8">{offer.description}</p>
                           </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  );
-                })}
+
+                          <div className="mt-auto space-y-4">
+                            {/* Coupon copy section */}
+                            <div className="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5">
+                              <div className="flex flex-col pl-2">
+                                <span className="text-[10px] text-white/30 uppercase tracking-widest font-semibold">Promo Code</span>
+                                <span className="text-base font-black tracking-wider text-white uppercase">{offer.couponCode}</span>
+                              </div>
+                              
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(offer.couponCode)}
+                                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white hover:text-black transition-all flex items-center gap-2 text-xs font-bold cursor-pointer"
+                              >
+                                {copiedCode === offer.couponCode ? (
+                                  <>
+                                    <Check className="w-3.5 h-3.5 text-green-500" />
+                                    <span className="text-green-500">Copied!</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Copy className="w-3.5 h-3.5" />
+                                    <span>Copy Code</span>
+                                  </>
+                                )}
+                              </button>
+                            </div>
+
+                            {/* Claim CTA button */}
+                            <a
+                              href="#"
+                              data-auth-gated="true"
+                              data-auth-action="whatsapp"
+                              data-phone="917558604483"
+                              data-service-name={`Offer: ${offer.offerName} (${offer.couponCode})`}
+                              className="w-full py-4 px-6 rounded-2xl bg-white text-black font-bold text-center transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/5 flex items-center justify-center gap-2 group/btn cursor-pointer"
+                            >
+                              <span>Claim Offer via WhatsApp</span>
+                              <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                            </a>
+
+                            {/* Urgency warning banner if expiring soon */}
+                            {urgent && (
+                              <div className="flex items-center gap-2 text-red-400 justify-center text-xs mt-2 font-semibold">
+                                <AlertCircle className="w-4 h-4 shrink-0" />
+                                <span>Expiring soon! Claim before it runs out.</span>
+                              </div>
+                            )}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="text-center py-20 glass-card p-10 max-w-xl mx-auto">
+                    <AlertCircle className="w-12 h-12 text-white/30 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold mb-2">No Active Offers</h3>
+                    <p className="text-white/50 text-sm">There are currently no active offers listed in this category. Please check back later or contact our support team for custom corporate package discounts.</p>
+                  </div>
+                )}
+              </AnimatePresence>
+            </section>
+          </>
+        ) : (
+          /* Offers Temporarily Paused / Under Review State */
+          <section className="px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="glass-card p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden rounded-3xl border border-white/10"
+            >
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37]">
+                <Clock className="w-8 h-8 sm:w-10 sm:h-10" />
               </div>
-            ) : (
-              <div className="text-center py-20 glass-card p-10 max-w-xl mx-auto">
-                <AlertCircle className="w-12 h-12 text-white/30 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">No Active Offers</h3>
-                <p className="text-white/50 text-sm">There are currently no active offers listed in this category. Please check back later or contact our support team for custom corporate package discounts.</p>
+
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-[#D4AF37] mb-4">
+                Seasonal Update in Progress
+              </span>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
+                Promotional Offers Are Being Updated
+              </h2>
+
+              <p className="text-white/60 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-8">
+                We are currently reviewing and restructuring our seasonal promotional packages and special volume discounts. Check back soon for our latest campaigns, or contact our team directly for tailored business quotes.
+              </p>
+
+              <div className="p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 max-w-lg mx-auto mb-8 text-left">
+                <div className="flex items-start gap-3">
+                  <Tag className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-bold text-white mb-1">Need custom business pricing today?</h4>
+                    <p className="text-xs text-white/50 leading-relaxed">
+                      We offer tailored discounts for multi-user Tally Prime migrations, VPS infrastructure packages, and enterprise AMC bundles.
+                    </p>
+                  </div>
+                </div>
               </div>
-            )}
-          </AnimatePresence>
-        </section>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a
+                  href="https://wa.me/917558604483?text=Hi%2C%20I%20am%20inquiring%20about%20custom%20pricing%20and%20packages%20for%20Tally%20and%20IT%20solutions."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-black font-bold text-center hover:bg-white/90 hover:shadow-lg hover:shadow-white/10 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Inquire on WhatsApp</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => openContactModal()}
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 text-white font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2 border border-white/15 cursor-pointer"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>Contact Sales Team</span>
+                </button>
+              </div>
+            </motion.div>
+          </section>
+        )}
       </main>
       <Footer />
     </div>
