@@ -493,19 +493,19 @@ export const Footer = () => {
           <ul className="space-y-4 text-sm">
             <li>
               <a 
-                href="mailto:info@harshinfotech.com" 
+                href="mailto:harshinfotech2005@gmail.com" 
                 onClick={(e) => {
                   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                   if (!isMobile) {
                     e.preventDefault();
-                    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=info@harshinfotech.com&su=" + encodeURIComponent("Inquiry - Harsh Infotech"), "_blank", "noopener,noreferrer");
+                    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=harshinfotech2005@gmail.com&su=" + encodeURIComponent("Inquiry - Harsh Infotech"), "_blank", "noopener,noreferrer");
                   }
                 }}
                 data-auth-skip="true"
                 className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full"
               >
                 <Mail className="w-4 h-4 shrink-0 footer-icon-svg" />
-                <span>info@harshinfotech.com</span>
+                <span>harshinfotech2005@gmail.com</span>
               </a>
             </li>
             <li className="flex flex-col gap-4">

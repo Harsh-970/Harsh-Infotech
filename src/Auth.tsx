@@ -463,7 +463,7 @@ const AuthModal = ({
                     Remember me
                   </label>
                   {mode === "signin" && (
-                    <a href="#" onClick={(e) => { e.preventDefault(); alert("Please contact support at info@harshinfotech.com for password reset assistance."); }} className="underline underline-offset-2 text-white/85 hover:text-white" data-auth-skip="true">
+                    <a href="#" onClick={(e) => { e.preventDefault(); alert("Please contact support at harshinfotech2005@gmail.com for password reset assistance."); }} className="underline underline-offset-2 text-white/85 hover:text-white" data-auth-skip="true">
                       Forgot password?
                     </a>
                   )}
@@ -587,7 +587,7 @@ const createDeferredAction = (element: HTMLElement): DeferredAction => {
   if (action === "email") {
     return {
       type: "email",
-      emailTo: element.getAttribute("data-email") ?? "info@harshinfotech.com",
+      emailTo: element.getAttribute("data-email") ?? "harshinfotech2005@gmail.com",
     };
   }
 
@@ -612,7 +612,7 @@ const performDeferredAction = (action: DeferredAction, session: AuthSession | nu
 
   if (action.type === "email") {
     if (!session) return;
-    const emailTo = action.emailTo ?? "info@harshinfotech.com";
+    const emailTo = action.emailTo ?? "harshinfotech2005@gmail.com";
     const userName = createUserName(session.email);
     const subject = encodeURIComponent("Inquiry - Harsh Infotech");
     const body = encodeURIComponent(`Hello,\n\nI am interested in your services.\n\nName: ${userName}\nCompany: ${session.companyName}`);

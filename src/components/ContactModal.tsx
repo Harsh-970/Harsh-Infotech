@@ -12,7 +12,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   let settings = {
     contactWhatsApp: '917558604483',
     contactPhone: '+917558604483',
-    contactEmail: 'info@harshinfotech.com'
+    contactEmail: 'harshinfotech2005@gmail.com'
   };
 
   try {

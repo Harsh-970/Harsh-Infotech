@@ -98,7 +98,7 @@ const defaultData: CMSData = {
     siteName: initialData.settings?.siteName || 'Harsh Infotech Consultancy Services',
     contactPhone: initialData.settings?.contactPhone || '+917558604483',
     contactWhatsApp: initialData.settings?.contactWhatsApp || '917558604483',
-    contactEmail: initialData.settings?.contactEmail || 'info@harshinfotech.com',
+    contactEmail: initialData.settings?.contactEmail || 'harshinfotech2005@gmail.com',
     autoSaveDrafts: true,
     accentColor: initialData.settings?.accentColor || '#D4AF37',
     fontFamily: initialData.settings?.fontFamily || 'Inter',

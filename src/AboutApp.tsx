@@ -120,12 +120,12 @@ export default function AboutApp() {
              <h2 className="text-[clamp(2rem,5vw+0.5rem,3rem)] font-bold mb-10">Reach Out</h2>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                <a 
-                 href="mailto:info@harshinfotech.com" 
+                 href="mailto:harshinfotech2005@gmail.com" 
                  onClick={(e) => {
                    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
                    if (!isMobile) {
                      e.preventDefault();
-                     window.open("https://mail.google.com/mail/?view=cm&fs=1&to=info@harshinfotech.com&su=" + encodeURIComponent("Inquiry - Harsh Infotech"), "_blank", "noopener,noreferrer");
+                     window.open("https://mail.google.com/mail/?view=cm&fs=1&to=harshinfotech2005@gmail.com&su=" + encodeURIComponent("Inquiry - Harsh Infotech"), "_blank", "noopener,noreferrer");
                    }
                  }}
                  data-auth-skip="true"
@@ -136,7 +136,7 @@ export default function AboutApp() {
                  </div>
                  <h4 className="text-xl font-bold mb-2 text-white/90 group-hover:text-white transition-colors">Email</h4>
                  <p className="text-sm md:text-base text-white/60 group-hover:text-white transition-colors break-all">
-                   info@harshinfotech.com
+                   harshinfotech2005@gmail.com
                  </p>
                </a>
 

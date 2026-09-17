@@ -8,7 +8,7 @@ export const AdminSettings: React.FC = () => {
   const [siteName, setSiteName] = useState(drafts.settings.siteName || 'Harsh Infotech Consultancy Services');
   const [contactPhone, setContactPhone] = useState(drafts.settings.contactPhone || '+917558604483');
   const [contactWhatsApp, setContactWhatsApp] = useState(drafts.settings.contactWhatsApp || '917558604483');
-  const [contactEmail, setContactEmail] = useState(drafts.settings.contactEmail || 'info@harshinfotech.com');
+  const [contactEmail, setContactEmail] = useState(drafts.settings.contactEmail || 'harshinfotech2005@gmail.com');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
