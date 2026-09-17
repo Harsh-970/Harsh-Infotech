@@ -17,6 +17,7 @@ type AuthSession = {
 type AuthContextValue = {
   isAuthenticated: boolean;
   openAuthGate: (onSuccess?: () => void) => void;
+  signOut: () => void;
   session: AuthSession | null;
 };
 
@@ -148,11 +149,16 @@ const AuthModal = ({
   isOpen,
   onClose,
   onSignIn,
+  session,
+  onSignOut,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onSignIn: (email: string, companyName: string, jobRole: string, method: LoginMethod, remember: boolean) => void;
+  session?: AuthSession | null;
+  onSignOut?: () => void;
 }) => {
+  const [mode, setMode] = useState<"signup" | "signin">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -185,7 +191,7 @@ const AuthModal = ({
         } else {
           setErrorMessage("Failed to retrieve Google email.");
         }
-      } catch (err) {
+      } catch {
         setErrorMessage("Error fetching Google profile.");
       } finally {
         setIsProcessingGoogle(false);
@@ -275,7 +281,6 @@ const AuthModal = ({
 
         {/* Traveling light beam border effect */}
         <div className="absolute inset-0 rounded-[24px] overflow-hidden pointer-events-none z-[5]">
-          {/* Top light beam */}
           <motion.div 
             className="absolute top-0 left-0 h-[2px] w-[50%] bg-gradient-to-r from-transparent via-white to-transparent opacity-70"
             animate={{ 
@@ -287,7 +292,6 @@ const AuthModal = ({
               opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror" }
             }}
           />
-          {/* Right light beam */}
           <motion.div 
             className="absolute top-0 right-0 h-[50%] w-[2px] bg-gradient-to-b from-transparent via-white to-transparent opacity-70"
             animate={{ 
@@ -299,7 +303,6 @@ const AuthModal = ({
               opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 0.8 }
             }}
           />
-          {/* Bottom light beam */}
           <motion.div 
             className="absolute bottom-0 right-0 h-[2px] w-[50%] bg-gradient-to-r from-transparent via-white to-transparent opacity-70"
             animate={{ 
@@ -311,7 +314,6 @@ const AuthModal = ({
               opacity: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 1.6 }
             }}
           />
-          {/* Left light beam */}
           <motion.div 
             className="absolute bottom-0 left-0 h-[50%] w-[2px] bg-gradient-to-b from-transparent via-white to-transparent opacity-70"
             animate={{ 
@@ -333,159 +335,239 @@ const AuthModal = ({
           <X className="w-5 h-5" />
         </button>
 
-        {socialActive && (
-          <button
-             type="button"
-             onClick={() => { setSocialActive(null); setErrorMessage(""); }}
-             className="absolute left-6 top-6 text-sm font-medium text-white/70 hover:text-white transition-colors z-10"
-          >
-            &larr; Back
-          </button>
-        )}
-
-        <h2 className="text-2xl font-semibold text-center mb-1 mt-6">
-          {socialActive ? `Continue with ${socialActive}` : "Sign In"}
-        </h2>
-        {socialActive && (
-          <p className="text-center text-[#D4AF37] text-xs font-bold mb-4 tracking-wider uppercase">
-            Secure Sign In
-          </p>
-        )}
-        {!socialActive && <div className="h-4 w-full" />}
-        <div className="h-px w-full bg-white/20 mb-5" />
-
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div>
-            <label className="block text-sm text-white/90 mb-1.5">Email</label>
-            <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-4 py-3">
-              <Mail className="w-5 h-5 text-white/70" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="Enter your email"
-                className={`w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none`}
-              />
-            </div>
-          </div>
-
-          {!socialActive && (
-            <div>
-              <label className="block text-sm text-white/90 mb-1.5">Password</label>
-              <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-3 py-2.5">
-                <Lock className="w-5 h-5 text-white/70" />
-                <input
-                  type="password"
-                  required={!socialActive}
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter your password"
-                  className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
-                />
+        {session ? (
+          <div className="pt-4 text-center">
+            <h2 className="text-2xl font-semibold text-white mb-2">My Account</h2>
+            <p className="text-[#D4AF37] text-sm font-medium mb-6">Active Authenticated Session</p>
+            
+            <div className="space-y-3 bg-white/5 border border-white/15 rounded-xl p-4 text-left mb-6">
+              <div>
+                <span className="text-xs text-white/50 block">Business Email</span>
+                <span className="text-sm font-medium text-white">{session.email}</span>
+              </div>
+              <div>
+                <span className="text-xs text-white/50 block">Company Name</span>
+                <span className="text-sm font-medium text-white">{session.companyName}</span>
+              </div>
+              {session.jobRole && (
+                <div>
+                  <span className="text-xs text-white/50 block">Job Role</span>
+                  <span className="text-sm font-medium text-white">{session.jobRole}</span>
+                </div>
+              )}
+              <div>
+                <span className="text-xs text-white/50 block">Method</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/80">{session.loginMethod}</span>
               </div>
             </div>
-          )}
 
-          {!socialActive && (
-            <div className="flex items-center justify-between text-sm text-white/80 py-1">
-              <label className="inline-flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(event) => setRememberMe(event.target.checked)}
-                  className="h-4 w-4 rounded border-white/40 bg-transparent accent-[#D4AF37]"
-                />
-                Remember me
-              </label>
-              <a href="#" className="underline underline-offset-2 text-white/85 hover:text-white" data-auth-skip="true">
-                Forgot password?
-              </a>
-            </div>
-          )}
-
-          <div>
-            <label className="block text-sm text-white/90 mb-1.5 flex items-center gap-2">Company Name <span className="text-[#D4AF37] text-xs font-bold">*MANDATORY</span></label>
-            <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-3 py-2.5">
-              <BriefcaseBusiness className="w-5 h-5 text-white/70" />
-              <input
-                type="text"
-                required
-                value={companyName}
-                onChange={(event) => setCompanyName(event.target.value)}
-                placeholder="Enter your company name"
-                className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm text-white/90 mb-1.5">Job Role (Optional)</label>
-            <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-3 py-2.5">
-              <UserRound className="w-5 h-5 text-white/70" />
-              <input
-                type="text"
-                value={jobRole}
-                onChange={(event) => setJobRole(event.target.value)}
-                placeholder="Enter your job role (optional)"
-                className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
-              />
-            </div>
-          </div>
-
-          {socialActive && (
-            <div className="flex items-center justify-between text-sm text-white/80 mt-1">
-              <label className="inline-flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(event) => setRememberMe(event.target.checked)}
-                  className="h-4 w-4 rounded border-white/40 bg-transparent accent-[#D4AF37]"
-                />
-                Remember me
-              </label>
-            </div>
-          )}
-
-          {errorMessage && <p className="text-sm text-red-300 bg-red-500/10 p-2 rounded-lg border border-red-500/20">{errorMessage}</p>}
-
-          <button
-            type="submit"
-            className="w-full mt-2 rounded-xl bg-gradient-to-b from-[#fff5dd] to-[#f5e8c0] py-3 text-base font-semibold text-black shadow-[0_0_24px_rgba(212,175,55,0.35)] transition hover:brightness-105"
-          >
-            {socialActive ? `Complete ${socialActive} Sign In` : "Sign In"}
-          </button>
-        </form>
-
-        {!socialActive && (
-          <div className="mt-5 space-y-3">
-            {import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== "YOUR_GOOGLE_CLIENT_ID" ? (
+            <div className="flex gap-3">
               <button
                 type="button"
-                onClick={handleGoogleClick}
-                disabled={isProcessingGoogle}
-                className="w-full rounded-xl border border-white/35 bg-black/35 py-3 text-sm font-semibold text-white transition hover:bg-black/50 flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  if (onSignOut) onSignOut();
+                  onClose();
+                }}
+                className="flex-1 rounded-xl bg-red-500/20 border border-red-500/40 text-red-200 py-2.5 font-semibold text-sm hover:bg-red-500/30 transition"
               >
-                {isProcessingGoogle ? <Loader2 className="w-5 h-5 animate-spin" /> : <GoogleBadge />} 
-                {isProcessingGoogle ? "Connecting to Google..." : "Continue with Google"}
+                Sign Out
               </button>
-            ) : (
               <button
                 type="button"
-                disabled
-                className="w-full rounded-xl border border-white/20 bg-black/20 py-3 text-sm font-semibold text-white/50 cursor-not-allowed flex items-center justify-center gap-3"
+                onClick={onClose}
+                className="flex-1 rounded-xl bg-white/10 border border-white/25 text-white py-2.5 font-semibold text-sm hover:bg-white/20 transition"
               >
-                <span className="opacity-50 grayscale"><GoogleBadge /></span>
-                Google Sign-In not available
+                Close
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            {socialActive && (
+              <button
+                 type="button"
+                 onClick={() => { setSocialActive(null); setErrorMessage(""); }}
+                 className="absolute left-6 top-6 text-sm font-medium text-white/70 hover:text-white transition-colors z-10"
+              >
+                &larr; Back
               </button>
             )}
-          </div>
-        )}
 
-        {!socialActive && (
-          <p className="mt-5 text-center text-sm md:text-base text-white/80">
-            Don&apos;t have an account? <span className="text-white font-medium cursor-pointer hover:underline">Sign Up</span>
-          </p>
+            <div className="flex items-center justify-center gap-4 mt-6 mb-2">
+              <button
+                type="button"
+                onClick={() => { setMode("signup"); setErrorMessage(""); }}
+                className={`text-xl font-semibold pb-1 border-b-2 transition ${mode === "signup" ? "text-white border-[#D4AF37]" : "text-white/50 border-transparent hover:text-white/80"}`}
+              >
+                Sign Up
+              </button>
+              <button
+                type="button"
+                onClick={() => { setMode("signin"); setErrorMessage(""); }}
+                className={`text-xl font-semibold pb-1 border-b-2 transition ${mode === "signin" ? "text-white border-[#D4AF37]" : "text-white/50 border-transparent hover:text-white/80"}`}
+              >
+                Sign In
+              </button>
+            </div>
+
+            {socialActive && (
+              <p className="text-center text-[#D4AF37] text-xs font-bold mb-4 tracking-wider uppercase">
+                Secure {socialActive} Authentication
+              </p>
+            )}
+            {!socialActive && <div className="h-2 w-full" />}
+            <div className="h-px w-full bg-white/20 mb-5" />
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div>
+                <label className="block text-sm text-white/90 mb-1.5">Business Email</label>
+                <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-4 py-3">
+                  <Mail className="w-5 h-5 text-white/70" />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="Enter your business email"
+                    className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {!socialActive && (
+                <div>
+                  <label className="block text-sm text-white/90 mb-1.5">Password</label>
+                  <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-3 py-2.5">
+                    <Lock className="w-5 h-5 text-white/70" />
+                    <input
+                      type="password"
+                      required={!socialActive}
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      placeholder="Enter your password (min 6 chars)"
+                      className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {!socialActive && (
+                <div className="flex items-center justify-between text-sm text-white/80 py-1">
+                  <label className="inline-flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(event) => setRememberMe(event.target.checked)}
+                      className="h-4 w-4 rounded border-white/40 bg-transparent accent-[#D4AF37]"
+                    />
+                    Remember me
+                  </label>
+                  {mode === "signin" && (
+                    <a href="#" onClick={(e) => { e.preventDefault(); alert("Please contact support at info@harshinfotech.com for password reset assistance."); }} className="underline underline-offset-2 text-white/85 hover:text-white" data-auth-skip="true">
+                      Forgot password?
+                    </a>
+                  )}
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm text-white/90 mb-1.5 flex items-center gap-2">Company Name <span className="text-[#D4AF37] text-xs font-bold">*MANDATORY</span></label>
+                <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-3 py-2.5">
+                  <BriefcaseBusiness className="w-5 h-5 text-white/70" />
+                  <input
+                    type="text"
+                    required
+                    value={companyName}
+                    onChange={(event) => setCompanyName(event.target.value)}
+                    placeholder="Enter your company name"
+                    className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm text-white/90 mb-1.5">Job Role (Optional)</label>
+                <div className="flex items-center gap-3 rounded-xl border border-white/35 bg-white/5 px-3 py-2.5">
+                  <UserRound className="w-5 h-5 text-white/70" />
+                  <input
+                    type="text"
+                    value={jobRole}
+                    onChange={(event) => setJobRole(event.target.value)}
+                    placeholder="Enter your job role (optional)"
+                    className="w-full bg-transparent text-base placeholder:text-white/45 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {socialActive && (
+                <div className="flex items-center justify-between text-sm text-white/80 mt-1">
+                  <label className="inline-flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(event) => setRememberMe(event.target.checked)}
+                      className="h-4 w-4 rounded border-white/40 bg-transparent accent-[#D4AF37]"
+                    />
+                    Remember me
+                  </label>
+                </div>
+              )}
+
+              {errorMessage && <p className="text-sm text-red-300 bg-red-500/10 p-2 rounded-lg border border-red-500/20">{errorMessage}</p>}
+
+              <button
+                type="submit"
+                className="w-full mt-2 rounded-xl bg-gradient-to-b from-[#fff5dd] to-[#f5e8c0] py-3 text-base font-semibold text-black shadow-[0_0_24px_rgba(212,175,55,0.35)] transition hover:brightness-105"
+              >
+                {socialActive ? `Complete ${socialActive} ${mode === "signup" ? "Registration" : "Sign In"}` : (mode === "signup" ? "Create Account & Sign Up" : "Sign In")}
+              </button>
+            </form>
+
+            {!socialActive && (
+              <div className="mt-5 space-y-3">
+                {import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== "YOUR_GOOGLE_CLIENT_ID" ? (
+                  <button
+                    type="button"
+                    onClick={handleGoogleClick}
+                    disabled={isProcessingGoogle}
+                    className="w-full rounded-xl border border-white/35 bg-black/35 py-3 text-sm font-semibold text-white transition hover:bg-black/50 flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isProcessingGoogle ? <Loader2 className="w-5 h-5 animate-spin" /> : <GoogleBadge />} 
+                    {isProcessingGoogle ? "Connecting to Google..." : "Continue with Google"}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    className="w-full rounded-xl border border-white/20 bg-black/20 py-3 text-sm font-semibold text-white/50 cursor-not-allowed flex items-center justify-center gap-3"
+                  >
+                    <span className="opacity-50 grayscale"><GoogleBadge /></span>
+                    Google Sign-In not available
+                  </button>
+                )}
+              </div>
+            )}
+
+            {!socialActive && (
+              <p className="mt-5 text-center text-sm md:text-base text-white/80">
+                {mode === "signup" ? (
+                  <>
+                    Already have an account?{" "}
+                    <button type="button" onClick={() => { setMode("signin"); setErrorMessage(""); }} className="text-[#D4AF37] font-semibold hover:underline">
+                      Sign In
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    Don&apos;t have an account?{" "}
+                    <button type="button" onClick={() => { setMode("signup"); setErrorMessage(""); }} className="text-[#D4AF37] font-semibold hover:underline">
+                      Sign Up
+                    </button>
+                  </>
+                )}
+              </p>
+            )}
+          </>
         )}
       </motion.div>
     </div>
@@ -505,7 +587,7 @@ const createDeferredAction = (element: HTMLElement): DeferredAction => {
   if (action === "email") {
     return {
       type: "email",
-      emailTo: element.getAttribute("data-email") ?? "harshinfotech2005@gmail.com",
+      emailTo: element.getAttribute("data-email") ?? "info@harshinfotech.com",
     };
   }
 
@@ -530,8 +612,16 @@ const performDeferredAction = (action: DeferredAction, session: AuthSession | nu
 
   if (action.type === "email") {
     if (!session) return;
-    const mailtoLink = buildMailtoLink(session, action.emailTo ?? "harshinfotech2005@gmail.com");
-    window.location.href = mailtoLink;
+    const emailTo = action.emailTo ?? "info@harshinfotech.com";
+    const userName = createUserName(session.email);
+    const subject = encodeURIComponent("Inquiry - Harsh Infotech");
+    const body = encodeURIComponent(`Hello,\n\nI am interested in your services.\n\nName: ${userName}\nCompany: ${session.companyName}`);
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isMobile) {
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailTo)}&su=${subject}&body=${body}`, "_blank", "noopener,noreferrer");
+    } else {
+      window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
+    }
     return;
   }
 
@@ -565,12 +655,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const openAuthGate = useCallback((onSuccess?: () => void) => {
     if (session) {
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        // User clicked "Sign Up" / "Account" while already logged in
+        setIsModalOpen(true);
+      }
       return;
     }
     setPendingCallback(() => onSuccess ?? null);
     setIsModalOpen(true);
   }, [session]);
+
+  const signOut = useCallback(() => {
+    setSession(null);
+    localStorage.removeItem(PERSIST_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    setIsModalOpen(false);
+  }, []);
 
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
@@ -643,13 +745,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const contextValue = useMemo<AuthContextValue>(() => ({
     isAuthenticated: Boolean(session),
     openAuthGate,
+    signOut,
     session,
-  }), [openAuthGate, session]);
+  }), [openAuthGate, signOut, session]);
 
   return (
     <AuthContext.Provider value={contextValue}>
       {children}
-      <AuthModal isOpen={isModalOpen} onClose={closeModal} onSignIn={completeSignIn} />
+      <AuthModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onSignIn={completeSignIn}
+        session={session}
+        onSignOut={signOut}
+      />
     </AuthContext.Provider>
   );
 };

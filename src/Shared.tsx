@@ -124,8 +124,14 @@ export const ThemeToggle = () => {
   );
 };
 
+export const openContactModal = () => {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("open-contact-modal"));
+  }
+};
+
 export const Navbar = () => {
-  const { openAuthGate } = useAuth();
+  const { openAuthGate, isAuthenticated, session } = useAuth();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -133,6 +139,27 @@ export const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   const pathname = window.location.pathname;
+
+  useEffect(() => {
+    const handleOpenEvent = () => setIsContactModalOpen(true);
+    window.addEventListener("open-contact-modal", handleOpenEvent);
+
+    if (window.location.hash === "#contact") {
+      setIsContactModalOpen(true);
+    }
+
+    const handleHashChange = () => {
+      if (window.location.hash === "#contact") {
+        setIsContactModalOpen(true);
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("open-contact-modal", handleOpenEvent);
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
   
   useEffect(() => {
     if (pathname !== "/" && pathname !== "/index.html") return;
@@ -237,7 +264,7 @@ export const Navbar = () => {
               <div className="flex flex-col py-2">
                 <a href="/services.html#tally-license" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Prime</a>
                 <a href="/services.html#tally-cloud" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally on Cloud</a>
-                <a href="/services.html#tally-customization" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Customization</a>
+                <a href="/customizations.html" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Tally Customization</a>
                 <a href="/more-services.html#amc" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">AMC & Support</a>
                 <a href="/customizations.html" className="px-4 py-2.5 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-[#D4AF37] transition-colors">Customizations</a>
                 
@@ -291,9 +318,9 @@ export const Navbar = () => {
               data-editor-type="button"
               data-editor-label="Navbar Sign Up Button"
               onClick={() => openAuthGate()}
-              className="px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all text-xs font-bold shrink-0 cursor-pointer text-center"
+              className="px-5 py-2.5 rounded-full border border-[#D4AF37]/30 bg-white/5 hover:bg-[#D4AF37] hover:text-black transition-all text-xs font-bold shrink-0 cursor-pointer text-center text-white"
             >
-              Sign Up
+              {isAuthenticated ? (session?.companyName ? `${session.companyName.slice(0, 14)} (Account)` : "My Account") : "Sign Up"}
             </button>
             <a 
               href={topCtaLink} 
@@ -367,7 +394,7 @@ export const Navbar = () => {
                   onClick={() => { setIsMobileMenuOpen(false); openAuthGate(); }}
                   className="px-6 py-3 rounded-full bg-gradient-to-b from-[#fff5dd] to-[#f5e8c0] text-black text-base font-bold text-center transition-all cursor-pointer"
                 >
-                  Sign Up
+                  {isAuthenticated ? "My Account" : "Sign Up"}
                 </button>
 
                 <div className="flex justify-center mt-2">
@@ -465,19 +492,42 @@ export const Footer = () => {
           <h4 className="footer-primary-text font-bold mb-6">Contact</h4>
           <ul className="space-y-4 text-sm">
             <li>
-              <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full">
+              <a 
+                href="mailto:info@harshinfotech.com" 
+                onClick={(e) => {
+                  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                  if (!isMobile) {
+                    e.preventDefault();
+                    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=info@harshinfotech.com&su=" + encodeURIComponent("Inquiry - Harsh Infotech"), "_blank", "noopener,noreferrer");
+                  }
+                }}
+                data-auth-skip="true"
+                className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full"
+              >
                 <Mail className="w-4 h-4 shrink-0 footer-icon-svg" />
-                <span>harshinfotech2005@gmail.com</span>
+                <span>info@harshinfotech.com</span>
               </a>
             </li>
             <li className="flex flex-col gap-4">
-              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full">
+              <a 
+                href="https://wa.me/917558604483" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                data-auth-skip="true"
+                className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full"
+              >
                 <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain footer-icon-img" />
-                <span>7558604483</span>
+                <span>+91 7558604483</span>
               </a>
-              <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full">
+              <a 
+                href="https://wa.me/918828275219" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                data-auth-skip="true"
+                className="flex items-center gap-3 footer-link transition-colors group cursor-pointer w-full"
+              >
                 <img src="/Whatsapp.png" alt="WhatsApp" className="w-4.5 h-4.5 shrink-0 object-contain opacity-0" />
-                <span>8828275219</span>
+                <span>+91 8828275219</span>
               </a>
             </li>
             <li className="flex items-center gap-3 footer-secondary-text"><MapPin className="w-4 h-4 shrink-0 footer-icon-svg" /> Mumbai, India</li>

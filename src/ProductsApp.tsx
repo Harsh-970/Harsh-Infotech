@@ -392,17 +392,21 @@ export default function ProductsApp() {
               <nav className="flex items-center gap-2 text-xs font-bold mb-8 text-text-secondary bg-white/5 border border-white/5 rounded-full px-4 py-2.5 w-fit">
                 <a href="/" className="hover:text-text-primary transition-colors">Home</a>
                 <ChevronRight className="w-3 h-3 opacity-60" />
-                <button onClick={() => navigateToProduct(null)} className="hover:text-text-primary transition-colors cursor-pointer">Products</button>
+                <a href="/products.html" onClick={(e) => { e.preventDefault(); navigateToProduct(null); }} className="hover:text-text-primary transition-colors cursor-pointer">Products</a>
                 <ChevronRight className="w-3 h-3 opacity-60" />
                 <span className="text-[#D4AF37] max-w-[200px] truncate">{activeProduct.title}</span>
               </nav>
 
-              <button
-                onClick={() => navigateToProduct(null)}
+              <a
+                href="/products.html"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateToProduct(null);
+                }}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-text-secondary hover:text-text-primary mb-8 group cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Products Catalog
-              </button>
+              </a>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 {/* LEFT DETAIL COLUMN */}

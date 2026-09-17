@@ -40,12 +40,9 @@ const servicesData = servicesDataRaw as Service[];
 const pricingData = pricingDataRaw as PricingPlan[];
 
 export default function MainServicesApp() {
-  const [showMoreCustomization, setShowMoreCustomization] = useState(false);
-  
   // Dynamic service mappings
   const licenseService = servicesData.find(s => s.slug === "tally-license");
   const cloudService = servicesData.find(s => s.slug === "tally-cloud");
-  const customizationService = servicesData.find(s => s.slug === "tally-customization");
 
   // Dynamic pricing plans
   const licensePlans = pricingData.filter(p => p.serviceSlug === "tally-license");
@@ -312,137 +309,6 @@ export default function MainServicesApp() {
                 </a>
               </div>
             </div>
-          </motion.section>
-
-          {/* ── 3. TALLY CUSTOMIZATION ─────────────────────────── */}
-          <motion.section
-            id="tally-customization"
-            initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8 }}
-            className="scroll-mt-32"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/25 flex items-center justify-center">
-                <Cpu className="w-7 h-7 text-[#D4AF37]" />
-              </div>
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold">Tally Customization</h2>
-                <p className="text-white/50 mt-1">TDL-powered workflows tailored to your business</p>
-              </div>
-            </div>
-
-            <p className="text-lg text-white/60 mb-12 max-w-3xl leading-relaxed">
-              We build custom Tally Definition Language (TDL) modules that extend Tally Prime to match your exact business
-              workflow — from custom reports and invoices to automated workflows and integrations.
-            </p>
-
-            <div className="glass-card p-6 sm:p-10 text-center border-[#D4AF37]/20 relative overflow-hidden mb-12">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent pointer-events-none" />
-              <h3 className="text-2xl font-bold mb-3 z-10 relative">Make Your Own Customization</h3>
-              <p className="text-white/50 mb-8 max-w-lg mx-auto z-10 relative">
-                Every customization is unique. Share your requirements and we'll quote based on complexity, modules, and timeline.
-              </p>
-              <a
-                href="https://wa.me/917558604483?text=Hi, I need a custom Tally TDL solution for my business"
-                data-auth-gated="true"
-                data-service-name="Tally Customization"
-                target="_blank"
-                className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-[#D4AF37] text-black font-bold hover:bg-[#c9a830] transition-all z-10 relative"
-              >
-                Discuss Your Project <ArrowRight className="w-5 h-5" />
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
-              {[
-                {
-                  title: "Custom Invoice & Print Formats",
-                  desc: "Design invoices, delivery challans, and receipts exactly matching your brand and format requirements.",
-                  features: ["Logo & Brand Integration", "GST Compliant Formats", "Multi-language Support", "Auto Calculation Fields"],
-                },
-                {
-                  title: "Custom Reports & MIS",
-                  desc: "Build management reports, stock reports, ledger summaries, and dashboards tailored to your decision-making needs.",
-                  features: ["Profit & Loss Variants", "Stock Ageing Analysis", "Custom Ledger Reports", "Excel Export Ready"],
-                },
-                {
-                  title: "Workflow Automation",
-                  desc: "Automate repetitive tasks — voucher approvals, party alerts, payment reminders, and more.",
-                  features: ["Auto Voucher Posting", "Email / SMS Alerts", "Approval Workflows", "Scheduled Jobs"],
-                },
-                {
-                  title: "Third-Party Integration",
-                  desc: "Connect Tally with eCommerce platforms, HRMS, CRM, or any external system via API or import tools.",
-                  features: ["GST Portal Filing", "eCommerce Sync", "Payroll Integration", "Bank Statement Import"],
-                },
-              ].map((item, i) => (
-                <div key={i} className="glass-card p-5 sm:p-8 flex flex-col relative z-20">
-                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed mb-6">{item.desc}</p>
-                  <ul className="space-y-3 flex-1">
-                    {item.features.map((f, fi) => (
-                      <li key={fi} className="flex items-center gap-3 text-sm text-white/70">
-                        <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" /> {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <motion.div 
-              initial={false}
-              animate={{ height: showMoreCustomization ? 'auto' : 0, opacity: showMoreCustomization ? 1 : 0 }}
-              className="overflow-hidden mb-12"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-                {[
-                  {
-                    title: "Auto Bank Reconciliation",
-                    desc: "Automate the painful reconciliation process with direct bank statement imports and intelligent mapping algorithms.",
-                    features: ["Statement Auto-Import", "Smart Entry Matching", "Discrepancy Alerts", "Bulk Posting Support"],
-                  },
-                  {
-                    title: "GST Automation Suite",
-                    desc: "Simplify GST compliance with advanced tools for return filing, reconciliation, and automated e-Way Bill generation.",
-                    features: ["GSTR-1 & GSTR-3B Sync", "GSTR-2A Auto Reconciliation", "E-WAY Bill Generation", "Direct Portal Push"],
-                  },
-                  {
-                    title: "Inventory & Warehouse Engine",
-                    desc: "Enhance standard Tally inventory with barcode tracking, batch management, and multi-godown stock optimization.",
-                    features: ["Barcode Printing & Scanning", "Expiry Date Alerts", "Low Stock Auto-Ordering", "Multi-Branch Transfer"],
-                  },
-                  {
-                    title: "Payroll & HRMS Integration",
-                    desc: "Seamlessly connect your HRMS with Tally to automate payroll processing without manual data entry.",
-                    features: ["Attendance Sync", "Payslip Mass-Emailing", "PF/ESI Compliance Reports", "Leave Management Sync"],
-                  },
-                ].map((item, i) => (
-                  <div key={`extra-${i}`} className="glass-card p-5 sm:p-8 flex flex-col">
-                    <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed mb-6">{item.desc}</p>
-                    <ul className="space-y-3 flex-1">
-                      {item.features.map((f, fi) => (
-                        <li key={fi} className="flex items-center gap-3 text-sm text-white/70">
-                          <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" /> {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {!showMoreCustomization && (
-              <div className="relative pt-8 pb-8 flex flex-col items-center justify-center z-30">
-                <button 
-                  onClick={() => setShowMoreCustomization(true)} 
-                  className="px-8 py-3 rounded-full bg-white/10 border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(255,255,255,0.05)] cursor-pointer flex items-center gap-2"
-                >
-                  Show More <ChevronDown className="w-4 h-4" />
-                </button>
-                <p className="mt-3 text-sm text-white/50 font-medium">Browse more options</p>
-              </div>
-            )}
           </motion.section>
 
         </div>

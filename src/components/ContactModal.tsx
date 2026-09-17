@@ -12,7 +12,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   let settings = {
     contactWhatsApp: '917558604483',
     contactPhone: '+917558604483',
-    contactEmail: 'harshinfotech2005@gmail.com'
+    contactEmail: 'info@harshinfotech.com'
   };
 
   try {
@@ -42,9 +42,16 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   };
 
   const handleEmail = () => {
+    const isMobile = typeof window !== 'undefined' && (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768);
     const subject = encodeURIComponent("Inquiry - Harsh Infotech Services");
     const body = encodeURIComponent("Hello Harsh Infotech Team,\n\nI would like to discuss my requirements with you.\n\nBest regards,");
-    window.location.href = `mailto:${settings.contactEmail}?subject=${subject}&body=${body}`;
+    
+    if (isMobile) {
+      window.location.href = `mailto:${settings.contactEmail}?subject=${subject}&body=${body}`;
+    } else {
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(settings.contactEmail)}&su=${subject}&body=${body}`;
+      window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   return (

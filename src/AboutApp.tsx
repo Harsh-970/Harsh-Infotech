@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { CheckCircle2, Mail, Phone, MapPin } from "lucide-react";
-import { Background, Navbar, Footer } from "./Shared";
+import { Background, Navbar, Footer, openContactModal } from "./Shared";
 
 export default function AboutApp() {
   return (
@@ -32,9 +32,12 @@ export default function AboutApp() {
               </motion.p>
               <motion.a 
                 href="#contact"
-                data-auth-gated="true"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openContactModal();
+                }}
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
-                className="inline-block px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-2xl shadow-white/10 hover:bg-white/90 transition-colors w-full sm:w-auto"
+                className="inline-block px-10 py-5 bg-white text-black rounded-full font-bold text-lg shadow-2xl shadow-white/10 hover:bg-white/90 transition-colors w-full sm:w-auto cursor-pointer"
               >
                 Contact Us
               </motion.a>
@@ -75,7 +78,7 @@ export default function AboutApp() {
               {[
                 { title: 'Tally Solutions', link: '/services.html' },
                 { title: 'Cloud & VPS Services', link: '/more-services.html#vps' },
-                { title: 'Tally Customization', link: '/services.html#tally-customization' },
+                { title: 'Tally Customization', link: '/customizations.html' },
                 { title: 'Hardware & IT Support', link: '/products.html' }
               ].map((item, i) => (
                 <a href={item.link} key={i} className="p-8 glass-card flex flex-col items-center hover:scale-105 transition-transform group cursor-pointer">
@@ -116,13 +119,24 @@ export default function AboutApp() {
           <div className="p-8 md:p-10 lg:p-14 glass-card text-center">
              <h2 className="text-[clamp(2rem,5vw+0.5rem,3rem)] font-bold mb-10">Reach Out</h2>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-               <a href="#" data-auth-gated="true" data-auth-action="email" data-email="harshinfotech2005@gmail.com" className="flex flex-col items-center group cursor-pointer transition-transform hover:scale-105">
+               <a 
+                 href="mailto:info@harshinfotech.com" 
+                 onClick={(e) => {
+                   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                   if (!isMobile) {
+                     e.preventDefault();
+                     window.open("https://mail.google.com/mail/?view=cm&fs=1&to=info@harshinfotech.com&su=" + encodeURIComponent("Inquiry - Harsh Infotech"), "_blank", "noopener,noreferrer");
+                   }
+                 }}
+                 data-auth-skip="true"
+                 className="flex flex-col items-center group cursor-pointer transition-transform hover:scale-105"
+               >
                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6 transition-colors group-hover:bg-white group-hover:text-black">
                    <Mail className="w-6 h-6" />
                  </div>
                  <h4 className="text-xl font-bold mb-2 text-white/90 group-hover:text-white transition-colors">Email</h4>
                  <p className="text-sm md:text-base text-white/60 group-hover:text-white transition-colors break-all">
-                   harshinfotech2005@gmail.com
+                   info@harshinfotech.com
                  </p>
                </a>
 
@@ -132,13 +146,25 @@ export default function AboutApp() {
                  </div>
                  <h4 className="text-xl font-bold mb-2 text-white/90">WhatsApp</h4>
                  <div className="text-sm md:text-base text-white/60 text-center flex flex-col gap-2 w-full">
-                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="917558604483" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer flex items-center justify-center gap-1.5">
+                   <a 
+                     href="https://wa.me/917558604483" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     data-auth-skip="true"
+                     className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer flex items-center justify-center gap-1.5"
+                   >
                      <img src="/Whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain" />
-                     7558604483
+                     +91 7558604483
                    </a>
-                   <a href="#" data-auth-gated="true" data-auth-action="whatsapp" data-phone="918828275219" className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer flex items-center justify-center gap-1.5">
+                   <a 
+                     href="https://wa.me/918828275219" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     data-auth-skip="true"
+                     className="hover:text-[#D4AF37] transition-colors p-2 rounded-lg hover:bg-white/5 cursor-pointer flex items-center justify-center gap-1.5"
+                   >
                      <img src="/Whatsapp.png" alt="WhatsApp" className="w-4 h-4 object-contain" />
-                     8828275219
+                     +91 8828275219
                    </a>
                  </div>
                </div>

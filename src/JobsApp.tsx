@@ -248,7 +248,7 @@ export default function JobsApp() {
                         href="#"
                         data-auth-gated="true"
                         data-auth-action="email"
-                        data-email="harshinfotech2005@gmail.com"
+                        data-email="info@harshinfotech.com"
                         data-service-name={`Job App: ${activeJob.title}`}
                         className="inline-flex py-4 px-10 rounded-full bg-white text-black font-bold items-center gap-2 transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/5 group/apply cursor-pointer"
                       >
@@ -360,7 +360,7 @@ export default function JobsApp() {
                     href="#"
                     data-auth-gated="true"
                     data-auth-action="email"
-                    data-email="harshinfotech2005@gmail.com"
+                    data-email="info@harshinfotech.com"
                     data-service-name={`Job App: ${activeJob.title}`}
                     className="w-full py-4 px-6 rounded-xl bg-white text-black font-bold text-center transition-all hover:bg-white/90 hover:shadow-lg flex items-center justify-center gap-2 group/apply cursor-pointer"
                   >

@@ -799,18 +799,22 @@ export default function CustomizationsApp() {
               <nav className="flex items-center gap-2 text-xs font-bold mb-8 text-text-secondary bg-white/5 border border-white/5 rounded-full px-4 py-2.5 w-fit">
                 <a href="/" className="hover:text-text-primary transition-colors">Home</a>
                 <ChevronRight className="w-3 h-3 opacity-60" />
-                <button onClick={() => navigateToModule(null)} className="hover:text-text-primary transition-colors cursor-pointer">Customizations</button>
+                <a href="/customizations.html" onClick={(e) => { e.preventDefault(); navigateToModule(null); }} className="hover:text-text-primary transition-colors cursor-pointer">Customizations</a>
                 <ChevronRight className="w-3 h-3 opacity-60" />
                 <span className="text-[#D4AF37] max-w-[200px] sm:max-w-xs truncate">{activeModule.title}</span>
               </nav>
 
               {/* Back Button */}
-              <button
-                onClick={() => navigateToModule(null)}
+              <a
+                href="/customizations.html"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateToModule(null);
+                }}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-text-secondary hover:text-text-primary mb-8 group cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Marketplace catalog
-              </button>
+              </a>
 
               {/* MAIN DETAILS GRID */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">

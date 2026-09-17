@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { ChevronDown, Cpu, Globe, Zap, Users, Mail, Phone, MapPin, Github, Twitter, Linkedin, Server, Monitor, Printer, Scan, Database, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 
-import { Background, Navbar, Footer, Logo } from "./Shared";
+import { Background, Navbar, Footer, Logo, openContactModal } from "./Shared";
 import { Testimonials } from "./Testimonials";
 import { useAuth } from "./Auth";
 
@@ -49,7 +49,11 @@ const Hero = () => {
 
         {/* Desktop CTA Button */}
         <motion.a 
-          href="/about.html"
+          href="#contact"
+          onClick={(e) => {
+            e.preventDefault();
+            openContactModal();
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -142,7 +146,7 @@ const Services = () => {
   const services = [
     { icon: <Zap />, title: "Tally Prime License", desc: "Get genuine Tally licenses (Single & Multi User) with complete setup and guidance.", link: "/services.html#tally-license" },
     { icon: <Globe />, title: "Tally on Cloud", desc: "Access your business data anytime, anywhere with secure and reliable cloud solutions.", link: "/services.html#tally-cloud", hasCTA: true },
-    { icon: <Cpu />, title: "Tally Customization", desc: "Customize Tally according to your business workflow using advanced TDL solutions.", link: "/services.html#tally-customization" },
+    { icon: <Cpu />, title: "Tally Customization", desc: "Customize Tally according to your business workflow using advanced TDL solutions.", link: "/customizations.html" },
   ];
 
   return (
